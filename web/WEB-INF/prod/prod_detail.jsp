@@ -25,7 +25,19 @@
         <li>이미지 : <img src="upload/${dto.prod_no}/${image}"></li>
     </c:forEach>
 </ul>
+<c:out value="제목 : ${dto.title}"/><br>
+<c:out value="작성 날짜 : ${dto.write_date}"/><br>
+<c:out value="가격 : ${dto.cost}"/><br>
+<c:out value="출판사 : ${dto.category}"/><br>
+<c:out value="본문 : ${dto.content}"/><br>
 
+
+<button type="button">댓글 확인</button>
+<ul id="review_list">
+
+</ul>
+<script src="js/review_show.js"></script>
+<script>init_data(${dto.prod_no})</script>
 
 <jsp:include page="/footer.jsp"/>
 
