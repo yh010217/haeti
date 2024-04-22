@@ -57,6 +57,7 @@ a {
         font-size: 0.8rem;
         padding: 10px 20px;
         border-radius: 5px;
+        font-weight: bold;
     }
 
     .login a:hover {
