@@ -42,7 +42,7 @@ a {
     }
 
     .img-search {
-        background: url("/img/search.png") no-repeat;
+        background: url("../img/search.png") no-repeat;
         width: 25px;
         height: 25px;
         border: none;
