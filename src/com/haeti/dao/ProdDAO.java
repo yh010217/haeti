@@ -13,6 +13,7 @@ public class ProdDAO {
     public static ProdDAO getInstance() {
         return instance;
     }
+
     /** 현재 마지막 prod_no 보다 1 큰 값을 반환 */
     public int getNextProdNum(Connection conn) throws SQLException {
         int result = 0;
