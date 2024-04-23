@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>해티</title>
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
@@ -21,17 +22,18 @@
         <li>해당 자료가 없습니다.</li>
     </ul>
 </c:if>
-
-<c:if test="${!(empty list)}">
-    <c:forEach var="item" items="${list}">
-        <ul>
-            <li>${item.title}</li>
-            <li>${item.write_date}</li>
-            <li>${item.cost}</li>
-            <li><img src="upload/${item.prod_no}/${item.img_paths[0]}"></li>
-        </ul>
-    </c:forEach>
-</c:if>
-
+<div class="prod_list">
+    <c:if test="${!(empty list)}">
+        <c:forEach var="item" items="${list}">
+            <ul>
+                <li><a href="prod_detail.do?prod_no=${item.prod_no}">
+                    <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
+                <li>${item.title}</li>
+                <li>${item.cost}</li>
+                <li>${item.write_date}</li>
+            </ul>
+        </c:forEach>
+    </c:if>
+</div>
 </body>
 </html>

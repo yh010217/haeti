@@ -22,7 +22,7 @@ public class ProdListAction implements Action{
 
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("/WEB-INF/prod/index.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/prod/index.jsp");
 
         return forward;
     }

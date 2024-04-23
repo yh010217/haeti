@@ -27,7 +27,7 @@ public class ProdDAO {
         sql.append("  FROM prod p Inner JOIN        ");
         sql.append("                       ( SELECT img_url      ");
         sql.append("                               , prod_no     ");
-        sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no) AS rn   ");
+        sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
         sql.append("                         FROM image ) i1     ");
         sql.append("               ON p.prod_no = i1.prod_no     ");
         sql.append("   WHERE rn=1                                ");
@@ -38,10 +38,10 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
              ResultSet rs = pstmt.executeQuery();
         ) {
-            if(rs.next()){
+            while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
-                img_paths.add(rs.getString("i1.img_url "));
+                img_paths.add(rs.getString("i1.img_url"));
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("title"));
@@ -49,6 +49,9 @@ public class ProdDAO {
                 dto.setCost(rs.getInt("cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
+
+
+
             }
         }
 

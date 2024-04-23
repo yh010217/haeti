@@ -1,0 +1,16 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+.prod_list{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.prod_list img{
+    width : 230px;
+    height: 300px;
+}
