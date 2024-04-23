@@ -1,6 +1,7 @@
 package com.haeti.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ProdDTO {
     private int prod_no;
@@ -11,6 +12,26 @@ public class ProdDTO {
     private String keyword;
     private int category_id;
     private int seller_user_no;
+    private List<String> img_paths;
+    private String category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<String> getImg_paths() {
+        return img_paths;
+    }
+
+    public void setImg_paths(List<String> img_paths) {
+        this.img_paths = img_paths;
+    }
+
+
 
     public int getProd_no() {
         return prod_no;

@@ -1,6 +1,7 @@
 package com.haeti.dto;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserDTO {
     private int user_no;
@@ -9,6 +10,12 @@ public class UserDTO {
     private String name;
     private String nick_name;
     private String tel;
+    private String email;
+    private LocalDate join_date;
+    private String teach_school;
+    private String addr_dong;
+    private String addr_detail;
+    private String fav_region;
 
     public int getUser_no() {
         return user_no;
@@ -66,28 +73,12 @@ public class UserDTO {
         this.email = email;
     }
 
-    public LocalDate getJoin_date() {
-        return join_date;
+    public String getTeach_school() {
+        return teach_school;
     }
 
-    public void setJoin_date(LocalDate join_date) {
-        this.join_date = join_date;
-    }
-
-    public String getTeacher_school() {
-        return teacher_school;
-    }
-
-    public void setTeacher_school(String teacher_school) {
-        this.teacher_school = teacher_school;
-    }
-
-    public String getAddr_detail() {
-        return addr_detail;
-    }
-
-    public void setAddr_detail(String addr_detail) {
-        this.addr_detail = addr_detail;
+    public void setTeach_school(String teach_school) {
+        this.teach_school = teach_school;
     }
 
     public String getAddr_dong() {
@@ -98,6 +89,21 @@ public class UserDTO {
         this.addr_dong = addr_dong;
     }
 
+    public String getAddr_detail() {
+        return addr_detail;
+    }
+
+    public void setAddr_detail(String addr_detail) {
+        this.addr_detail = addr_detail;
+    }
+    public LocalDate getJoin_date() {
+        return join_date;
+    }
+
+    public void setJoin_date(LocalDate join_date) {
+        this.join_date = join_date;
+    }
+
     public String getFav_region() {
         return fav_region;
     }
@@ -105,11 +111,4 @@ public class UserDTO {
     public void setFav_region(String fav_region) {
         this.fav_region = fav_region;
     }
-
-    private String email;
-    private LocalDate join_date;
-    private String teacher_school;
-    private String addr_detail;
-    private String addr_dong;
-    private String fav_region;
 }
