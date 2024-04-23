@@ -5,6 +5,7 @@ import com.haeti.dao.ImageDAO;
 import com.haeti.dao.ProdDAO;
 import com.haeti.dto.ProdDTO;
 
+import java.io.File;
 import java.sql.Connection;
 import java.util.List;
 
@@ -20,10 +21,10 @@ public class ProdService {
         int result = 0;
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
-        ProdDAO dao = ProdDAO.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
         try {
             conn = db.getConnection();
-            result = dao.getNextProdNum(conn);
+            result = prodDAO.getNextProdNum(conn);
         } catch (Exception e) {
             System.out.println(e);
         } finally {
@@ -34,7 +35,7 @@ public class ProdService {
 
     public void createProd(ProdDTO prod) {
         DBConnection db = DBConnection.getInstance();
-        ProdDAO prodDAO = ProdDAO.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
         ImageDAO imageDAO = ImageDAO.getInstance();
 
         int prod_no = prod.getProd_no();
@@ -67,7 +68,7 @@ public class ProdService {
         ProdDTO result = null;
 
         DBConnection db = DBConnection.getInstance();
-        ProdDAO prodDAO = ProdDAO.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
         ImageDAO imageDAO = ImageDAO.getInstance();
 
         Connection conn = null;
@@ -83,5 +84,47 @@ public class ProdService {
             db.disconn(conn);
         }
         return result;
+    }
+
+    public void deleteProd(int prod_no,String uploadPath) {
+        DBConnection db = DBConnection.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
+        ImageDAO imageDAO = ImageDAO.getInstance();
+
+        Connection conn = null;
+        try {
+            conn = db.getConnection();
+            conn.setAutoCommit(false);
+
+            List<String> img_paths = imageDAO.getImagePaths(conn, prod_no);
+            fileDelete(img_paths,uploadPath);
+
+            imageDAO.deleteImages(conn, prod_no);
+            prodDAO.deleteProd(conn, prod_no);
+            conn.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            try {
+                conn.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    private void fileDelete(List<String> img_paths,String uploadPath) {
+        for(String img_path : img_paths) {
+            img_path = uploadPath + "/" + img_path;
+            File file = new File(img_path);
+            if(file.exists()) {
+                file.delete();
+            }
+        }
+        File file = new File(uploadPath);
+        if (file.exists()) {
+            file.delete();
+        }
     }
 }

@@ -8,11 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProdDAO {
-    private static ProdDAO instance = new ProdDAO();
+    private static ProdDAO prodDAO = new ProdDAO();
     private ProdDAO() {}
-    public static ProdDAO getInstance() {
-        return instance;
+    public static ProdDAO getProdDAO() {
+        return prodDAO;
     }
+
     /** 현재 마지막 prod_no 보다 1 큰 값을 반환 */
     public int getNextProdNum(Connection conn) throws SQLException {
         int result = 0;
@@ -109,5 +110,24 @@ public class ProdDAO {
             }
         }
         return result;
+    }
+
+    public void deleteProd(Connection conn, int prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("delete from prod where prod_no = ?");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

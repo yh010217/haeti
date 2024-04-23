@@ -65,4 +65,25 @@ public class ImageDAO {
         }
         return result;
     }
+
+    public void deleteImages(Connection conn, int prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("delete from image where prod_no = ?");
+
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+
+
+    }
 }
