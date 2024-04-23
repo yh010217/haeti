@@ -1,8 +1,10 @@
 package com.haeti.dao;
 
+import com.haeti.comm.DBConnection;
 import com.haeti.dto.ProdDTO;
 
 import java.security.spec.ECField;
+import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -127,7 +129,6 @@ public class ProdDAO {
         sql.append("    from prod p  inner join category c          ");
         sql.append("        on p.category_id = c.category_id        ");
         sql.append("    where prod_no = ?       ");
-
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
@@ -211,5 +212,57 @@ public class ProdDAO {
         }
 
         return list;
+    }
+    public void deleteProd(Connection conn, int prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("delete from prod where prod_no = ?");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try {
+                pstmt.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    /**  기간별 구매내역  */
+    public List<ProdDTO> purchaseList(Connection conn, int period) throws SQLException{
+        //쿼리문 수정 필요!!
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select        prod_no                  ");
+        sql.append("              , title                    ");
+        sql.append("              , content                  ");
+        sql.append("              , write_date               ");
+        sql.append("              , cost                     ");
+        sql.append("              , category_id              ");
+        sql.append("  from  prod                             ");
+        sql.append("  WHERE DATEDIFF(NOW(),write_date) <= ?   ");
+
+        List<ProdDTO> purchase_list=new ArrayList<>();
+        ResultSet rs=null;
+
+        try(PreparedStatement pstmt=conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setInt(1, period);
+            rs=pstmt.executeQuery();
+            while (rs.next()){
+                ProdDTO dto=new ProdDTO();
+                dto.setProd_no(rs.getInt("prod_no"));
+                dto.setTitle(rs.getString("title"));
+                dto.setContent(rs.getString("content"));
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
+                dto.setCost(rs.getInt("cost"));
+                dto.setCategory_id(rs.getInt("category_id"));
+                purchase_list.add(dto);
+
+            }
+        }
+        return purchase_list;
     }
 }

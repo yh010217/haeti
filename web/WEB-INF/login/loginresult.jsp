@@ -12,6 +12,7 @@
 </head>
 <body>
 <%=session.getAttribute("result")%>
+
 <script>
     if(${sessionScope.result==1}){
         location.href="loginmain.jsp";

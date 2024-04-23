@@ -18,7 +18,7 @@
         <div class="info1">
             <h5>(name) 님</h5>
             <p>(teacher_school)</p>
-            <p><a href="modify_member.do">내 정보 수정</a></p>
+            <p><a href="modify_user.do">내 정보 수정</a></p>
         </div>
         <div class="info2">
             <div>
@@ -45,12 +45,12 @@
     </div>
     <div id="bottom">
         <div class="btm1">
-            <a href="purchase_list.do"><div class="purchase">구매내역</div></a>
-            <a href="#"><div class="sales_list">판매내역</div></a>
+            <a href="purchase_list.do"><div class="purchase"><p class="btm_p">구매내역</p></div></a>
+            <a href="#"><div class="sales_list"><p class="btm_p">판매내역</p></div></a>
         </div>
         <div class="btm2">
-            <a href="#"><div class="chat">채팅</div></a>
-            <a href="#"><div class="review">구매리뷰</div></a>
+            <a href="#"><div class="chat"><p class="btm_p">채팅</p></div></a>
+            <a href="#"><div class="review"><p class="btm_p">구매리뷰</p></div></a>
         </div>
     </div>
 </div>
