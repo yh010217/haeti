@@ -18,7 +18,7 @@ public class ProdDAO {
     private ProdDAO(){}
 
     /** 메인 페이지 전체 상품 목록 가져오기 */
-    public List<ProdDTO> getList(Connection conn, String menu) throws SQLException {
+    public List<ProdDTO> getList(Connection conn) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , title             ");
@@ -32,7 +32,7 @@ public class ProdDAO {
         sql.append("                         FROM image ) i1     ");
         sql.append("               ON p.prod_no = i1.prod_no     ");
         sql.append("   WHERE rn=1                                ");
-        sql.append("   ORDER BY     ?    p.prod_no DESC;         ");
+        sql.append("   ORDER BY  p.prod_no DESC;         ");
 
         List<ProdDTO> list = new ArrayList<>();
         ResultSet rs = null;
@@ -156,5 +156,58 @@ public class ProdDAO {
             }
         }
         return result;
+    }
+
+    public List<ProdDTO> getCategoryList(Connection conn, String category) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  SELECT p.prod_no              ");
+        sql.append("            , title             ");
+        sql.append("            , write_date        ");
+        sql.append("            , cost              ");
+        sql.append("            , i1.img_url        ");
+        sql.append("  FROM prod p Inner JOIN        ");
+        sql.append("                       ( SELECT img_url      ");
+        sql.append("                               , prod_no     ");
+        sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
+        sql.append("                         FROM image ) i1     ");
+        sql.append("               ON p.prod_no = i1.prod_no     ");
+        sql.append("   WHERE rn=1    and    category_id = ?      ");
+        sql.append("   ORDER BY  p.prod_no DESC;                 ");
+
+        List<ProdDTO> list = new ArrayList<>();
+        ResultSet rs = null;
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            if("chunjae".equals(category)){
+                pstmt.setInt(1, 1);
+            } else if("jihak".equals(category)){
+                pstmt.setInt(1, 2);
+            } else if("bisang".equals(category)){
+                pstmt.setInt(1, 3);
+            } else {
+                pstmt.setInt(1, 4);
+            }
+
+            rs = pstmt.executeQuery();
+
+            while(rs.next()){
+                ProdDTO dto = new ProdDTO();
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("i1.img_url"));
+
+                dto.setProd_no(rs.getInt("p.prod_no"));
+                dto.setTitle(rs.getString("title"));
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
+                dto.setCost(rs.getInt("cost"));
+                dto.setImg_paths(img_paths);
+                list.add(dto);
+
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+
+        return list;
     }
 }

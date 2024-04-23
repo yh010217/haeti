@@ -1,7 +1,6 @@
 package com.haeti.controller;
 
 import com.haeti.comm.Forward;
-import com.haeti.dao.ProdDAO;
 import com.haeti.dto.ProdDTO;
 import com.haeti.service.ProdService;
 
@@ -11,12 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ProdListAction implements Action{
+public class CategoryResultListAction implements Action{
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String category = request.getParameter("category");
+
         ProdService service = ProdService.getInstance();
-        List<ProdDTO> list = service.getList();
+        List<ProdDTO> list = service.categoryList(category);
 
         request.setAttribute("list", list);
 
