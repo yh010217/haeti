@@ -42,7 +42,7 @@ a {
     }
 
     .img-search {
-        background: url("/img/search.png") no-repeat;
+        background: url("../img/search.png") no-repeat;
         width: 25px;
         height: 25px;
         border: none;
@@ -57,6 +57,7 @@ a {
         font-size: 0.8rem;
         padding: 10px 20px;
         border-radius: 5px;
+        font-weight: bold;
     }
 
     .login a:hover {
