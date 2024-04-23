@@ -30,7 +30,7 @@ public class ProdService {
         int result = 0;
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
-        ProdDAO dao = ProdDAO.getInstance();
+        ProdDAO dao = ProdDAO.getProdDAO();
         try {
             conn = db.getConnection();
             result = dao.getNextProdNum(conn);
@@ -44,7 +44,7 @@ public class ProdService {
 
     public void createProd(ProdDTO prod) {
         DBConnection db = DBConnection.getInstance();
-        ProdDAO prodDAO = ProdDAO.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
         ImageDAO imageDAO = ImageDAO.getInstance();
 
         int prod_no = prod.getProd_no();
@@ -77,7 +77,7 @@ public class ProdService {
         ProdDTO result = null;
 
         DBConnection db = DBConnection.getInstance();
-        ProdDAO prodDAO = ProdDAO.getInstance();
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
         ImageDAO imageDAO = ImageDAO.getInstance();
 
         Connection conn = null;

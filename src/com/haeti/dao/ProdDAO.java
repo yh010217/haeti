@@ -16,6 +16,7 @@ public class ProdDAO {
     }
     private ProdDAO(){}
 
+    /** 메인 페이지 전체 상품 목록 가져오기 */
     public List<ProdDTO> getList(Connection conn) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
@@ -39,14 +40,17 @@ public class ProdDAO {
         ) {
             if(rs.next()){
                 ProdDTO dto = new ProdDTO();
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("i1.img_url "));
+
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("title"));
                 dto.setWrite_date(rs.getDate("write_date").toLocalDate());
                 dto.setCost(rs.getInt("cost"));
-                dto.set
+                dto.setImg_paths(img_paths);
+                list.add(dto);
             }
         }
-
 
         return list;
     }

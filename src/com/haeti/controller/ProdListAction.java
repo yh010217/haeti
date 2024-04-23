@@ -15,14 +15,15 @@ public class ProdListAction implements Action{
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        ProdService service = ProdService.getProdService();
+        ProdService service = ProdService.getInstance();
         List<ProdDTO> list = service.getList();
 
         request.setAttribute("list", list);
 
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("WEB-INF/?page=index.jsp");
-        return null;
+        forward.setUrl("/WEB-INF/prod/index.jsp");
+
+        return forward;
     }
 }
