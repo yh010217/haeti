@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private static UserDAO userDAO=new UserDAO();
@@ -204,6 +206,112 @@ public class UserDAO {
             if (pstmt!=null) try {pstmt.close();}catch (Exception e){}
         }
         return dto;
+    }
+
+
+    /** 총 회원 수*/
+    public int getCount(Connection conn, String search, String search_txt) throws SQLException{
+
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("   select   count(*)   ");
+        sql.append("   from     user   ");
+
+        if(!"".equals(search) && !"".equals(search_txt)){
+            if("user_id".equals(search)){
+                sql.append("    where  user_id like  ?      ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like ?       ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?         ");
+            }
+        }
+
+        int total_data = 0;
+        ResultSet rs =null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            if(!"".equals(search) && !"".equals(search_txt)){
+                if("user_id".equals(search)){
+                    pstmt.setString(1, "%"+search_txt+"%");
+                } else if ("first_name".equals(search)) {
+                    pstmt.setString(1, "%"+search_txt+"%");
+                } else if ("hire_date".equals(search)){
+                    pstmt.setString(1, "%"+search_txt+"%");
+                }
+            }
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                total_data = rs.getInt(1);
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return total_data;
+    }
+
+    /**회원 목록 가져오기*/
+    public List<UserDTO> getList(Connection conn, int startrow, int pagesize, String search, String search_txt) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select        user_no        ");
+        sql.append("                  , user_id      ");
+        sql.append("                  , name         ");
+        sql.append("                  , tel          ");
+        sql.append("                  , join_data    ");
+        sql.append("    from    user                 ");
+
+        if (!"".equals(search) && !"".equals(search_txt)) {
+            if ("user_id".equals(search)) {
+                sql.append("    where  user_id like  ?      ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like ?       ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?         ");
+            }
+        }
+        sql.append("  limit   ?,  ?             ");
+
+        ResultSet rs = null;
+        ArrayList<UserDTO> arr = new ArrayList<>();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            if (!"".equals(search) && !"".equals(search_txt)) {
+                if ("user_id".equals(search)) {
+                    pstmt.setString(1, "%" + search_txt + "%");
+                } else if ("first_name".equals(search)) {
+                    pstmt.setString(1, "%" + search_txt + "%");
+                } else if ("hire_date".equals(search)) {
+                    pstmt.setString(1, "%" + search_txt + "%");
+                }
+                pstmt.setInt(2, startrow);
+                pstmt.setInt(3, pagesize);
+            } else {
+                pstmt.setInt(1, startrow);
+                pstmt.setInt(2, pagesize);
+            }
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                UserDTO dto = new UserDTO();
+                dto.setUser_no(rs.getInt("user_no"));
+                dto.setUser_id(rs.getString("user_id"));
+                dto.setName(rs.getString("name"));
+                dto.setTel(rs.getString("tel"));
+                dto.setJoin_date(rs.getDate("join_data").toLocalDate());
+                arr.add(dto);
+            }
+
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+        }
+        return arr;
     }
 }
 

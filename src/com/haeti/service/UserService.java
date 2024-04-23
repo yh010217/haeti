@@ -5,8 +5,11 @@ import com.haeti.dao.UserDAO;
 import com.haeti.dto.UserDTO;
 
 import javax.naming.NamingException;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
     private static UserService userService=new UserService();
@@ -124,5 +127,37 @@ public class UserService {
             }
         }
         return dto;
+    }
+
+    public int getCount(String search, String search_txt) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        int result = 0;
+        try{
+            conn=db.getConnection();
+            UserDAO dao = UserDAO.getUserDAO();
+            result = dao.getCount(conn, search, search_txt);
+        } catch (SQLException | NamingException e){
+            System.out.println("userService getCount Exception");
+        } finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+
+    public List<UserDTO> getList(int startrow, int pagesize, String search, String search_txt) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        List<UserDTO> list = new ArrayList<>();
+        try{
+            conn=db.getConnection();
+            UserDAO dao = UserDAO.getUserDAO();
+            list = dao.getList(conn, startrow, pagesize, search, search_txt);
+        }  catch (SQLException | NamingException e){
+            System.out.println("userService getList Exception");
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
     }
 }
