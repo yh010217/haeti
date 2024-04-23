@@ -132,6 +132,7 @@ public class ProdDAO {
                 System.out.println(e);
             }
         }
+    }
     /**  기간별 구매내역  */
     public List<ProdDTO> purchaseList(Connection conn, int period) throws SQLException{
         //쿼리문 수정 필요!!

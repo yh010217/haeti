@@ -53,7 +53,7 @@ public class UserService {
 
     public void insertService(String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) {
         DBConnection db=DBConnection.getInstance();
-        UserDAO dao=UserDAO.getDAO();
+        UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
         try {
             conn=db.getConnection();
@@ -68,7 +68,7 @@ public class UserService {
 
     public int login(String user_id, String pwd) {
         DBConnection db=DBConnection.getInstance();
-        UserDAO dao=UserDAO.getDAO();
+        UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
         int result=0;
         try {
@@ -87,7 +87,7 @@ public class UserService {
 
     public String loginemail(String user_id) {
         DBConnection db=DBConnection.getInstance();
-        UserDAO dao=new UserDAO();
+        UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
         String result="";
         try {
@@ -109,7 +109,7 @@ public class UserService {
     public UserDTO loginlist(String user_id) {
         DBConnection db=DBConnection.getInstance();
         Connection conn=null;
-        UserDAO dao=new UserDAO();
+        UserDAO dao=UserDAO.getUserDAO();
         UserDTO dto=new UserDTO();
         try{
             conn=db.getConnection();
