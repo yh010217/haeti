@@ -36,6 +36,9 @@
 <ul id="review_list">
 
 </ul>
+
+<a href="prod_delete.do?prod_no=${dto.prod_no}">삭제</a>
+
 <script src="js/review_show.js"></script>
 <script>init_data(${dto.prod_no})</script>
 
