@@ -95,14 +95,14 @@ public class ProdService {
         return result;
     }
 
-    public List<ProdDTO> getList() {
+    public List<ProdDTO> getList(String menu) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
         List<ProdDTO> list = new ArrayList<>();
         try{
             conn=db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
-            list = dao.getList(conn);
+            list = dao.getList(conn, menu);
 
         }catch (SQLException | NamingException e){
             System.out.println("ProdService getList exception");

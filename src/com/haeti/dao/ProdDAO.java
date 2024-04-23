@@ -2,6 +2,7 @@ package com.haeti.dao;
 
 import com.haeti.dto.ProdDTO;
 
+import java.security.spec.ECField;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,7 +18,7 @@ public class ProdDAO {
     private ProdDAO(){}
 
     /** 메인 페이지 전체 상품 목록 가져오기 */
-    public List<ProdDTO> getList(Connection conn) throws SQLException {
+    public List<ProdDTO> getList(Connection conn, String menu) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , title             ");
@@ -31,13 +32,14 @@ public class ProdDAO {
         sql.append("                         FROM image ) i1     ");
         sql.append("               ON p.prod_no = i1.prod_no     ");
         sql.append("   WHERE rn=1                                ");
-        sql.append("   ORDER BY p.prod_no DESC;                  ");
+        sql.append("   ORDER BY     ?    p.prod_no DESC;         ");
 
         List<ProdDTO> list = new ArrayList<>();
+        ResultSet rs = null;
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-             ResultSet rs = pstmt.executeQuery();
-        ) {
+             ) {
+
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
@@ -50,9 +52,9 @@ public class ProdDAO {
                 dto.setImg_paths(img_paths);
                 list.add(dto);
 
-
-
             }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
         }
 
         return list;

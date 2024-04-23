@@ -28,9 +28,9 @@
             <ul>
                 <li><a href="prod_detail.do?prod_no=${item.prod_no}">
                     <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
-                <li>${item.title}</li>
-                <li>${item.cost}</li>
-                <li>${item.write_date}</li>
+                <li class="title">${item.title}</li>
+                <li class="cost">${item.cost}원</li>
+                <li class="write_date">${item.write_date}</li>
             </ul>
         </c:forEach>
     </c:if>
