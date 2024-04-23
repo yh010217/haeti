@@ -8,10 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ProdDAO {
-    private static ProdDAO instance = new ProdDAO();
+    private static ProdDAO prodDAO = new ProdDAO();
     private ProdDAO() {}
-    public static ProdDAO getInstance() {
-        return instance;
+    public static ProdDAO getProdDAO() {
+        return prodDAO;
     }
 
     /** 현재 마지막 prod_no 보다 1 큰 값을 반환 */

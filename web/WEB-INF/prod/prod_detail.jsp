@@ -32,7 +32,7 @@
 <c:out value="본문 : ${dto.content}"/><br>
 
 
-<button type="button">댓글 확인</button>
+<button type="button" id="rep_show_button">댓글 확인</button>
 <ul id="review_list">
 
 </ul>
