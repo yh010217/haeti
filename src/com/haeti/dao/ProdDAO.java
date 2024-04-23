@@ -40,6 +40,8 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
              ) {
 
+            rs= pstmt.executeQuery();
+
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();

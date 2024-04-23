@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-
 <c:set var="list" value="${requestScope.list}"></c:set>
 
 <c:if test="${empty list || fn.length(list)==0}">

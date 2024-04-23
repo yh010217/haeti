@@ -16,7 +16,7 @@
 
 <header>
     <div class="top">
-        <a class="logo" href="#"><img src="img/logo.png" alt="logo"></a>
+        <a class="logo" href="index.do"><img src="img/logo.png" alt="logo"></a>
         <form method="post" action="/mainserch.do">
             <input type="text" class="search_txt" name="search_txt" id="search_txt"
                    placeholder="  찾고 싶은 매물을 이름으로 검색하세요">
@@ -38,10 +38,10 @@
 
     <nav>
         <ul class="navbar_menu">
-            <li><a href="#">전체매물</a></li>
+            <li><a href="index.do">전체매물</a></li>
             <li><a href="#">거리별</a></li>
             <li><a href="categorylist.do">출판사별</a></li>
-            <li><a href="#">관심지역 매물</a></li>
+            <li><a href="favregion.do">관심지역 매물</a></li>
             <li><a href="#">매물지도</a></li>
         </ul>
     </nav>
