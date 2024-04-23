@@ -9,13 +9,47 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class UserService {
-
-    private static UserService instance=new UserService();
-
-    public static UserService getInstance() {
-        return instance;
+    private static UserService userService=new UserService();
+    public static UserService getUserService(){
+        return userService;
     }
     private UserService(){}
+
+    public UserDTO getUserInfo(String user_id){
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO userDAO=UserDAO.getUserDAO();
+        UserDTO userDTO=new UserDTO();
+
+        try{
+            conn= db.getConnection();
+            userDTO=userDAO.getUserInfo(conn, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return userDTO;
+    }
+
+    public int modifyUser(UserDTO dto) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO userDAO=UserDAO.getUserDAO();
+
+        int modify_result=0;
+        try{
+            conn=db.getConnection();
+            modify_result=userDAO.modifyUser(conn, dto);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return modify_result;
+    }
 
     public void insertService(String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) {
         DBConnection db=DBConnection.getInstance();
