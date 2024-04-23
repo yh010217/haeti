@@ -14,13 +14,13 @@ a {
 }
 
 footer {
-    margin: 0 auto;
+    /*margin: 0 auto;*/
 }
 
 .footer01 {
     border-bottom: 1px solid darkgray;
     border-top: 1px solid darkgray;
-    width: 80%;
+    /*width: 80%;*/
     margin: 0 8%;
 }
 
@@ -61,7 +61,7 @@ footer > p {
 
 .line {
     border-top: 1px solid #ABB3C3;
-    width: 80%;
+    /*width: 80%;*/
     margin: 0 8%;
 }
 

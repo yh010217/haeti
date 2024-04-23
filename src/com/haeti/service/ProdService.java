@@ -96,6 +96,39 @@ public class ProdService {
         return result;
     }
 
+    public List<ProdDTO> getList() {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getList(conn);
+
+        }catch (SQLException | NamingException e){
+            System.out.println("ProdService getList exception");
+        }finally {
+            db.disconn(conn);
+        }
+        return list;
+    }
+
+    public List<ProdDTO> categoryList(String category) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getCategoryList(conn, category);
+        }catch (SQLException | NamingException e){
+            System.out.println("ProdService categoryList exception");
+        }finally {
+            db.disconn(conn);
+        }
+        return list;
+    }
+
     public void deleteProd(int prod_no,String uploadPath) {
         DBConnection db = DBConnection.getInstance();
         ProdDAO prodDAO = ProdDAO.getProdDAO();

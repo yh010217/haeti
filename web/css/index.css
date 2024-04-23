@@ -1,0 +1,36 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+ul li {
+    list-style: none;
+}
+.prod_list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 8%;
+}
+.prod_list img{
+    width : 180px;
+    height: 250px;
+}
+.prod_list ul {
+    margin: 1% 2%;
+}
+.prod_list ul .title {
+    font-weight: 500;
+    font-size: 1rem;
+}
+.prod_list ul .cost{
+    font-weight: 500;
+    font-size: 1rem;
+}
+.prod_list ul .write_date {
+    font-weight: 300;
+    font-size: 0.7rem;
+}
+
+

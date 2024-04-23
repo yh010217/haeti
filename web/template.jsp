@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div class="top"><jsp:include page="header.jsp"/></div>
+<div><jsp:include page="header.jsp"/></div>
 <div class="middle"><jsp:include page="${param.page}"/></div>
 <div class="bottom"><jsp:include page="footer.jsp"/></div>
 
