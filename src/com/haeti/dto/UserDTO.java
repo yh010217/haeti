@@ -11,9 +11,7 @@ public class UserDTO {
     private String nick_name;
     private String tel;
     private String email;
-
     private LocalDate join_date;
-
     private String teach_school;
     private String addr_dong;
     private String addr_detail;
@@ -75,8 +73,6 @@ public class UserDTO {
         this.email = email;
     }
 
-
-
     public String getTeach_school() {
         return teach_school;
     }
@@ -107,6 +103,7 @@ public class UserDTO {
     public void setJoin_date(LocalDate join_date) {
         this.join_date = join_date;
     }
+
     public String getFav_region() {
         return fav_region;
     }
