@@ -19,37 +19,37 @@
 <form name="joinForm" method="post" action="join_result.do">
     <ul>
         <li>
-            <label for="id">아이디</label>
-            <input type="text" id="id" name="id">
+            <label for="user_id">아이디</label>
+            <input type="text" id="user_id" name="user_id" required>
 
         </li>
         <li>
             <label for="pwd">비밀번호</label>
-            <input type="password" id="pwd" name="pwd">
+            <input type="password" id="pwd" name="pwd" required>
         </li>
         <li>
             <label for="name">이름</label>
-            <input type="text" name="name" id="name">
+            <input type="text" name="name" id="name" required>
         </li>
         <li>
             <label for="nick_name">닉네임</label>
-            <input type="text" name="nick_name" id="nick_name">
+            <input type="text" name="nick_name" id="nick_name" >
         </li>
         <li>
             <label for="addr_detail">주소</label>
-            <input type="text" name="addr_detail" id="addr_detail">
+            <input type="text" name="addr_detail" id="addr_detail" required>
         </li>
         <li>
             <label for="fav_region">관심지역</label>
-            <input type="text" name="fav_region" id="fav_region">
+            <input type="text" name="fav_region" id="fav_region" required>
         </li>
         <li>
             <label for="tel">휴대전화</label>
-            <input type="text" name="tel" id="tel">
+            <input type="text" name="tel" id="tel" required>
         </li>
         <li>
             <label for="email">이메일</label>
-            <input type="text" name="email" id="email">
+            <input type="email" name="email" id="email" required>
         </li>
         <li>
             <input type="submit" value="회원가입">

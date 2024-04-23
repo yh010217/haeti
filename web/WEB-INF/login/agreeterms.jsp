@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>약관동의</title>
-    <link rel="stylesheet" href="css/agreeterms.css">
+    <link rel="stylesheet" href="../../css/agreeterms.css">
 </head>
 <body>
 <div>회원가입</div>
