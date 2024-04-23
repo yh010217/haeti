@@ -32,10 +32,15 @@
 <c:out value="본문 : ${dto.content}"/><br>
 
 
-<button type="button">댓글 확인</button>
+<button type="button" id="rep_show_button">댓글 확인</button>
 <ul id="review_list">
 
 </ul>
+
+<a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_no}">채팅</a>
+
+<a href="prod_delete.do?prod_no=${dto.prod_no}">삭제</a>
+
 <script src="js/review_show.js"></script>
 <script>init_data(${dto.prod_no})</script>
 

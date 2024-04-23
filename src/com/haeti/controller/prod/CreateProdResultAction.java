@@ -1,6 +1,7 @@
-package com.haeti.controller;
+package com.haeti.controller.prod;
 
 import com.haeti.comm.Forward;
+import com.haeti.controller.Action;
 import com.haeti.dto.ProdDTO;
 import com.haeti.service.ProdService;
 import com.oreilly.servlet.MultipartRequest;
