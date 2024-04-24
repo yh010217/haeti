@@ -7,6 +7,13 @@ public class ChatRoomDTO {
     private String user1="";
     private String user2="";
 
+    public Session getUser1Session() {
+        return user1Session;
+    }
+
+    private Session user1Session;
+    private Session user2Session;
+
     public ChatRoomDTO(String room) {
         this.room = room;
     }
@@ -27,17 +34,15 @@ public class ChatRoomDTO {
         this.user2 = user2;
     }
 
-    public boolean isRoomFull(){
-        if(user1 != "" && user2 != "") return true;
-        else return false;
+    public void setUser1Session(Session user1Session) {
+        this.user1Session = user1Session;
     }
 
-    public String getRoom() {
-        return room;
+    public Session getUser2Session() {
+        return user2Session;
     }
 
-    public void setRoom(String room) {
-        this.room = room;
+    public void setUser2Session(Session user2Session) {
+        this.user2Session = user2Session;
     }
-
 }

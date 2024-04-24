@@ -42,6 +42,7 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
              ) {
 
+            rs=pstmt.executeQuery();
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
@@ -262,5 +263,32 @@ public class ProdDAO {
             }
         }
         return purchase_list;
+    }
+
+    public String getSellerId(Connection conn, String prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select user_id                                ");
+        sql.append("    from user u inner join prod p                 ");
+        sql.append("                on u.user_no = p.seller_user_no   ");
+        sql.append("    where prod_no =  ? ");
+        String seller_id = "";
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                seller_id = rs.getString("user_id");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return seller_id;
     }
 }

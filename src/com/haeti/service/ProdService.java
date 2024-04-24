@@ -189,4 +189,20 @@ public class ProdService {
         }
         return purchase_list;
     }
+
+    public String getSellerId(String prod_no) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        String seller_id = "";
+        try {
+            conn = db.getConnection();
+            seller_id = dao.getSellerId(conn, prod_no);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+        return seller_id;
+    }
 }

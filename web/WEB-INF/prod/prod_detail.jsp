@@ -37,8 +37,8 @@
 
 </ul>
 
-<a href="chatting.do?prod_no=${dto.prod_no}">채팅</a>
-<%-- &buyer=${sessionScope.user_no} 를 썼었는데, 그냥 chattingRoom.jsp 에서 세션으로 받을 수 있을듯--%>
+<a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅</a>
+<%-- &buyer=${sessionScope.user_no} 를 썼었는데, 그냥 chatting.jsp 에서 세션으로 받을 수 있을듯--%>
 
 <a href="prod_delete.do?prod_no=${dto.prod_no}">삭제</a>
 

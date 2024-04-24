@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.haeti.service.ProdService" %><%--
   Created by IntelliJ IDEA.
   User: seeyh
   Date: 2024-04-20
@@ -21,7 +21,7 @@
 <div id="_chatbox">
     <div id="messageWindow"></div>
     <br>
-    <input id="inputMessage" type="text" onkeyup="enterkey()"/>
+    <input id="inputMessage" type="text"/>
     <br>
     <input type="submit" value="send" onclick="send()"/>
 </div>
@@ -32,12 +32,23 @@
 <%-- 그 user 들중에 해당하지 않는다면 (채팅마다 자신의 user_no를 심어서 보내는데, 채팅방에도 DTO로 유저정보가 있을테니) --%>
 <%--  --%>
 
+<%
+    //request 에 넣어
+    request.setAttribute("seller",ProdService.getInstance().getSellerId(request.getParameter("prod_no")));
+%>
 </body>
 <script type="text/javascript">
     var webSocket = new WebSocket('ws://10.41.1.190:8080/haeti/ChattingRoom');
     var inputMessage = document.getElementById('inputMessage');
 
-    let user1 = "${sessionScope.user1}";
+    let prod_no = "${param.prod_no}";
+    let seller = "${requestScope.seller}";
+    let buyer = "${param.buyer}";
+    let user1 = "${sessionScope.user_id}";
+
+    let roomUser = prod_no+"#"+buyer+"#"+user1;
+    console.log(roomUser);
+
 
     webSocket.onerror = function (event) {
         onError(event)
@@ -68,14 +79,13 @@
 
     function onOpen(event) {
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML += "<p class='chat_content'>채팅에 참여하였습니다.</p>"
+        mw.innerHTML += "<p class='chat_content'>open!!</p>"
     }
 
     function onError(event) {
         alert(event.data);
     }
 
-    var room = ${param.room};
 
     function send() {
         if (inputMessage.value == "") {
@@ -83,7 +93,7 @@
             let mw = document.getElementById("messageWindow")
             mw.innerHTML += "<p class='chat_content'> 나 : " + inputMessage.value + "</p>";
         }
-        webSocket.send(room + "#" + inputMessage.value);
+        webSocket.send(roomUser + "#" + inputMessage.value);
         inputMessage.value = "";
     }
 
