@@ -26,7 +26,7 @@ public class ProdDAO {
         sql.append("  SELECT    p.prod_no           ");
         sql.append("            , p.title           ");
         sql.append("            , p.content         ");
-        sql.append("            , u.nick_name            ");
+        sql.append("            , u.nick_name        ");
         sql.append("            , c.category        ");
         sql.append("            , write_date        ");
         sql.append("            , cost              ");
@@ -50,7 +50,7 @@ public class ProdDAO {
             } else if ("content".equals(search)) {
                 sql.append("     p.content  like  ?       ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.name like  ?           ");
+                sql.append("     u.nick_name like  ?           ");
             } else if ("category".equals(search)) {
                 sql.append("     c.category like  ?       ");
             }
@@ -64,7 +64,7 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
              ) {
-            rs=pstmt.executeQuery();
+
 
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
