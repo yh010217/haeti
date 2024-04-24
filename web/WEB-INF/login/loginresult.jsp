@@ -6,21 +6,24 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>로그인알림페이지</title>
+    <title>login</title>
 </head>
 <body>
-<%=session.getAttribute("result")%>
+<c:set var="sessionId" value="${sessionScope.user_id}"></c:set>
+
 
 <script>
-    if(${sessionScope.result==1}){
-        location.href="loginmain.jsp";
+    if(${empty sessionId || sessionId==''}){
+        alert('아이디 또는 패스워드가 잘못 입력했습니다');
+        location.href="login.do";
+    }else{
+        location.href="loginsuccess.do";
     }
-    else if (${sessionScope.result==0}){
-        alert('다시 한번 입력해주세요!')
 
-    }
+
 
 </script>
 

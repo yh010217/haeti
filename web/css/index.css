@@ -14,17 +14,13 @@ ul li {
     margin: 20px 8%;
 }
 .prod_list img{
-    width : 180px;
-    height: 250px;
+    width : 130px;
+    height: 180px;
 }
 .prod_list ul {
     margin: 1% 2%;
 }
-.prod_list ul .title {
-    font-weight: 500;
-    font-size: 1rem;
-}
-.prod_list ul .cost{
+.prod_list ul .title, .prod_list ul .cost {
     font-weight: 500;
     font-size: 1rem;
 }

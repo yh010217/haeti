@@ -1,6 +1,7 @@
-package com.haeti.controller;
+package com.haeti.controller.prod;
 
 import com.haeti.comm.Forward;
+import com.haeti.controller.Action;
 import com.haeti.dto.ProdDTO;
 import com.haeti.service.ProdService;
 
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class CategoryResultListAction implements Action{
+public class CategoryResultListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
