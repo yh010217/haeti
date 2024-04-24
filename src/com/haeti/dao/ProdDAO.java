@@ -369,6 +369,8 @@ public class ProdDAO {
                 sql.append("    where  u.nick_name like ?         ");
             } else if ("category".equals(search)) {
                 sql.append("    where  c.category like ?         ");
+            } else if ("fav_region".equals(search)) {
+                sql.append("    where  u.fav_region like ?         ");
             }
         }
 
@@ -391,4 +393,5 @@ public class ProdDAO {
         return total_data;
 
     }
+
 }

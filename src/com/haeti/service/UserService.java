@@ -2,6 +2,7 @@ package com.haeti.service;
 
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.UserDAO;
+import com.haeti.dto.ProdDTO;
 import com.haeti.dto.UserDTO;
 
 import javax.naming.NamingException;
@@ -155,4 +156,5 @@ public class UserService {
         }
         return userList;
     }
+
 }
