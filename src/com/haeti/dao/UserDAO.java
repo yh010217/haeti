@@ -114,7 +114,7 @@ public class UserDAO {
         sql.append(" select     pwd   ");
         sql.append(" from     user      ");
         sql.append(" where    user_id = ?  ");
-        int result=0;
+        int login_result=0;
         ResultSet rs=null;
         try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
@@ -124,9 +124,9 @@ public class UserDAO {
             if (rs.next()) {
                 if(rs.getString("pwd").equals(pwd)
                 ) {
-                    result=1;
+                    login_result=1;
                 } else{
-                   result=0;
+                   login_result=0;
                 }
             }
 
@@ -137,73 +137,13 @@ public class UserDAO {
             if (rs!=null) try {rs.close();}catch (Exception e){}
 
         }
-        return result;
+        return login_result;
     }
 
 
-    public String loginemail(Connection conn, String user_id) {
-        StringBuffer sql = new StringBuffer();
-        sql.append(" select     pwd   ");
-        sql.append("           , email ");
-        sql.append(" from     user      ");
-        sql.append(" where    user_id = ?  ");
-        String result="";
-        ResultSet rs=null;
-        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
-        ){
-
-            pstmt.setString(1, user_id);
-            rs = pstmt.executeQuery();
-            if (rs.next()){
-                result=rs.getString("email");
-            }
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (conn!=null) try {conn.close();}catch (Exception e){}
-            if (rs!=null) try {rs.close();}catch (Exception e){}
-
-        }
-        return result;
-
-    }
 
 
-    public UserDTO loginlist(Connection conn, String user_id) throws SQLException{
-        StringBuilder sql=new StringBuilder();
-        sql.append(" select     pwd          ");
-        sql.append("           , name         ");
-        sql.append("           ,nick_name      ");
-        sql.append("           ,tel            ");
-        sql.append("           , email          ");
-        sql.append("           , addr_dong      ");
-        sql.append("           , addr_detail     ");
-        sql.append("           , fav_region     ");
-        sql.append("       from  user             ");
-        sql.append("      where  user_id = ?      ");
-        ResultSet rs=null;
-        UserDTO dto=new UserDTO();
-        PreparedStatement pstmt=null;
-        try {
-            pstmt = conn.prepareStatement(sql.toString());
-            pstmt.setString(1, user_id);
-            rs=pstmt.executeQuery();
-            if (rs.next()){
-                dto.setPwd(rs.getString("pwd"));
-                dto.setName(rs.getString("name"));
-                dto.setNick_name(rs.getString("nick_name"));
-                dto.setTel(rs.getString("tel"));
-                dto.setEmail(rs.getString("email"));
-                dto.setAddr_dong(rs.getString("addr_dong"));
-                dto.setAddr_detail(rs.getString("addr_detail"));
-                dto.setFav_region(rs.getString("fav_region"));
-            }
 
-        }finally {
-            if (pstmt!=null) try {pstmt.close();}catch (Exception e){}
-        }
-        return dto;
-    }
+
 }
 

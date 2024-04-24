@@ -70,59 +70,19 @@ public class UserService {
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
-        int result=0;
+        int login_result=0;
         try {
             conn=db.getConnection();
-            result=dao.login(conn,user_id,pwd);
+            login_result=dao.login(conn,user_id,pwd);
         }catch (SQLException| NamingException e){
             System.out.println(e);
         }finally {
             if (conn!=null) try {conn.close();}catch (Exception e){System.out.println(e);}
         }
-
-        return result;
-
-
-    }
-
-    public String loginemail(String user_id) {
-        DBConnection db=DBConnection.getInstance();
-        UserDAO dao=UserDAO.getUserDAO();
-        Connection conn=null;
-        String result="";
-        try {
-            conn=db.getConnection();
-            result=dao.loginemail(conn,user_id);
-        }catch (SQLException | NamingException e){
-            System.out.println(e);
-        }finally {
-            if (conn!=null) try {
-                conn.close();
-            }catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        return result;
+        return login_result;
     }
 
 
-    public UserDTO loginlist(String user_id) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        UserDAO dao=UserDAO.getUserDAO();
-        UserDTO dto=new UserDTO();
-        try{
-            conn=db.getConnection();
-            dto=dao.loginlist(conn,user_id);
-        }catch (SQLException | NamingException e){
-            System.out.println(e);
-        }finally {
-            if (conn!=null)try {
-                conn.close();
-            }catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        return dto;
-    }
+
+    
 }

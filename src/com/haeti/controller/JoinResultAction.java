@@ -23,12 +23,12 @@ public class JoinResultAction implements Action{
         String addr_detail=request.getParameter("addr_detail");
         String fav_region=request.getParameter("fav_region");
 
-        UserService service=UserService.getInstance();
+        UserService service=UserService.getUserService();
         service.insertService(user_id,pwd,name,nick_name,tel,email,addr_dong,addr_detail,fav_region);
 
         Forward forward=new Forward();
-        forward.setForward(true);
-        forward.setUrl("loginmain.jsp");
+        forward.setForward(false);
+        forward.setUrl("login.do");
 
         return forward;
     }

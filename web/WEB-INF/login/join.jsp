@@ -12,15 +12,19 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="css/join.css">
+    <script src="js/join.js"></script>
 </head>
 <body>
 <div id="join">
     <h2>회원가입</h2>
-    <form name="joinForm" method="post" action="join_result.do">
+    <form name="joinForm" method="post" action="join_result.do" onsubmit="return join();">
         <ul>
             <li>
                 <label for="user_id">아이디</label>
                 <input type="text" name="user_id" id="user_id" required>
+                <input type="button" value="중복확인" onclick="openIdChk()">
+                <input type="hidden" name="idDuplication" value="idUncheck">
+
                 <button type="submit" name="check">중복검사</button>
             </li>
             <li>

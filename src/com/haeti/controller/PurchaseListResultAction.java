@@ -42,7 +42,7 @@ public class PurchaseListResultAction extends HttpServlet {
 
         JSONArray arr=new JSONArray();
 
-        ProdService prodService=ProdService.getProdService();
+        ProdService prodService=ProdService.getInstance();
         List<ProdDTO> purchase_list=prodService.purchaseList(period_select);
 
         for(ProdDTO dto:purchase_list){
