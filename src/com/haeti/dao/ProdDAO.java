@@ -74,7 +74,6 @@ public class ProdDAO {
                 pstmt.setInt(2, pagesize);
             }
 
-            rs= pstmt.executeQuery();
 
             rs=pstmt.executeQuery();
             while(rs.next()){
