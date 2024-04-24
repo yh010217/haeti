@@ -7,6 +7,8 @@ import com.haeti.dto.UserDTO;
 import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserService {
     private static UserService userService=new UserService();
@@ -124,5 +126,24 @@ public class UserService {
             }
         }
         return dto;
+    }
+
+
+    public List<UserDTO> userListCheck(String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        List<UserDTO> userList=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            userList=dao.userListCheck(conn, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return userList;
     }
 }

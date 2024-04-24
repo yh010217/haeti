@@ -171,7 +171,7 @@ public class ProdService {
         }
     }
 
-    public List<ProdDTO> purchaseList(int period){
+    public List<ProdDTO> purchaseList(int period, int user_no){
         DBConnection db=DBConnection.getInstance();
         Connection conn=null;
         ProdDAO dao=ProdDAO.getProdDAO();
@@ -179,7 +179,7 @@ public class ProdService {
 
         try{
             conn= db.getConnection();
-            purchase_list=dao.purchaseList(conn, period);
+            purchase_list=dao.purchaseList(conn, period, user_no);
 
 
         }catch (SQLException | NamingException e){
@@ -188,5 +188,23 @@ public class ProdService {
             db.disconn(conn);
         }
         return purchase_list;
+    }
+
+    public List<ProdDTO> salesList(String status, int user_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDAO dao=ProdDAO.getProdDAO();
+        List<ProdDTO> sales_list=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            sales_list=dao.salesList(conn, status, user_no);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return sales_list;
     }
 }

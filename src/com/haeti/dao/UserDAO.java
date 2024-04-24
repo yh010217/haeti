@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private static UserDAO userDAO=new UserDAO();
@@ -204,6 +206,28 @@ public class UserDAO {
             if (pstmt!=null) try {pstmt.close();}catch (Exception e){}
         }
         return dto;
+    }
+
+    public List<UserDTO> userListCheck(Connection conn, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select nick_name         ");
+        sql.append("        , email            ");
+        sql.append("  from user                ");
+        sql.append("  WHERE user_id <> ?      ");
+
+        List<UserDTO> userList=new ArrayList<>();
+        ResultSet rs=null;
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, user_id);
+            rs= pstmt.executeQuery();
+            while (rs.next()){
+                UserDTO dto=new UserDTO();
+                dto.setNick_name(rs.getString("nick_name"));
+                dto.setEmail(rs.getString("email"));
+                userList.add(dto);
+            }
+        }
+        return userList;
     }
 }
 
