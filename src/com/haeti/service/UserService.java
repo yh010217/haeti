@@ -73,91 +73,19 @@ public class UserService {
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
-        int result=0;
+        int login_result=0;
         try {
             conn=db.getConnection();
-            result=dao.login(conn,user_id,pwd);
+            login_result=dao.login(conn,user_id,pwd);
         }catch (SQLException| NamingException e){
             System.out.println(e);
         }finally {
             if (conn!=null) try {conn.close();}catch (Exception e){System.out.println(e);}
         }
-
-        return result;
-
-
-    }
-
-    public String loginemail(String user_id) {
-        DBConnection db=DBConnection.getInstance();
-        UserDAO dao=UserDAO.getUserDAO();
-        Connection conn=null;
-        String result="";
-        try {
-            conn=db.getConnection();
-            result=dao.loginemail(conn,user_id);
-        }catch (SQLException | NamingException e){
-            System.out.println(e);
-        }finally {
-            if (conn!=null) try {
-                conn.close();
-            }catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        return result;
+        return login_result;
     }
 
 
-    public UserDTO loginlist(String user_id) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        UserDAO dao=UserDAO.getUserDAO();
-        UserDTO dto=new UserDTO();
-        try{
-            conn=db.getConnection();
-            dto=dao.loginlist(conn,user_id);
-        }catch (SQLException | NamingException e){
-            System.out.println(e);
-        }finally {
-            if (conn!=null)try {
-                conn.close();
-            }catch (Exception e){
-                System.out.println(e);
-            }
-        }
-        return dto;
-    }
 
-    public int getCount(String search, String search_txt) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        int result = 0;
-        try{
-            conn=db.getConnection();
-            UserDAO dao = UserDAO.getUserDAO();
-            result = dao.getCount(conn, search, search_txt);
-        } catch (SQLException | NamingException e){
-            System.out.println("userService getCount Exception");
-        } finally {
-            db.disconn(conn);
-        }
-        return result;
-    }
 
-    public List<UserDTO> getList(int startrow, int pagesize, String search, String search_txt) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        List<UserDTO> list = new ArrayList<>();
-        try{
-            conn=db.getConnection();
-            UserDAO dao = UserDAO.getUserDAO();
-            list = dao.getList(conn, startrow, pagesize, search, search_txt);
-        }  catch (SQLException | NamingException e){
-            System.out.println("userService getList Exception");
-        } finally {
-            db.disconn(conn);
-        }
-        return list;
-    }
 }
