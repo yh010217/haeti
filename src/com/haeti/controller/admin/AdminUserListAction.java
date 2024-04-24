@@ -18,6 +18,7 @@ public class AdminUserListAction implements Action {
 
         // 관리자 세션 확인 할 것
 
+        /*
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");
         String search_txt = request.getParameter("search_txt");
@@ -66,5 +67,9 @@ public class AdminUserListAction implements Action {
 
 
         return forward;
+    }
+
+         */
+        return null;
     }
 }
