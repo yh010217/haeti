@@ -209,7 +209,7 @@ public class UserDAO {
     }
 
 
-    /** 총 회원 수*/
+    /** 회원 수*/
     public int getCount(Connection conn, String search, String search_txt) throws SQLException{
 
         StringBuilder sql = new StringBuilder();
@@ -233,13 +233,9 @@ public class UserDAO {
         try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ){
             if(!"".equals(search) && !"".equals(search_txt)){
-                if("user_id".equals(search)){
                     pstmt.setString(1, "%"+search_txt+"%");
-                } else if ("first_name".equals(search)) {
                     pstmt.setString(1, "%"+search_txt+"%");
-                } else if ("hire_date".equals(search)){
                     pstmt.setString(1, "%"+search_txt+"%");
-                }
             }
             rs = pstmt.executeQuery();
 
@@ -253,20 +249,21 @@ public class UserDAO {
     }
 
     /**회원 목록 가져오기*/
-    public List<UserDTO> getList(Connection conn, int startrow, int pagesize, String search, String search_txt) throws SQLException {
+    public List<UserDTO> getList(Connection conn, int startrow, int pagesize, String search, String search_txt)
+            throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("    select        user_no        ");
         sql.append("                  , user_id      ");
         sql.append("                  , name         ");
         sql.append("                  , tel          ");
-        sql.append("                  , join_data    ");
+       /* sql.append("                  , join_date    ");*/
         sql.append("    from    user                 ");
 
         if (!"".equals(search) && !"".equals(search_txt)) {
             if ("user_id".equals(search)) {
-                sql.append("    where  user_id like  ?      ");
+                sql.append("    where  user_id like   ?      ");
             } else if ("name".equals(search)) {
-                sql.append("   where  name  like ?       ");
+                sql.append("   where  name  like  ?       ");
             } else if ("tel".equals(search)) {
                 sql.append("   where  tel like ?         ");
             }
@@ -279,13 +276,7 @@ public class UserDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ) {
             if (!"".equals(search) && !"".equals(search_txt)) {
-                if ("user_id".equals(search)) {
-                    pstmt.setString(1, "%" + search_txt + "%");
-                } else if ("first_name".equals(search)) {
-                    pstmt.setString(1, "%" + search_txt + "%");
-                } else if ("hire_date".equals(search)) {
-                    pstmt.setString(1, "%" + search_txt + "%");
-                }
+                pstmt.setString(1, "%" + search_txt + "%");
                 pstmt.setInt(2, startrow);
                 pstmt.setInt(3, pagesize);
             } else {
@@ -301,7 +292,7 @@ public class UserDAO {
                 dto.setUser_id(rs.getString("user_id"));
                 dto.setName(rs.getString("name"));
                 dto.setTel(rs.getString("tel"));
-                dto.setJoin_date(rs.getDate("join_data").toLocalDate());
+                /*dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
                 arr.add(dto);
             }
 

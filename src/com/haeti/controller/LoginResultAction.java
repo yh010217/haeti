@@ -21,7 +21,7 @@ public class LoginResultAction implements Action{
         HttpSession session = request.getSession();
 
 
-        UserService service=UserService.getInstance();
+        UserService service=UserService.getUserService();
         int result=service.login(user_id,pwd);
         String email=service.loginemail(user_id);
         UserDTO dto=service.loginlist(user_id);

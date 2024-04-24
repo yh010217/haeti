@@ -58,7 +58,7 @@ public class UserListAction implements Action {
         request.setAttribute("end_page", end_page);
         request.setAttribute("search", search);
         request.setAttribute("search_txt", search_txt);
-
+        request.setAttribute("total_data", total_data);
 
         Forward forward = new Forward();
         forward.setForward(true);
