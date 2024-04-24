@@ -77,6 +77,7 @@ public class ProdDAO {
 
             rs= pstmt.executeQuery();
 
+            rs=pstmt.executeQuery();
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
@@ -264,18 +265,19 @@ public class ProdDAO {
             }
         }
     }
+
     /**  기간별 구매내역  */
-    public List<ProdDTO> purchaseList(Connection conn, int period) throws SQLException{
+    public List<ProdDTO> purchaseList(Connection conn, int period, int user_no) throws SQLException{
         //쿼리문 수정 필요!!
         StringBuilder sql=new StringBuilder();
-        sql.append("  select        prod_no                  ");
-        sql.append("              , title                    ");
-        sql.append("              , content                  ");
-        sql.append("              , write_date               ");
-        sql.append("              , cost                     ");
-        sql.append("              , category_id              ");
-        sql.append("  from  prod                             ");
-        sql.append("  WHERE DATEDIFF(NOW(),write_date) <= ?   ");
+        sql.append("  select        title                     ");
+        sql.append("              , cost                      ");
+        sql.append("              , sell_date                 ");
+        sql.append("  from  prod p inner join trade t         ");
+        sql.append("  on p.prod_no = t.prod_no                ");
+        sql.append("  WHERE DATEDIFF(NOW(), sell_date) <= ?   ");
+        sql.append("  and buyer_user_no = ?                   ");
+        sql.append("  order by sell_date desc                 ");
 
         List<ProdDTO> purchase_list=new ArrayList<>();
         ResultSet rs=null;
@@ -283,22 +285,71 @@ public class ProdDAO {
         try(PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
             pstmt.setInt(1, period);
+            pstmt.setInt(2, user_no);
             rs=pstmt.executeQuery();
             while (rs.next()){
                 ProdDTO dto=new ProdDTO();
-                dto.setProd_no(rs.getInt("prod_no"));
                 dto.setTitle(rs.getString("title"));
-                dto.setContent(rs.getString("content"));
-                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
                 dto.setCost(rs.getInt("cost"));
-                dto.setCategory_id(rs.getInt("category_id"));
-                purchase_list.add(dto);
 
+                purchase_list.add(dto);
             }
         }
         return purchase_list;
     }
 
+    public String getSellerId(Connection conn, String prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select user_id                                ");
+        sql.append("    from user u inner join prod p                 ");
+        sql.append("                on u.user_no = p.seller_user_no   ");
+        sql.append("    where prod_no =  ? ");
+        String seller_id = "";
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                seller_id = rs.getString("user_id");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return seller_id;
+    }
+
+    /**  상태별 판매내역  */
+    public List<ProdDTO> salesList(Connection conn, String status, int user_no) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select title                        ");
+        sql.append("         , cost                       ");
+        sql.append("  from prod p left join trade t       ");
+        sql.append("  on p.prod_no = t.prod_no            ");
+        sql.append("  where p.seller_user_no = ?          ");
+        sql.append("  and t.status = ?                    ");
+
+        List<ProdDTO> sales_list=new ArrayList<>();
+        ResultSet rs=null;
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setInt(1, user_no);
+            pstmt.setString(2, status);
+            rs= pstmt.executeQuery();
+            while (rs.next()){
+                ProdDTO dto=new ProdDTO();
+                dto.setTitle(rs.getString("title"));
+                dto.setCost(rs.getInt("cost"));
+                sales_list.add(dto);
+            }
+        }
+        return sales_list;
+    }
     public int getCount(Connection conn, String search, String search_txt) throws SQLException {
 
         StringBuilder sql = new StringBuilder();

@@ -117,5 +117,42 @@ public class UserService {
         return list;
     }
 
+    public UserDTO loginlist(String user_id) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        UserDAO dao=UserDAO.getUserDAO();
+        UserDTO dto=new UserDTO();
+        try{
+            conn=db.getConnection();
+            dto=dao.loginlist(conn,user_id);
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            if (conn!=null)try {
+                conn.close();
+            }catch (Exception e){
+                System.out.println(e);
+            }
+        }
+        return dto;
+    }
 
+
+    public List<UserDTO> userListCheck(String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        List<UserDTO> userList=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            userList=dao.userListCheck(conn, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return userList;
+    }
 }
