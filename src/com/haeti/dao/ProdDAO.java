@@ -41,6 +41,7 @@ public class ProdDAO {
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
              ) {
+            rs=pstmt.executeQuery();
 
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
