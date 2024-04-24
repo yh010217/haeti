@@ -1,4 +1,4 @@
-fetch("purchase_list_result"
+fetch("sales_list_result"
     , {
         method: "GET"
         , headers: {
@@ -33,22 +33,22 @@ fetch("purchase_list_result"
 
 
 function selectChange(value){
-    const period=document.getElementById("period").value;
+    const status=document.getElementById("status").value;
     let parent=document.getElementById('result');
     while(parent.firstChild){
         parent.removeChild(parent.firstChild)
     }
 
 
-    fetch("purchase_list_result?period="+period
-    , {
+    fetch("sales_list_result?status="+status
+        , {
             method: "GET"
             , headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
                 , "Accept": "text/json"
             }
         }).then(res => {
-            return res.json()
+        return res.json()
     }).then(data => {
         data.forEach(item => {
             let ele_tr=document.createElement('div');
