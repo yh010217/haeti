@@ -22,17 +22,15 @@ public class LoginResultAction implements Action{
 
 
         UserService service=UserService.getUserService();
-        int result=service.login(user_id,pwd);
-        String email=service.loginemail(user_id);
-        UserDTO dto=service.loginlist(user_id);
+        int login_result=service.login(user_id,pwd);
+       // System.out.println(login_result+"login_result");
 
 
+       if(login_result==1)
+       {
+           session.setAttribute("user_id", user_id);
 
-        //request.setAttribute("result",result);
-        session.setAttribute("user_id",user_id);
-        session.setAttribute("email",email);
-        session.setAttribute("dto",dto);
-        session.setAttribute("result",result);
+       }
 
 
         Forward forward=new Forward();
