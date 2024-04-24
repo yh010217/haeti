@@ -16,8 +16,9 @@
 <ul>
   <li>관리자 페이지</li>
   <li><a href="adminuserlist.do">회원관리</a></li>
-  <li>카테고리 관리</li>
-  <li>고객센터</li>
+  <li><a href="adminprodlist.do">상품관리</a></li>
+  <li><a href="#">카테고리 관리</a></li>
+  <li><a href="#">고객센터</a></li>
 </ul>
 
 <%--구분선 추가--%>
@@ -43,7 +44,7 @@
 <table>
   <thead>
   <tr>
-    <th>번호</th><th>아이디</th><th>이름</th><th>전화번호</th><th>가입일</th>
+    <th>번호</th><th>아이디</th><th>이름</th><th>전화번호</th><%--<th>가입일</th>--%>
   </tr>
   </thead>
   <tbody>

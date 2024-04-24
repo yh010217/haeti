@@ -2,7 +2,6 @@ package com.haeti.controller.admin;
 
 import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
-import com.haeti.dao.UserDAO;
 import com.haeti.dto.UserDTO;
 import com.haeti.service.UserService;
 
@@ -12,10 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class UserListAction implements Action {
+public class AdminUserListAction implements Action {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // 관리자 세션 확인 할 것
 
         String curr = request.getParameter("curr");
@@ -40,7 +40,7 @@ public class UserListAction implements Action {
         UserService service = UserService.getUserService();
 
         int total_data = service.getCount(search, search_txt);
-        int block_size = 5;
+        int block_size = 10;
         int start_page = ((currpage-1)/block_size)*block_size+1;
         int end_page = start_page+block_size-1;
         int total_page = (int)(Math.ceil(total_data/(float)pagesize));
@@ -62,7 +62,7 @@ public class UserListAction implements Action {
 
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("template.jsp?page=WEB-INF/adminpage/userlist.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/adminpage/admin_userlist.jsp");
 
 
         return forward;

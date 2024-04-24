@@ -234,8 +234,6 @@ public class UserDAO {
         ){
             if(!"".equals(search) && !"".equals(search_txt)){
                     pstmt.setString(1, "%"+search_txt+"%");
-                    pstmt.setString(1, "%"+search_txt+"%");
-                    pstmt.setString(1, "%"+search_txt+"%");
             }
             rs = pstmt.executeQuery();
 
@@ -261,17 +259,18 @@ public class UserDAO {
 
         if (!"".equals(search) && !"".equals(search_txt)) {
             if ("user_id".equals(search)) {
-                sql.append("    where  user_id like   ?      ");
+                sql.append("    where  user_id like   ?    ");
             } else if ("name".equals(search)) {
-                sql.append("   where  name  like  ?       ");
+                sql.append("   where  name  like  ?        ");
             } else if ("tel".equals(search)) {
-                sql.append("   where  tel like ?         ");
+                sql.append("   where  tel like ?           ");
             }
         }
-        sql.append("  limit   ?,  ?             ");
+        sql.append("  order by user_no DESC                ");
+        sql.append("  limit   ?,  ?                        ");
 
         ResultSet rs = null;
-        ArrayList<UserDTO> arr = new ArrayList<>();
+        ArrayList<UserDTO> list = new ArrayList<>();
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ) {
@@ -293,7 +292,7 @@ public class UserDAO {
                 dto.setName(rs.getString("name"));
                 dto.setTel(rs.getString("tel"));
                 /*dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
-                arr.add(dto);
+                list.add(dto);
             }
 
         } finally {
@@ -302,7 +301,7 @@ public class UserDAO {
             } catch (Exception e) {
             }
         }
-        return arr;
+        return list;
     }
 }
 

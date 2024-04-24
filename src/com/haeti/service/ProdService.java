@@ -3,6 +3,7 @@ package com.haeti.service;
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.ImageDAO;
 import com.haeti.dao.ProdDAO;
+import com.haeti.dao.UserDAO;
 import com.haeti.dto.ProdDTO;
 
 import java.io.File;
@@ -96,17 +97,17 @@ public class ProdService {
         return result;
     }
 
-    public List<ProdDTO> getList() {
+    public List<ProdDTO> getList(int startrow, int pagesize, String search, String search_txt) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
         List<ProdDTO> list = new ArrayList<>();
         try{
             conn=db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
-            list = dao.getList(conn);
+            list = dao.getList(conn, startrow, pagesize, search, search_txt);
 
         }catch (SQLException | NamingException e){
-            System.out.println("ProdService getList exception");
+            System.out.println("ProdService getList exception"+e.getMessage());
         }finally {
             db.disconn(conn);
         }
@@ -188,5 +189,23 @@ public class ProdService {
             db.disconn(conn);
         }
         return purchase_list;
+    }
+
+    public int getCount(String search, String search_txt) {
+
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        int result = 0;
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            result = dao.getCount(conn, search, search_txt);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getCount Exception!!"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return result;
+
     }
 }
