@@ -16,6 +16,7 @@ public class LoginResultAction implements Action{
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_id=request.getParameter("user_id");
         String pwd=request.getParameter("pwd");
+        //String email=request.getParameter("email");
 
         HttpSession session = request.getSession();
 
@@ -24,7 +25,7 @@ public class LoginResultAction implements Action{
         int login_result=service.login(user_id,pwd);
        // System.out.println(login_result+"login_result");
 
-        
+
        if(login_result==1)
        {
            session.setAttribute("user_id", user_id);

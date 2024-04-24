@@ -12,11 +12,11 @@
 </head>
 <body>
 
-<form method="post" action="categoryResult.do">
-    <button type="submit" name="category" value="chunjae">천재교과서</button>
-    <button type="submit" name="category" value="jihak">지학사</button>
-    <button type="submit" name="category" value="bisang">비상교과서</button>
-    <button type="submit" name="category" value="etc">기타</button>
+    <a href="categoryResult.do?category=chunjae">천재교과서</a>
+    <a href="categoryResult.do?category=jihak">지학사</a>
+    <a href="categoryResult.do?category=bisang">비상교과서</a>
+    <a href="categoryResult.do?category=etc">기타</a>
+
 </form>
 </body>
 </html>
