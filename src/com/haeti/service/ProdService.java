@@ -3,6 +3,7 @@ package com.haeti.service;
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.ImageDAO;
 import com.haeti.dao.ProdDAO;
+import com.haeti.dao.UserDAO;
 import com.haeti.dto.ProdDTO;
 
 import java.io.File;
@@ -96,17 +97,17 @@ public class ProdService {
         return result;
     }
 
-    public List<ProdDTO> getList() {
+    public List<ProdDTO> getList(int startrow, int pagesize, String search, String search_txt) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
         List<ProdDTO> list = new ArrayList<>();
         try{
             conn=db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
-            list = dao.getList(conn);
+            list = dao.getList(conn, startrow, pagesize, search, search_txt);
 
         }catch (SQLException | NamingException e){
-            System.out.println("ProdService getList exception");
+            System.out.println("ProdService getList exception"+e.getMessage());
         }finally {
             db.disconn(conn);
         }
@@ -171,7 +172,7 @@ public class ProdService {
         }
     }
 
-    public List<ProdDTO> purchaseList(int period){
+    public List<ProdDTO> purchaseList(int period, int user_no){
         DBConnection db=DBConnection.getInstance();
         Connection conn=null;
         ProdDAO dao=ProdDAO.getProdDAO();
@@ -179,7 +180,7 @@ public class ProdService {
 
         try{
             conn= db.getConnection();
-            purchase_list=dao.purchaseList(conn, period);
+            purchase_list=dao.purchaseList(conn, period, user_no);
 
 
         }catch (SQLException | NamingException e){
@@ -204,5 +205,40 @@ public class ProdService {
             db.disconn(conn);
         }
         return seller_id;
+    }
+
+    public List<ProdDTO> salesList(String status, int user_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDAO dao=ProdDAO.getProdDAO();
+        List<ProdDTO> sales_list=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            sales_list=dao.salesList(conn, status, user_no);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return sales_list;
+  }
+    public int getCount(String search, String search_txt) {
+
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        int result = 0;
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            result = dao.getCount(conn, search, search_txt);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getCount Exception!!"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return result;
+
     }
 }

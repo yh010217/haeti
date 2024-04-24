@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
     private static UserDAO userDAO=new UserDAO();
@@ -114,7 +116,7 @@ public class UserDAO {
         sql.append(" select     pwd   ");
         sql.append(" from     user      ");
         sql.append(" where    user_id = ?  ");
-        int result=0;
+        int login_result=0;
         ResultSet rs=null;
         try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
@@ -124,9 +126,9 @@ public class UserDAO {
             if (rs.next()) {
                 if(rs.getString("pwd").equals(pwd)
                 ) {
-                    result=1;
+                    login_result=1;
                 } else{
-                   result=0;
+                   login_result=0;
                 }
             }
 
@@ -137,37 +139,12 @@ public class UserDAO {
             if (rs!=null) try {rs.close();}catch (Exception e){}
 
         }
-        return result;
+        return login_result;
     }
 
 
-    public String loginemail(Connection conn, String user_id) {
-        StringBuffer sql = new StringBuffer();
-        sql.append(" select     pwd   ");
-        sql.append("           , email ");
-        sql.append(" from     user      ");
-        sql.append(" where    user_id = ?  ");
-        String result="";
-        ResultSet rs=null;
-        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
-        ){
 
-            pstmt.setString(1, user_id);
-            rs = pstmt.executeQuery();
-            if (rs.next()){
-                result=rs.getString("email");
-            }
 
-        } catch (SQLException e) {
-            System.out.println(e);
-        } finally {
-            if (conn!=null) try {conn.close();}catch (Exception e){}
-            if (rs!=null) try {rs.close();}catch (Exception e){}
-
-        }
-        return result;
-
-    }
 
 
     public UserDTO loginlist(Connection conn, String user_id) throws SQLException{
@@ -204,6 +181,28 @@ public class UserDAO {
             if (pstmt!=null) try {pstmt.close();}catch (Exception e){}
         }
         return dto;
+    }
+
+    public List<UserDTO> userListCheck(Connection conn, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select nick_name         ");
+        sql.append("        , email            ");
+        sql.append("  from user                ");
+        sql.append("  WHERE user_id <> ?      ");
+
+        List<UserDTO> userList=new ArrayList<>();
+        ResultSet rs=null;
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, user_id);
+            rs= pstmt.executeQuery();
+            while (rs.next()){
+                UserDTO dto=new UserDTO();
+                dto.setNick_name(rs.getString("nick_name"));
+                dto.setEmail(rs.getString("email"));
+                userList.add(dto);
+            }
+        }
+        return userList;
     }
 }
 

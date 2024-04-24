@@ -8,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModifyUserResultAction implements Action{
     @Override
@@ -29,13 +31,42 @@ public class ModifyUserResultAction implements Action{
         dto.setFav_region(fav_region);
         dto.setEmail(email);
 
+
         UserService userService=UserService.getUserService();
-        int modify_result=userService.modifyUser(dto);
-        request.setAttribute("modify_result", modify_result);
+
+        List<UserDTO> userList=new ArrayList<>();
+        userList=userService.userListCheck(user_id);
 
         Forward forward=new Forward();
-        forward.setForward(true);
-        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
+//        forward.setForward(true);
+//        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
+
+        for(UserDTO userDTO:userList){
+            if("".equals(nick_name)|| userDTO.getNick_name().equals(nick_name)){
+                request.setAttribute("fail",0);
+                forward.setForward(false);
+                forward.setUrl("modify_user.do");
+                break;
+            }else if("".equals(email)|| userDTO.getEmail().equals(email)){
+                request.setAttribute("fail",0);
+                forward.setForward(false);
+                forward.setUrl("modify_user.do");
+                break;
+            }else{
+                int modify_result=userService.modifyUser(dto);
+                request.setAttribute("modify_result", modify_result);
+                forward.setForward(true);
+                forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
+            }
+        }
+
+
+
+
+//        System.out.println(modify_result+".....");
+
+/*        forward.setForward(true);
+        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");*/
         return forward;
     }
 }
