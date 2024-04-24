@@ -64,7 +64,6 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
              ) {
-            rs=pstmt.executeQuery();
 
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
