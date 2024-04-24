@@ -63,7 +63,27 @@
     </c:if>
 </div>
 
+<%--페이지 번호--%>
+<div>
+<c:if test="${start_page>1}">
+    <a href="adminprodlist.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
+</c:if>
 
+<c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
+    <c:choose>
+        <c:when test="${i==currpage}">
+            <c:out value="${i}"/>
+        </c:when>
+        <c:otherwise>
+            <a href="adminprodlist.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
+        </c:otherwise>
+    </c:choose>
+</c:forEach>
 
+<c:if test="${end_page < total_page}">
+    <a href="adminprodlist.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
+</c:if>
+
+</div>
 </body>
 </html>

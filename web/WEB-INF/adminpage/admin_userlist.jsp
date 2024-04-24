@@ -79,6 +79,9 @@
   </tbody>
 </table>
 
+
+<%--페이지 번호--%>
+<div>
 <c:if test="${start_page>1}">
   <a href="adminuserlist.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
 </c:if>
@@ -97,6 +100,7 @@
 <c:if test="${end_page < total_page}">
   <a href="adminuserlist.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
 </c:if>
+</div>
 
 </body>
 </html>
