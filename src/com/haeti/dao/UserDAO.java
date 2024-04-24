@@ -142,6 +142,166 @@ public class UserDAO {
         return login_result;
     }
 
+    public String loginemail(Connection conn, String user_id) {
+        StringBuffer sql = new StringBuffer();
+        sql.append(" select     pwd   ");
+        sql.append("           , email ");
+        sql.append(" from     user      ");
+        sql.append(" where    user_id = ?  ");
+        String result="";
+        ResultSet rs=null;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
+        ){
+
+            pstmt.setString(1, user_id);
+            rs = pstmt.executeQuery();
+            if (rs.next()){
+                result=rs.getString("email");
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (conn!=null) try {conn.close();}catch (Exception e){}
+            if (rs!=null) try {rs.close();}catch (Exception e){}
+
+        }
+        return result;
+
+    }
+
+
+    public UserDTO loginlist(Connection conn, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append(" select     pwd          ");
+        sql.append("           , name         ");
+        sql.append("           ,nick_name      ");
+        sql.append("           ,tel            ");
+        sql.append("           , email          ");
+        sql.append("           , addr_dong      ");
+        sql.append("           , addr_detail     ");
+        sql.append("           , fav_region     ");
+        sql.append("       from  user             ");
+        sql.append("      where  user_id = ?      ");
+        ResultSet rs=null;
+        UserDTO dto=new UserDTO();
+        PreparedStatement pstmt=null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, user_id);
+            rs=pstmt.executeQuery();
+            if (rs.next()){
+                dto.setPwd(rs.getString("pwd"));
+                dto.setName(rs.getString("name"));
+                dto.setNick_name(rs.getString("nick_name"));
+                dto.setTel(rs.getString("tel"));
+                dto.setEmail(rs.getString("email"));
+                dto.setAddr_dong(rs.getString("addr_dong"));
+                dto.setAddr_detail(rs.getString("addr_detail"));
+                dto.setFav_region(rs.getString("fav_region"));
+            }
+
+        }finally {
+            if (pstmt!=null) try {pstmt.close();}catch (Exception e){}
+        }
+        return dto;
+    }
+
+
+    /** 회원 수*/
+    public int getCount(Connection conn, String search, String search_txt) throws SQLException{
+
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("   select   count(*)   ");
+        sql.append("   from     user   ");
+
+        if(!"".equals(search) && !"".equals(search_txt)){
+            if("user_id".equals(search)){
+                sql.append("    where  user_id like  ?      ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like ?       ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?         ");
+            }
+        }
+
+        int total_data = 0;
+        ResultSet rs =null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            if(!"".equals(search) && !"".equals(search_txt)){
+                pstmt.setString(1, "%"+search_txt+"%");
+            }
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                total_data = rs.getInt(1);
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return total_data;
+    }
+
+    /**회원 목록 가져오기*/
+    public List<UserDTO> getList(Connection conn, int startrow, int pagesize, String search, String search_txt)
+            throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select        user_no        ");
+        sql.append("                  , user_id      ");
+        sql.append("                  , name         ");
+        sql.append("                  , tel          ");
+        /* sql.append("                  , join_date    ");*/
+        sql.append("    from    user                 ");
+
+        if (!"".equals(search) && !"".equals(search_txt)) {
+            if ("user_id".equals(search)) {
+                sql.append("    where  user_id like   ?    ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like  ?        ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?           ");
+            }
+        }
+        sql.append("  order by user_no DESC                ");
+        sql.append("  limit   ?,  ?                        ");
+
+        ResultSet rs = null;
+        ArrayList<UserDTO> list = new ArrayList<>();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            if (!"".equals(search) && !"".equals(search_txt)) {
+                pstmt.setString(1, "%" + search_txt + "%");
+                pstmt.setInt(2, startrow);
+                pstmt.setInt(3, pagesize);
+            } else {
+                pstmt.setInt(1, startrow);
+                pstmt.setInt(2, pagesize);
+            }
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                UserDTO dto = new UserDTO();
+                dto.setUser_no(rs.getInt("user_no"));
+                dto.setUser_id(rs.getString("user_id"));
+                dto.setName(rs.getString("name"));
+                dto.setTel(rs.getString("tel"));
+                /*dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+                list.add(dto);
+            }
+
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+        }
+        return list;
+    }
 
 
 
