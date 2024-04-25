@@ -302,27 +302,46 @@ public class UserDAO {
         return list;
     }
 
-
-    public List<UserDTO> userListCheck(Connection conn, String user_id) throws SQLException{
+    public boolean nickCheck(Connection conn, String nick_name, String user_id) throws SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("  select nick_name         ");
-        sql.append("        , email            ");
-        sql.append("  from user                ");
-        sql.append("  WHERE user_id <> ?      ");
+        sql.append("  select nick_name      ");
+        sql.append("  from user             ");
+        sql.append("  where nick_name = ?   ");
+        sql.append("  and user_id <> ?      ");
 
-        List<UserDTO> userList=new ArrayList<>();
         ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
         try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
-            pstmt.setString(1, user_id);
-            rs= pstmt.executeQuery();
-            while (rs.next()){
-                UserDTO dto=new UserDTO();
-                dto.setNick_name(rs.getString("nick_name"));
-                dto.setEmail(rs.getString("email"));
-                userList.add(dto);
+            pstmt.setString(1, nick_name);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
             }
         }
-        return userList;
+        return result;
+    }
+
+    public boolean emailCheck(Connection conn, String email, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select email          ");
+        sql.append("  from user             ");
+        sql.append("  where email = ?       ");
+        sql.append("  and user_id <> ?      ");
+
+        ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, email);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
+            }
+        }
+        return result;
     }
 
     public int confirmID(String user_id) {

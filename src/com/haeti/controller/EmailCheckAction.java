@@ -1,8 +1,5 @@
 package com.haeti.controller;
 
-import com.haeti.dto.ProdDTO;
-import com.haeti.dto.UserDTO;
-import com.haeti.service.ProdService;
 import com.haeti.service.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,10 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
-@WebServlet(name = "SalesListResultAction", value = "/sales_list_result")
-public class SalesListResultAction extends HttpServlet {
+@WebServlet(name = "EmailCheckAction", value = "/email_check")
+public class EmailCheckAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doReq(request, response);
@@ -29,39 +25,26 @@ public class SalesListResultAction extends HttpServlet {
         doReq(request, response);
     }
 
-    protected void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json;charset=utf-8");
+
+        String email=request.getParameter("email");
 
         HttpSession session=request.getSession();
         String user_id= (String) session.getAttribute("user_id");
+
         UserService userService= UserService.getUserService();
-        UserDTO userDTO= userService.getUserInfo(user_id);
 
-        int user_no=userDTO.getUser_no();
-        String status=request.getParameter("status");
-
-
-        if("sale".equals(status) || status==null)
-            status="판매중";
-        else if("sale_comp".equals(status))
-            status="판매완료";
+        boolean result=userService.emailCheck(email, user_id);
 
         JSONArray arr=new JSONArray();
+        JSONObject o1=new JSONObject();
 
-        ProdService prodService=ProdService.getInstance();
-        List<ProdDTO> sales_list=prodService.salesList(status, user_no);
-
-        for(ProdDTO dto:sales_list){
-            JSONObject o1=new JSONObject();
-
-            o1.put("title",dto.getTitle());
-            o1.put("cost",dto.getCost());
-
-            arr.add(o1);
-        }
+        o1.put("result", result);
+        arr.add(o1);
 
         PrintWriter out=response.getWriter();
         out.print(arr);
-    }
 
+    }
 }
