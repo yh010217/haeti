@@ -395,4 +395,74 @@ public class ProdDAO {
 
     }
 
+    public List<ProdDTO> getRegionList(Connection conn, String fav_region) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  SELECT p.prod_no              ");
+        sql.append("            , p.title           ");
+        /*sql.append("            , write_date        ");*/
+        sql.append("            , p.cost              ");
+        sql.append("            , i1.img_url        ");
+        sql.append("  FROM prod p LEFT OUTER JOIN                   ");
+        sql.append("                       ( SELECT img_url         ");
+        sql.append("                               , prod_no        ");
+        sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
+        sql.append("                         FROM image ) i1        ");
+        sql.append("               ON p.prod_no = i1.prod_no        ");
+        sql.append("               LEFT OUTER JOIN user u           ");
+        sql.append("               ON p.seller_user_no = u.user_no  ");
+        sql.append("   WHERE rn=1    and    u.fav_region =   ?      ");
+        sql.append("   ORDER BY  p.prod_no DESC;                    ");
+
+        List<ProdDTO> list = new ArrayList<>();
+        ResultSet rs = null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setString(1, "%"+fav_region+"%");
+            rs= pstmt.executeQuery();
+
+            while(rs.next()){
+                ProdDTO dto = new ProdDTO();
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("i1.img_url"));
+
+                dto.setProd_no(rs.getInt("p.prod_no"));
+                dto.setTitle(rs.getString("p.title"));
+                /*dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
+                dto.setCost(rs.getInt("p.cost"));
+                dto.setImg_paths(img_paths);
+                list.add(dto);
+
+            }
+        }finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return list;
+    }
+
+    public List getLatLng(Connection conn, String fav_region) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("  SELECT lat                          ");
+        sql.append("       , lng                          ");
+        sql.append("  From coordinate                     ");
+        sql.append("  WHERE eup_myeun_dong LIKE ?         ");
+
+        ResultSet rs = null;
+        List latlng = new ArrayList();
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setString(1, "%"+fav_region+"%");
+            rs= pstmt.executeQuery();
+
+            while(rs.next()){
+                latlng.add(rs.getFloat("lat"));
+                latlng.add(rs.getFloat("lng"));
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return latlng;
+
+    }
 }

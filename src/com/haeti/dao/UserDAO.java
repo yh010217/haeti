@@ -48,7 +48,7 @@ public class UserDAO {
                 userDTO.setNick_name(rs.getString("nick_name"));
                 userDTO.setTel(rs.getString("tel"));
                 userDTO.setEmail(rs.getString("email"));
-                userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());
+           /*     userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());*/
                 userDTO.setTeacher_school(rs.getString("teacher_school"));
                 userDTO.setAddr_dong(rs.getString("addr_dong"));
                 userDTO.setAddr_detail(rs.getString("addr_detail"));
