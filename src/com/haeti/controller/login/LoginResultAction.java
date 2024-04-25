@@ -1,6 +1,7 @@
-package com.haeti.controller;
+package com.haeti.controller.login;
 
 import com.haeti.comm.Forward;
+import com.haeti.controller.Action;
 import com.haeti.dto.UserDTO;
 import com.haeti.service.UserService;
 
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-public class LoginResultAction implements Action{
+public class LoginResultAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user_id=request.getParameter("user_id");
