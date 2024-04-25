@@ -304,4 +304,22 @@ public class ProdService {
             db.disconn(conn);
         }
     }
+  
+    public ProdDTO salesProd(int user_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDTO prodDTO=new ProdDTO();
+        ProdDAO dao=ProdDAO.getProdDAO();
+
+        try{
+            conn= db.getConnection();
+            prodDTO=dao.salesProd(conn, user_no);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return prodDTO;
+    }
 }

@@ -1,8 +1,69 @@
-* {
-    font-family: "Noto Sans KR", sans-serif;
-    margin: 0;
-    padding: 0;
+/* 연한하늘 #E0E9FD*/
+/* 회색 #CBDAE1*/
+/* 초록 #03C75A*/
+/* 파랑 #469AFE*/
+/* 노랑 #FFDC4F*/
+@media screen and (min-width: 768px),
+screen and (min-height: 760px) and (orientation: landscape) {
+    * {
+        font-family: "Noto Sans KR", sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    ul li{
+        list-style: none;
+    }
+    .form-singin{
+        max-width: 390px;
+        position: relative;
+        width: 100%;
+        padding: 10px;
+        top: 50%;
+        left: 35%;
+
+    }
+
+    .input_btn{
+        background-color: white;
+        width: 460px;
+        height: 48px;
+        border: 3px solid #CBDAE1;
+        margin: 7px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+    .login_btn{
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #469AFE;
+        width: 460px;
+        height: 56px;
+        border: 3px solid #CBDAE1;
+        margin: 7px;
+        margin-top: 11px;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .writeForm>h1{
+        font-family: "Noto Sans KR", sans-serif;
+        position:  relative;
+        top: 50%;
+        left: 50%;
+    }
+    .join_btn{
+        color: #469AFE;
+    }
+    .join_btn{
+        color: #469AFE;
+    }
+
+
+
 }
-ul li {
-    list-style: none;
+
+@media screen and (max-width: 767px),
+screen and (max-height: 479px) and (orientation: landscape) {
+
+
 }

@@ -5,7 +5,6 @@ import com.haeti.dao.UserDAO;
 import com.haeti.dto.UserDTO;
 
 import javax.naming.NamingException;
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -137,22 +136,73 @@ public class UserService {
         return dto;
     }
 
-
-    public List<UserDTO> userListCheck(String user_id) {
+    public boolean nickCheck(String nick_name, String user_id) {
         Connection conn=null;
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
-        List<UserDTO> userList=new ArrayList<>();
+        boolean result=true;
 
         try{
             conn= db.getConnection();
-            userList=dao.userListCheck(conn, user_id);
+            result=dao.nickCheck(conn, nick_name, user_id);
 
         }catch (SQLException | NamingException e){
             System.out.println(e);
         }finally {
             db.disconn(conn);
         }
-        return userList;
+        return result;
     }
+
+    public boolean emailCheck(String email, String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=true;
+
+        try{
+            conn= db.getConnection();
+            result=dao.emailCheck(conn, email, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+    public int confirmId(String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        int confirmId_result=-1;// 있으면 1, 없으면 -1 초기값은 -1로 설정
+        try {
+            conn=db.getConnection();
+            confirmId_result=dao.confirmID(user_id);
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return confirmId_result;
+    }
+
+//    public boolean joinIdCheck(String user_id) {
+//        Connection conn=null;
+//        DBConnection db=DBConnection.getInstance();
+//        UserDAO dao=UserDAO.getUserDAO();
+//        boolean join_result=false;
+//        try {
+//            conn=db.getConnection();
+//            join_result=dao.joinIdCheck(conn,user_id);
+//
+//        }catch (SQLException | NamingException e){
+//            System.out.println(e);
+//        }finally {
+//            db.disconn(conn);
+//        }
+//        return join_result;
+//    }
+
+
 }
