@@ -13,11 +13,18 @@
     <!-- jquery -->
     <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script src="js/addr.js"></script>
-    <script src="js/modify_user.js"></script>
+    <script defer src="js/modify_user.js"></script>
     <link rel="stylesheet" href="css/modify_user.css">
 </head>
 <body>
 <c:set var="dto" value="${requestScope.userDTO}"/>
+<c:set var="postcode" value="${requestScope.postcode}"/>
+<c:set var="addr" value="${requestScope.addr}"/>
+<c:set var="addr_detail" value="${requestScope.addr_detail}"/>
+<c:set var="addr_extra" value="${requestScope.addr_extra}"/>
+<c:set var="fav_regions" value="${requestScope.fav_region}"/>
+
+
 <div id="wrap">
     <h1>내 정보 수정</h1>
     <form method="post" action="modify_user_result.do">
@@ -38,7 +45,8 @@
             <li>
                 <label for="nick_name">닉네임</label>
                 <input type="text" name="nick_name" id="nick_name" value="${dto.nick_name}">
-                <button type="submit" name="check">중복확인</button>
+                <button type="button" name="nick_check" id="nick_check">중복확인</button>
+                <span id="nick_check_result"></span>
             </li>
             <li>
                 <label>구분선택</label>
@@ -50,17 +58,18 @@
             </li>
             <li>
                 <label>주소</label>
-                <input type="text" id="sample6_postcode" placeholder="우편번호" value="${dto.addr_detail}">
+                <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" value="${postcode}">
                 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="sample6_address" placeholder="주소" value="${dto.addr_dong}"><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                <input type="text" name="addr" id="sample6_address" placeholder="주소" value="${addr}"><br>
+                <input type="text" name="addr_detail" id="sample6_detailAddress" placeholder="상세주소" value="${addr_detail}">
+                <input type="text" name="addr_extra" id="sample6_extraAddress" placeholder="참고항목" value="${addr_extra}">
             </li>
             <li>
-                <label>관심지역</label>
-                <input type="text" name="fav_region1" value="${dto.fav_region}">
-                <input type="text" name="fav_region2">
-                <input type="text" name="fav_region3">
+               <label>관심지역</label>
+                <c:forEach var="item" items="${fav_regions}" >
+                    <input type="text" name="fav_region" value="${item}" >
+                </c:forEach>
+
             </li>
             <li>
                 <label>휴대전화</label>
@@ -69,7 +78,8 @@
             <li>
                 <label>이메일</label>
                 <input type="email" name="email" id="email" value="${dto.email}">
-                <button type="submit" name="check">중복확인</button>
+                <button type="button" name="email_check" id="email_check">중복확인</button>
+                <span id="email_check_result"></span>
             </li>
             <li>
                 <label>가입일</label>

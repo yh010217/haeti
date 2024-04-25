@@ -17,56 +17,37 @@ public class ModifyUserResultAction implements Action{
         String user_id=request.getParameter("id");
         String pwd=request.getParameter("pwd");
         String nick_name=request.getParameter("nick_name");
-        String addr_detail=request.getParameter("addr_detail"); //수정 필요
-        String addr_dong=request.getParameter("addr_dong"); //수정 필요
-        String fav_region=request.getParameter("fav_region1"); //수정 필요
+        String addr_dong
+                =request.getParameter("postcode")
+                +","
+                +request.getParameter("addr");
+        String addr_detail
+                =request.getParameter("addr_detail")
+                +","
+                +request.getParameter("addr_extra");
+        String fav_region=request.getParameter("fav_region1")
+                +","
+                +request.getParameter("fav_region_2")
+                +","
+                +request.getParameter("fav_region_3");
         String email=request.getParameter("email");
 
         UserDTO dto=new UserDTO();
         dto.setUser_id(user_id);
         dto.setPwd(pwd);
         dto.setNick_name(nick_name);
-        dto.setAddr_detail(addr_detail);
         dto.setAddr_dong(addr_dong);
+        dto.setAddr_detail(addr_detail);
         dto.setFav_region(fav_region);
         dto.setEmail(email);
 
-
         UserService userService=UserService.getUserService();
-
-        List<UserDTO> userList=new ArrayList<>();
-        userList=userService.userListCheck(user_id);
+        int modify_result=userService.modifyUser(dto);
+        request.setAttribute("modify_result", modify_result);
 
         Forward forward=new Forward();
-//        forward.setForward(true);
-//        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
-
-        for(UserDTO userDTO:userList){
-            if("".equals(nick_name)|| userDTO.getNick_name().equals(nick_name)){
-                request.setAttribute("fail",0);
-                forward.setForward(false);
-                forward.setUrl("modify_user.do");
-                break;
-            }else if("".equals(email)|| userDTO.getEmail().equals(email)){
-                request.setAttribute("fail",0);
-                forward.setForward(false);
-                forward.setUrl("modify_user.do");
-                break;
-            }else{
-                int modify_result=userService.modifyUser(dto);
-                request.setAttribute("modify_result", modify_result);
-                forward.setForward(true);
-                forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
-            }
-        }
-
-
-
-
-//        System.out.println(modify_result+".....");
-
-/*        forward.setForward(true);
-        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");*/
+        forward.setForward(true);
+        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
         return forward;
     }
 }

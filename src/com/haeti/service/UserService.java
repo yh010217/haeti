@@ -107,22 +107,39 @@ public class UserService {
         return dto;
     }
 
-
-    public List<UserDTO> userListCheck(String user_id) {
+    public boolean nickCheck(String nick_name, String user_id) {
         Connection conn=null;
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
-        List<UserDTO> userList=new ArrayList<>();
+        boolean result=true;
 
         try{
             conn= db.getConnection();
-            userList=dao.userListCheck(conn, user_id);
+            result=dao.nickCheck(conn, nick_name, user_id);
 
         }catch (SQLException | NamingException e){
             System.out.println(e);
         }finally {
             db.disconn(conn);
         }
-        return userList;
+        return result;
+    }
+
+    public boolean emailCheck(String email, String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=true;
+
+        try{
+            conn= db.getConnection();
+            result=dao.emailCheck(conn, email, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
     }
 }
