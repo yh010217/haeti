@@ -26,7 +26,7 @@ public class ProdDAO {
         sql.append("  SELECT    p.prod_no           ");
         sql.append("            , p.title           ");
         sql.append("            , p.content         ");
-        sql.append("            , u.nick_name            ");
+        sql.append("            , u.nick_name        ");
         sql.append("            , c.category        ");
         sql.append("            , write_date        ");
         sql.append("            , cost              ");
@@ -50,7 +50,7 @@ public class ProdDAO {
             } else if ("content".equals(search)) {
                 sql.append("     p.content  like  ?       ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.name like  ?           ");
+                sql.append("     u.nick_name like  ?           ");
             } else if ("category".equals(search)) {
                 sql.append("     c.category like  ?       ");
             }
@@ -64,7 +64,7 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
              ) {
-            rs=pstmt.executeQuery();
+
 
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
@@ -77,6 +77,7 @@ public class ProdDAO {
 
             rs= pstmt.executeQuery();
 
+            rs=pstmt.executeQuery();
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
@@ -264,7 +265,7 @@ public class ProdDAO {
             }
         }
     }
-    
+
     /**  기간별 구매내역  */
     public List<ProdDTO> purchaseList(Connection conn, int period, int user_no) throws SQLException{
         //쿼리문 수정 필요!!
@@ -295,6 +296,33 @@ public class ProdDAO {
             }
         }
         return purchase_list;
+    }
+
+    public String getSellerId(Connection conn, String prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select user_id                                ");
+        sql.append("    from user u inner join prod p                 ");
+        sql.append("                on u.user_no = p.seller_user_no   ");
+        sql.append("    where prod_no =  ? ");
+        String seller_id = "";
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                seller_id = rs.getString("user_id");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return seller_id;
     }
 
     /**  상태별 판매내역  */
