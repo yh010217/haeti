@@ -37,10 +37,10 @@
 
 </ul>
 
-<a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅</a>
+<a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅</a><br>
 <%-- &buyer=${sessionScope.user_no} 를 썼었는데, 그냥 chatting.jsp 에서 세션으로 받을 수 있을듯--%>
-
-<a href="prod_delete.do?prod_no=${dto.prod_no}">삭제</a>
+<a href="prod_modify.do?prod_no=${dto.prod_no}">수정</a><br>
+<a href="prod_delete.do?prod_no=${dto.prod_no}">삭제</a><br>
 
 <script src="js/review_show.js"></script>
 <script>init_data(${dto.prod_no})</script>
