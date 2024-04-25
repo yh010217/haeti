@@ -243,6 +243,41 @@ public class ProdService {
 
     }
 
+    public List<ProdDTO> getRegionList(String fav_region) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getRegionList(conn, fav_region);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getRegionList exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
+    }
+
+    public List getLatLng(String fav_region) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List LatLng = new ArrayList();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            LatLng = dao.getLatLng(conn, fav_region);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getLatLng exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return LatLng;
+    }
     public void modifyProd(int prod_no, ProdDTO dto, List<String> toUpdate) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
