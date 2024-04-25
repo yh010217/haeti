@@ -27,13 +27,13 @@ public class UserDAO {
         sql.append("         , nick_name         ");
         sql.append("         , tel               ");
         sql.append("         , email             ");
-        sql.append("         , join_date         ");
+       /* sql.append("         , join_date         ");*/
         sql.append("         , teacher_school    ");
         sql.append("         , addr_dong         ");
         sql.append("         , addr_detail       ");
         sql.append("         , fav_region        ");
         sql.append("  from user                  ");
-        sql.append("  where user_id = ?          ");
+        sql.append("  where user_id  like  ?          ");
 
         ResultSet rs=null;
         UserDTO userDTO=new UserDTO();
@@ -48,12 +48,14 @@ public class UserDAO {
                 userDTO.setNick_name(rs.getString("nick_name"));
                 userDTO.setTel(rs.getString("tel"));
                 userDTO.setEmail(rs.getString("email"));
-           /*     userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+                /*userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());*/
                 userDTO.setTeacher_school(rs.getString("teacher_school"));
                 userDTO.setAddr_dong(rs.getString("addr_dong"));
                 userDTO.setAddr_detail(rs.getString("addr_detail"));
                 userDTO.setFav_region(rs.getString("fav_region"));
             }
+        }finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
         }
         return userDTO;
     }

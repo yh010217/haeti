@@ -28,9 +28,10 @@ public class ProdDAO {
         sql.append("            , p.content         ");
         sql.append("            , u.nick_name        ");
         sql.append("            , c.category        ");
-        sql.append("            , write_date        ");
+       /* sql.append("            , write_date        ");*/
         sql.append("            , cost              ");
         sql.append("            , i1.img_url        ");
+        sql.append("            , u.fav_region      ");
         sql.append("  FROM prod p LEFT OUTER JOIN        ");
         sql.append("                       ( SELECT img_url       ");
         sql.append("                               , prod_no      ");
@@ -46,15 +47,15 @@ public class ProdDAO {
         if (!"".equals(search) && !"".equals(search_txt)) {
             sql.append("             and                  ");
             if("title".equals(search)){
-                sql.append("     p.title like   ?         ");
+                sql.append("   (  p.title like   ?    )     ");
             } else if ("content".equals(search)) {
-                sql.append("     p.content  like  ?       ");
+                sql.append("   (  p.content  like  ?   )    ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.nick_name like  ?      ");
+                sql.append("   (  u.nick_name like  ?   )   ");
             } else if ("category".equals(search)) {
-                sql.append("     c.category like  ?       ");
+                sql.append("   (  c.category like  ?    )   ");
             } else if ("fav_region".equals(search)) {
-                sql.append("     u.fav_region like  ?     ");
+                sql.append("   (  u.fav_region like  ?   )  ");
             }
         }
         sql.append("   ORDER BY  p.prod_no DESC             ");
@@ -67,8 +68,11 @@ public class ProdDAO {
 
              ) {
 
-
-            if (!"".equals(search) && !"".equals(search_txt)) {
+            if ("fav_region".equals(search) && !"".equals(search_txt)) {
+                pstmt.setString(1, "%" + search_txt + "%");   /**여기서 자꾸 에러 나는 중...*/
+                pstmt.setInt(2, startrow);
+                pstmt.setInt(3, pagesize);
+            } else if (!"".equals(search) && !"".equals(search_txt) && !"fav_region".equals(search)) {
                 pstmt.setString(1, "%" + search_txt + "%");
                 pstmt.setInt(2, startrow);
                 pstmt.setInt(3, pagesize);
@@ -86,7 +90,7 @@ public class ProdDAO {
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("p.title"));
-                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
+               /* dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
                 dto.setCost(rs.getInt("cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
@@ -389,7 +393,7 @@ public class ProdDAO {
                 total_data = rs.getInt(1);
             }
         } finally {
-            if(rs!=null) try{rs.close();} catch (Exception e){}
+            if(rs!=null) try{rs.close();} catch(Exception e){}
         }
         return total_data;
 
@@ -418,7 +422,7 @@ public class ProdDAO {
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ){
-            pstmt.setString(1, "%"+fav_region+"%");
+            pstmt.setString(1, fav_region);
             rs= pstmt.executeQuery();
 
             while(rs.next()){

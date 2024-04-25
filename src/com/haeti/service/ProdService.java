@@ -106,6 +106,7 @@ public class ProdService {
             ProdDAO dao = ProdDAO.getProdDAO();
             list = dao.getList(conn, startrow, pagesize, search, search_txt);
 
+
         }catch (SQLException | NamingException e){
             System.out.println("ProdService getList exception"+e.getMessage());
         }finally {

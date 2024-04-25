@@ -19,18 +19,17 @@ public class ProdFavRegionAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+
         // 세션정보로 수정할 것
         String user_id = "test2";
 
 
         // 유저정보 가져오기 - user_dto / fav_region
-        UserDTO user_dto = new UserDTO();
 
         UserService user_service = UserService.getUserService();
-        user_dto = user_service.getUserInfo(user_id);
+        UserDTO user_dto = user_service.getUserInfo(user_id);
 
         String fav_region = user_dto.getFav_region();
-
 
         ProdService prod_service = ProdService.getInstance();
 
@@ -68,6 +67,7 @@ public class ProdFavRegionAction implements Action {
         // 판매자의 fav_region이 같은 매물 목록 가져오기 - List<ProdDTO>
 
         List<ProdDTO> list = prod_service.getList(startrow, pagesize, search, search_txt);
+
 
 
         request.setAttribute("user_dto", user_dto);
