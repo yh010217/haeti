@@ -15,6 +15,7 @@ import com.haeti.dao.ProdDAO;
 import com.haeti.dto.ProdDTO;
 
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -158,7 +159,7 @@ public class ProdService {
         }
     }
 
-    private void fileDelete(List<String> img_paths,String uploadPath) {
+    public void fileDelete(List<String> img_paths,String uploadPath) {
         for(String img_path : img_paths) {
             img_path = uploadPath + "/" + img_path;
             File file = new File(img_path);
@@ -276,5 +277,84 @@ public class ProdService {
             db.disconn(conn);
         }
         return LatLng;
+    }
+    public void modifyProd(int prod_no, ProdDTO dto, List<String> toUpdate) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
+        ImageDAO imageDAO = ImageDAO.getInstance();
+
+        List<String> img_paths = dto.getImg_paths();
+
+        try {
+            conn = db.getConnection();
+            conn.setAutoCommit(false);
+
+            //imageDAO.deleteImages(conn);
+            //얘를 delete 인 애만 해야되는데 걍 다지워버림 그래서 dB에서 사라져있음
+
+            prodDAO.modifyProd(conn, prod_no, dto);
+
+            int updateNum = toUpdate.size();
+            for(int i = 0 ; i < updateNum ; i++){
+                //update
+                imageDAO.updateImage(conn, toUpdate.get(i),img_paths.get(i));
+            }
+            for(int i = updateNum ; i < img_paths.size() ; i++){
+                //단순 create
+                imageDAO.createImage(conn,prod_no,img_paths.get(i));
+            }
+
+/*
+            for(String img_path : img_paths) {
+                imageDAO.createImage(conn, prod_no, img_path);
+            }
+*/
+            conn.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            try {
+                conn.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        } finally {
+            db.disconn(conn);
+        }
+
+    }
+
+    public void deleteImg(List<String> deleteList) {
+        ImageDAO dao = ImageDAO.getInstance();
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        try {
+            conn = db.getConnection();
+            for(String delete : deleteList) {
+                dao.deleteOneImage(conn, delete);
+            }
+        }catch (SQLException|NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+    }
+  
+    public ProdDTO salesProd(int user_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDTO prodDTO=new ProdDTO();
+        ProdDAO dao=ProdDAO.getProdDAO();
+
+        try{
+            conn= db.getConnection();
+            prodDTO=dao.salesProd(conn, user_no);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return prodDTO;
     }
 }

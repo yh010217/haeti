@@ -20,7 +20,7 @@
         alert('아이디 또는 패스워드가 잘못 입력했습니다');
         location.href="login.do";
     }else{
-        location.href="loginsuccess.do";
+        location.href="index.do";
     }
 
 

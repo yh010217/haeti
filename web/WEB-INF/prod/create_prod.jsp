@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -9,13 +10,18 @@
 
 <h3>상품 등록</h3>
 
-<form method="post" action="create_prod_result.do" enctype="multipart/form-data">
 
-    <input type="file" class="picture_image" name="picture_image1"><br>
-    <input type="file" class="picture_image" name="picture_image2"><br>
-    <input type="file" class="picture_image" name="picture_image3"><br>
-    <input type="file" class="picture_image" name="picture_image4"><br>
-    <input type="file" class="picture_image" name="picture_image5"><br>
+<form method="post" action="create_prod_result.do" enctype="multipart/form-data">
+    <input type="file" class="picture_image" name="picture_image1" onchange="setPreview(event,1);"><br>
+    <div id="image_container1"><img src=""></div>
+    <input type="file" class="picture_image" name="picture_image2" onchange="setPreview(event,2);"><br>
+    <div id="image_container2"></div>
+    <input type="file" class="picture_image" name="picture_image3" onchange="setPreview(event,3);"><br>
+    <div id="image_container3"></div>
+    <input type="file" class="picture_image" name="picture_image4" onchange="setPreview(event,4);"><br>
+    <div id="image_container4"></div>
+    <input type="file" class="picture_image" name="picture_image5" onchange="setPreview(event,5);"><br>
+    <div id="image_container5"></div>
 
     <ul>
         <li>

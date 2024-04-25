@@ -2,7 +2,6 @@ package com.haeti.dao;
 
 import com.haeti.dto.UserDTO;
 
-import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -303,29 +302,90 @@ public class UserDAO {
         return list;
     }
 
-
-    public List<UserDTO> userListCheck(Connection conn, String user_id) throws SQLException{
+    public boolean nickCheck(Connection conn, String nick_name, String user_id) throws SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("  select nick_name         ");
-        sql.append("        , email            ");
-        sql.append("  from user                ");
-        sql.append("  WHERE user_id <> ?      ");
+        sql.append("  select nick_name      ");
+        sql.append("  from user             ");
+        sql.append("  where nick_name = ?   ");
+        sql.append("  and user_id <> ?      ");
 
-        List<UserDTO> userList=new ArrayList<>();
         ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
         try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
-            pstmt.setString(1, user_id);
-            rs= pstmt.executeQuery();
-            while (rs.next()){
-                UserDTO dto=new UserDTO();
-                dto.setNick_name(rs.getString("nick_name"));
-                dto.setEmail(rs.getString("email"));
-                userList.add(dto);
+            pstmt.setString(1, nick_name);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
             }
         }
-        return userList;
+        return result;
     }
 
+    public boolean emailCheck(Connection conn, String email, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select email          ");
+        sql.append("  from user             ");
+        sql.append("  where email = ?       ");
+        sql.append("  and user_id <> ?      ");
+
+        ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, email);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
+            }
+        }
+        return result;
+    }
+
+    public int confirmID(String user_id) {
+        StringBuilder sql=new StringBuilder();
+        sql.append("   select user_id    ");
+        sql.append("     from  user      ");
+        sql.append("    where user_id = ? ");
+        Connection conn=null;
+        int confirmId_result=-1;
+        ResultSet rs=null;
+        try (PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, user_id);
+            rs=pstmt.executeQuery();
+            if (rs.next()){
+                confirmId_result=1;
+            }else {
+                confirmId_result=-1;
+            }
+        }catch (Exception e){
+            System.out.println(e);
+        }finally {
+            if (rs!=null) try {rs.close();}catch (Exception e){}
+            if (conn!=null) try {conn.close();}catch (Exception e){}
+
+        }
+        return confirmId_result;
+    }
+
+//    public boolean joinIdCheck(Connection conn, String user_id) throws  SQLException{
+//        StringBuilder sql=new StringBuilder();
+//        sql.append(" select   user_id    ");
+//        sql.append("          ,nick_ name  ");
+//        sql.append("          , email       ");
+//        sql.append("       from user         ");
+//        sql.append("    where  user_id = ?   ");
+//        boolean join_result=false;
+//        ResultSet rs=null;
+//        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+//            pstmt.setString(1, user_id);
+//            rs=pstmt.executeQuery();
+//            while (rs.next()) join_result=true; // 해당 아이디 존재
+//        }
+//        return  join_result;
+//    }
 
 }
 

@@ -26,7 +26,7 @@ public class ProdDAO {
         sql.append("  SELECT    p.prod_no           ");
         sql.append("            , p.title           ");
         sql.append("            , p.content         ");
-        sql.append("            , u.nick_name        ");
+        sql.append("            , u.nick_name            ");
         sql.append("            , c.category        ");
         sql.append("            , write_date        ");
         sql.append("            , cost              ");
@@ -464,5 +464,62 @@ public class ProdDAO {
         }
         return latlng;
 
+    public void modifyProd(Connection conn, int prod_no, ProdDTO dto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update prod set title = ?  ");
+        sql.append("                ,content=? ");
+        sql.append("                ,cost=?    ");
+        sql.append("         where prod_no = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, dto.getTitle());
+            pstmt.setString(2, dto.getContent());
+            pstmt.setInt(3, dto.getCost());
+            //pstmt.setInt(4, dto.getCategory_id());
+            pstmt.setInt(4, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+    public ProdDTO salesProd(Connection conn, int user_no) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select title                        ");
+        sql.append("         , cost                       ");
+        sql.append("         , write_date                 ");
+        sql.append("         , img_url                    ");
+        sql.append("  from prod p left join trade t       ");
+        sql.append("  on p.prod_no = t.prod_no            ");
+        sql.append("  left join image i                   ");
+        sql.append("  on p.prod_no = i.prod_no            ");
+        sql.append("  where p.seller_user_no = ?          ");
+        sql.append("  and t.status = ?                    ");
+        sql.append("  limit 1                             ");
+
+        ResultSet rs=null;
+        ProdDTO prodDTO=new ProdDTO();
+        try(PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setInt(1, user_no);
+            pstmt.setString(2, "판매완료");
+            rs= pstmt.executeQuery();
+
+            List<String> img_paths=new ArrayList<>();
+
+
+            if(rs.next()){
+                prodDTO.setTitle(rs.getString("title"));
+                prodDTO.setCost(rs.getInt("cost"));
+                prodDTO.setWrite_date(rs.getDate("write_date").toLocalDate());
+                img_paths.add(rs.getString("img_url"));
+                prodDTO.setImg_paths(img_paths);
+            }
+        }
+        return prodDTO;
     }
 }
