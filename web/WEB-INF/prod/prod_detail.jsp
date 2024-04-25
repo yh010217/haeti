@@ -10,6 +10,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/prod_detail.css">
 </head>
 <body>
 
@@ -20,11 +21,12 @@
 <c:set var="path" value="${requestScope.path}\\"/>
 <c:set var="images" value="${dto.img_paths}"/>
 
-<ul>
+<div class="prod_image_detail_container">
     <c:forEach var="image" items="${images}">
-        <li>이미지 : <img src="upload/${dto.prod_no}/${image}"></li>
+        <li class="prod_detail_images"><img src="upload/${dto.prod_no}/${image}"></li>
     </c:forEach>
-</ul>
+</div>
+
 <c:out value="제목 : ${dto.title}"/><br>
 <c:out value="작성 날짜 : ${dto.write_date}"/><br>
 <c:out value="가격 : ${dto.cost}"/><br>
