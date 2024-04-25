@@ -65,7 +65,6 @@ public class ProdDAO {
 
              ) {
 
-
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
                 pstmt.setInt(2, startrow);
@@ -74,8 +73,6 @@ public class ProdDAO {
                 pstmt.setInt(1, startrow);
                 pstmt.setInt(2, pagesize);
             }
-
-            rs= pstmt.executeQuery();
 
             rs=pstmt.executeQuery();
             while(rs.next()){
