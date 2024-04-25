@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+/*
 
 @WebFilter(urlPatterns = "*.do", initParams = {@WebInitParam(
         name = "exclude"
@@ -55,3 +56,4 @@ public class LoginFilter implements Filter {
 
 
 }
+*/

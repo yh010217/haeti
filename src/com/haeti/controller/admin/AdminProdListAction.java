@@ -17,7 +17,7 @@ public class AdminProdListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 관리자 세션 확인하기
+        // 관리자 세션 확인 꼭 할 것
 
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");
@@ -68,4 +68,6 @@ public class AdminProdListAction implements Action {
 
         return forward;
     }
+
+    // 테스트용
 }

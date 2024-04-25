@@ -50,7 +50,7 @@ public class ProdDAO {
             } else if ("content".equals(search)) {
                 sql.append("     p.content  like  ?       ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.name like  ?           ");
+                sql.append("     u.nick_name like  ?           ");
             } else if ("category".equals(search)) {
                 sql.append("     c.category like  ?       ");
             }
@@ -65,6 +65,7 @@ public class ProdDAO {
 
              ) {
 
+
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
                 pstmt.setInt(2, startrow);
@@ -74,6 +75,7 @@ public class ProdDAO {
                 pstmt.setInt(2, pagesize);
             }
 
+            rs= pstmt.executeQuery();
 
             rs=pstmt.executeQuery();
             while(rs.next()){
@@ -388,5 +390,30 @@ public class ProdDAO {
         }
         return total_data;
 
+    }
+
+    public void modifyProd(Connection conn, int prod_no, ProdDTO dto) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("update prod set title = ?  ");
+        sql.append("                ,content=? ");
+        sql.append("                ,cost=?    ");
+        sql.append("         where prod_no = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, dto.getTitle());
+            pstmt.setString(2, dto.getContent());
+            pstmt.setInt(3, dto.getCost());
+            //pstmt.setInt(4, dto.getCategory_id());
+            pstmt.setInt(4, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

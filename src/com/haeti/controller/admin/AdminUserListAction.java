@@ -16,7 +16,7 @@ public class AdminUserListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 관리자 세션 확인 할 것
+        // 관리자 세션 확인 꼭 할 것
 
         /*
         String curr = request.getParameter("curr");
@@ -69,6 +69,7 @@ public class AdminUserListAction implements Action {
         return forward;
     }
 
+    // 테스트테스트
          */
         return null;
     }
