@@ -12,20 +12,21 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" href="css/join.css">
-    <script src="js/join.js"></script>
+<%--    <script defer src="js/join.js"></script>--%>
+     <script defer scr="js/addr.js"></script>
 </head>
 <body>
+
 <div id="join">
     <h2>회원가입</h2>
-    <form name="joinForm" method="post" action="join_result.do" onsubmit="return join();">
+    <form name="joinForm" method="post" action="join_result.do">
         <ul>
             <li>
                 <label for="user_id">아이디</label>
                 <input type="text" name="user_id" id="user_id" required>
-                <input type="button" value="중복확인" onclick="openIdChk()">
-                <input type="hidden" name="idDuplication" value="idUncheck">
+                <input type="button" value="중복확인"  onclick="return idCheck()">
+<%--                <span id="res"></span>--%>
 
-                <button type="submit" name="check">중복검사</button>
             </li>
             <li>
                 <label for="pwd">비밀번호</label>
@@ -58,8 +59,8 @@
             <li>
                 <label for= "fav_region">관심지역</label>
                 <input type="text" id="fav_region" name="fav_region">
-                <input type="text"  id="fav_region2" name="fav_region">
-                <input type="text"  id="fav_region3" name="fav_region">
+<%--                <input type="text"  id="fav_region2" name="fav_region">--%>
+<%--                <input type="text"  id="fav_region3" name="fav_region">--%>
             </li>
             <li>
                 <label for="tel">휴대전화</label>
@@ -71,11 +72,10 @@
                 <button type="submit" name="check">중복확인</button>
             </li>
             <li>
-                <input type="submit" value="회원가입">
+                <input type="submit" value="회원가입" id="joinBtn">
             </li>
             <li>
-                <button type="submit" id="previous">이전</button>
-                <button type="submit" id="next">다음</button>
+                <a href="sing.jsp">이전</a>
             </li>
         </ul>
     </form>
@@ -84,5 +84,9 @@
 
 
 </form>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
 </body>
+
 </html>
