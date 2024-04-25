@@ -49,7 +49,7 @@ public class ProdMapAction implements Action {
 
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("template.jsp?page=WEB-INF/adminpage/prod_map.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/prod/prod_map.jsp");
 
         return forward;
     }
