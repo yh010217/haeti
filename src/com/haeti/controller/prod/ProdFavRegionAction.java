@@ -20,7 +20,7 @@ public class ProdFavRegionAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 세션정보로 수정할 것
-        String user_id = "길순";
+        String user_id = "홍길순";
 
 
         // 유저정보 가져오기 - user_dto / fav_region
@@ -84,7 +84,7 @@ public class ProdFavRegionAction implements Action {
 
 
         Forward forward = new Forward();
-        forward.setForward(false);
+        forward.setForward(true);
         forward.setUrl("template.jsp?page=WEB-INF/prod/index.jsp");
 
 

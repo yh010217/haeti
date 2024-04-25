@@ -37,9 +37,9 @@ public class ProdDAO {
         sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
         sql.append("                         FROM image ) i1      ");
         sql.append("               ON p.prod_no = i1.prod_no      ");
-        sql.append("               LEFT OUTER JOIN user u                    ");
+        sql.append("               LEFT OUTER JOIN user u               ");
         sql.append("               ON p.seller_user_no = u.user_no      ");
-        sql.append("               LEFT OUTER JOIN category c                ");
+        sql.append("               LEFT OUTER JOIN category c           ");
         sql.append("               ON p.category_id = c.category_id     ");
         sql.append("   WHERE rn=1                                       ");
 
@@ -50,9 +50,11 @@ public class ProdDAO {
             } else if ("content".equals(search)) {
                 sql.append("     p.content  like  ?       ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.nick_name like  ?           ");
+                sql.append("     u.nick_name like  ?      ");
             } else if ("category".equals(search)) {
                 sql.append("     c.category like  ?       ");
+            } else if ("fav_region".equals(search)) {
+                sql.append("     u.fav_region like  ?     ");
             }
         }
         sql.append("   ORDER BY  p.prod_no DESC             ");
@@ -77,7 +79,6 @@ public class ProdDAO {
 
             rs= pstmt.executeQuery();
 
-            rs=pstmt.executeQuery();
             while(rs.next()){
                 ProdDTO dto = new ProdDTO();
                 List<String> img_paths=new ArrayList<>();
@@ -355,9 +356,9 @@ public class ProdDAO {
         StringBuilder sql = new StringBuilder();
 
         sql.append("   select   count(*)   ");
-        sql.append("   FROM prod p INNER JOIN user u   ");
+        sql.append("   FROM prod p left outer join user u   ");
         sql.append("               ON p.seller_user_no = u.user_no   ");
-        sql.append("               INNER JOIN category c   ");
+        sql.append("               left outer join category c   ");
         sql.append("               ON p.category_id = c.category_id   ");
 
         if(!"".equals(search) && !"".equals(search_txt)){
