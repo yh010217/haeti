@@ -440,7 +440,7 @@ public class ProdDAO {
         return list;
     }
 
-    public List getLatLng(Connection conn, String fav_region) throws SQLException{
+    public List getLatLng(Connection conn, String fav_region) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT lat                          ");
         sql.append("       , lng                          ");
@@ -450,20 +450,23 @@ public class ProdDAO {
         ResultSet rs = null;
         List latlng = new ArrayList();
 
-        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
-        ){
-            pstmt.setString(1, "%"+fav_region+"%");
-            rs= pstmt.executeQuery();
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, "%" + fav_region + "%");
+            rs = pstmt.executeQuery();
 
-            while(rs.next()){
+            while (rs.next()) {
                 latlng.add(rs.getFloat("lat"));
                 latlng.add(rs.getFloat("lng"));
             }
         } finally {
-            if(rs!=null) try{rs.close();} catch (Exception e){}
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
         }
         return latlng;
-
+    }
     public void modifyProd(Connection conn, int prod_no, ProdDTO dto) {
         StringBuilder sql = new StringBuilder();
         sql.append("update prod set title = ?  ");
