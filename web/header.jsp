@@ -24,7 +24,7 @@
         </form>
 
         <div class="login">
-            <a href="#">로그인 / 회원가입</a></li>
+            <a href="login.do">로그인 / 회원가입</a></li>
         </div>
 
         <div class="hambuger-menu">

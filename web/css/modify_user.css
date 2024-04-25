@@ -22,3 +22,11 @@ form{
     margin: 7vh auto;
     width: 60vw;
 }
+
+.impossible{
+    color: red;
+}
+
+.possible{
+    color: green;
+}

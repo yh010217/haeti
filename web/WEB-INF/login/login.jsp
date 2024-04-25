@@ -18,23 +18,27 @@
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-<form name="writeForm" method="post" action="login_result.do">
-    <ul>
-        <li>
-            <label for="user_id">아이디</label>
-            <input type="text" id="user_id" name="user_id" required>
-        </li>
-        <li>
-            <label for="pwd">패스워드</label>
-            <input type="password" id="pwd" name="pwd" required>
-        </li>
-        <li>
-            <input type="submit" value="로그인">
-        </li>
-        <li>처음이신가요?<a href="join.do">회원가입</a></li>
-    </ul>
 
-</form>
+<main class="form-singin">
+    <form class="writeForm" method="post" action="login_result.do">
+        <h1>로그인</h1>
+        <div>
+            <input type="text"  name="user_id" placeholder="아이디" class="input_btn" required>
+        </div>
+        <div>
+            <input type="password"  name="pwd" placeholder="비밀번호" class="input_btn" required>
+        </div>
+        <div>
+            <input class="login_btn" type="submit" value="로그인">
+        </div>
+        <ul>
+            <li>처음이신가요?<a href="join.do" class="join_btn">회원가입</a></li>
+        </ul>
+
+
+    </form>
+</main>
+
 
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.haeti.controller;
 
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.UserDTO;
 import com.haeti.service.ProdService;
+import com.haeti.service.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -29,7 +32,8 @@ public class PurchaseListResultAction extends HttpServlet {
     protected void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json;charset=utf-8");
 
-        int user_no=4;
+        HttpSession session=request.getSession();
+        String user_id= (String) session.getAttribute("user_id");
         String period=request.getParameter("period");
         int period_select=7;
 
@@ -38,10 +42,14 @@ public class PurchaseListResultAction extends HttpServlet {
         else if("3month".equals(period))
             period_select=31*3;
 
-        JSONArray arr=new JSONArray();
+        UserService userService= UserService.getUserService();
+        UserDTO userDTO=userService.getUserInfo(user_id);
+        int user_no=userDTO.getUser_no();
 
         ProdService prodService=ProdService.getInstance();
         List<ProdDTO> purchase_list=prodService.purchaseList(period_select,user_no);
+
+        JSONArray arr=new JSONArray();
 
         for(ProdDTO dto:purchase_list){
             JSONObject o1=new JSONObject();

@@ -416,4 +416,38 @@ public class ProdDAO {
             }
         }
     }
+    public ProdDTO salesProd(Connection conn, int user_no) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select title                        ");
+        sql.append("         , cost                       ");
+        sql.append("         , write_date                 ");
+        sql.append("         , img_url                    ");
+        sql.append("  from prod p left join trade t       ");
+        sql.append("  on p.prod_no = t.prod_no            ");
+        sql.append("  left join image i                   ");
+        sql.append("  on p.prod_no = i.prod_no            ");
+        sql.append("  where p.seller_user_no = ?          ");
+        sql.append("  and t.status = ?                    ");
+        sql.append("  limit 1                             ");
+
+        ResultSet rs=null;
+        ProdDTO prodDTO=new ProdDTO();
+        try(PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setInt(1, user_no);
+            pstmt.setString(2, "판매완료");
+            rs= pstmt.executeQuery();
+
+            List<String> img_paths=new ArrayList<>();
+
+
+            if(rs.next()){
+                prodDTO.setTitle(rs.getString("title"));
+                prodDTO.setCost(rs.getInt("cost"));
+                prodDTO.setWrite_date(rs.getDate("write_date").toLocalDate());
+                img_paths.add(rs.getString("img_url"));
+                prodDTO.setImg_paths(img_paths);
+            }
+        }
+        return prodDTO;
+    }
 }
