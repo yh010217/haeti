@@ -10,21 +10,23 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/admin_prod.css">
+    <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
 
-<ul>
-    <li>관리자 페이지</li>
-    <li><a href="adminuserlist.do">회원관리</a></li>
-    <li><a href="adminprodlist.do">상품관리</a></li>
-    <li><a href="#">카테고리 관리</a></li>
-    <li><a href="#">고객센터</a></li>
-</ul>
+<ul class="menu_prod">
+        <li class="font_mid">관리자 페이지</li>
+        <li><a href="adminuserlist.do">회원관리</a></li>
+        <li><a href="adminprodlist.do">상품관리</a></li>
+        <li><a href="#">카테고리 관리</a></li>
+        <li><a href="#">고객센터</a></li>
+    </ul>
 
 <%--구분선 추가--%>
 <div class="line"></div>
 
-<form method="post" action="adminprodlist.do">
+<form class ="user_search" method="post" action="adminprodlist.do">
     <select name="search">
         <option value="title">제목</option>
         <option value="content">내용</option>
@@ -53,7 +55,7 @@
     <c:if test="${!(empty list)}">
         <c:forEach var="item" items="${list}">
             <ul>
-                <li><a href="prod_detail.do?prod_no=${item.prod_no}">
+                <li><a href="prod_modify.do?prod_no=${item.prod_no}">
                     <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
                 <li class="title">${item.title}</li>
                 <li class="cost">${item.cost}원</li>

@@ -11,21 +11,22 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+<%--    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>--%>
+    <script defer scr="js/addr.js"></script>
+    <script defer src="js/join_user.js"></script>
     <link rel="stylesheet" href="css/join.css">
-<%--    <script defer src="js/join.js"></script>--%>
-     <script defer scr="js/addr.js"></script>
 </head>
 <body>
 
 <div id="join">
     <h2>회원가입</h2>
-    <form name="joinForm" method="post" action="join_result.do">
+    <form method="post" action="join_result.do">
         <ul>
             <li>
                 <label for="user_id">아이디</label>
                 <input type="text" name="user_id" id="user_id" required>
-                <input type="button" value="중복확인"  onclick="return idCheck()">
-<%--                <span id="res"></span>--%>
+                <button type="button" name="user_id_check" id="user_id_check">중복확인</button>
+                <span id="user_id_check_result"></span>
 
             </li>
             <li>
@@ -38,27 +39,29 @@
             </li>
             <li>
                 <label for="nick_name">닉네임</label>
-                <input type="text" name="nick_name" id="nick_name">
-                <button type="submit" name="check">중복확인</button>
+                <input type="text" name="nick_name" id="nick_name" required>
+                <button type="button" name="nick_name_check2" id="nick_name_check2">중복확인</button>
+                <span id="nick_name_check_result2"></span>
+
             </li>
             <li>
                 <label>구분선택</label>
-                <select class="teacher_school" id="teacher_school">
+                <select  name="teacher_school" id="teacher_school" required>
                     <option value="ele_school" >초등교사</option>
                     <option value="middlehigh">중·고등교사</option>
                 </select>
             </li>
             <li>
                 <label>주소</label>
-                <input type="text" id="sample6_postcode" placeholder="우편번호">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-                <input type="text" id="sample6_address" placeholder="주소"><br>
-                <input type="text" id="sample6_detailAddress" placeholder="상세주소">
-                <input type="text" id="sample6_extraAddress" placeholder="참고항목">
+                <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호">
+                <input type="button"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="text" name="addr" id="sample6_address" placeholder="주소"><br>
+                <input type="text" name="addr_detail" id="sample6_detailAddress" placeholder="상세주소">
+                <input type="text" name="addr_extra" id="sample6_extraAddress" placeholder="참고항목">
             </li>
             <li>
                 <label for= "fav_region">관심지역</label>
-                <input type="text" id="fav_region" name="fav_region">
+                <input type="text" name="fav_region" id="fav_region" >
 <%--                <input type="text"  id="fav_region2" name="fav_region">--%>
 <%--                <input type="text"  id="fav_region3" name="fav_region">--%>
             </li>
@@ -69,21 +72,27 @@
             <li>
                 <label for="email">이메일</label>
                 <input type="email" name="email" id="email" required>
-                <button type="submit" name="check">중복확인</button>
+                <button type="button" name="email_check2" id="email_check2">중복확인</button>
+                <span id="email_check_result2"></span>
             </li>
             <li>
                 <input type="submit" value="회원가입" id="joinBtn">
             </li>
-            <li>
-                <a href="sing.jsp">이전</a>
-            </li>
+
         </ul>
     </form>
+    <div id="down_btn">
+        <a href="signup.do">이전</a>
+    </div>
 </div>
 
 
 
-</form>
+
+
+
+
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 

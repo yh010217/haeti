@@ -1,0 +1,19 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.menu a {
+
+    width: 40vw; width: 30vh;
+    border : 2px solid lightblue;
+    border-radius: 5px;
+
+}

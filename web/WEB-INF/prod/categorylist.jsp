@@ -9,13 +9,15 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" href="css/prodcategory.css">
 </head>
 <body>
-
+<div class=menu>
     <a href="categoryResult.do?category=chunjae">천재교과서</a>
     <a href="categoryResult.do?category=jihak">지학사</a>
     <a href="categoryResult.do?category=bisang">비상교과서</a>
     <a href="categoryResult.do?category=etc">기타</a>
+</div>
 
 </form>
 </body>

@@ -7,8 +7,7 @@
 screen and (min-height: 760px) and (orientation: landscape) {
     * {
         font-family: "Noto Sans KR", sans-serif;
-        margin: 0;
-        padding: 0;
+
     }
     ul li{
         list-style: none;
@@ -17,9 +16,9 @@ screen and (min-height: 760px) and (orientation: landscape) {
         max-width: 390px;
         position: relative;
         width: 100%;
-        padding: 10px;
-        top: 50%;
-        left: 35%;
+        padding: 120px 120px;
+        margin: 10px ;
+        left: 30%;
 
     }
 
@@ -48,8 +47,13 @@ screen and (min-height: 760px) and (orientation: landscape) {
     .writeForm>h1{
         font-family: "Noto Sans KR", sans-serif;
         position:  relative;
-        top: 50%;
-        left: 50%;
+        top: -20px;
+        left: 45%;
+    }
+    .writeForm>ul>li{
+        position:  relative;
+        top: 10px;
+        left: 40%;
     }
     .join_btn{
         color: #469AFE;
@@ -64,6 +68,62 @@ screen and (min-height: 760px) and (orientation: landscape) {
 
 @media screen and (max-width: 767px),
 screen and (max-height: 479px) and (orientation: landscape) {
+    * {
+        font-family: "Noto Sans KR", sans-serif;
+
+    }
+    ul li{
+        list-style: none;
+    }
+    .form-singin{
+        max-width: 390px;
+        position: relative;
+        width: 100%;
+        padding: 20px 20px;
+        /*margin: 10px ;*/
+        /*left: 30%;*/
+
+    }
+
+    .input_btn{
+        background-color: white;
+        width: 460px;
+        height: 48px;
+        border: 3px solid #CBDAE1;
+        margin: 7px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+    .login_btn{
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #469AFE;
+        width: 460px;
+        height: 56px;
+        border: 3px solid #CBDAE1;
+        margin: 7px;
+        margin-top: 11px;
+        padding: 5px;
+        box-sizing: border-box;
+        font-size: 15px;
+    }
+
+    .writeForm>h1{
+        font-family: "Noto Sans KR", sans-serif;
+        position:  relative;
+        top: -20px;
+        left: 45%;
+    }
+    .writeForm>ul>li{
+        position:  relative;
+        top: 10px;
+        left: 40%;
+    }
+    .join_btn{
+        color: #469AFE;
+    }
+    .join_btn{
+        color: #469AFE;
+    }
 
 
 }

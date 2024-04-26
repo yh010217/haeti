@@ -10,11 +10,12 @@
 <html>
 <head>
     <title>Title</title>
+  <link rel="stylesheet" href="css/admin_user.css">
 </head>
 <body>
 
-<ul>
-  <li>관리자 페이지</li>
+<ul class="menu_user">
+  <li class="font_mid">관리자 페이지</li>
   <li><a href="adminuserlist.do">회원관리</a></li>
   <li><a href="adminprodlist.do">상품관리</a></li>
   <li><a href="#">카테고리 관리</a></li>
@@ -24,7 +25,7 @@
 <%--구분선 추가--%>
 <div class="line"></div>
 
-<form method="post" action="adminuserlist.do">
+<form class ="user_search" method="post" action="adminuserlist.do">
   <select name="search">
     <option value="user_id">아이디</option>
     <option value="name">이름</option>
@@ -38,10 +39,10 @@
 <div class="line"></div>
 
 
-<p>회원수 : ${total_data}</p>
+<p class = "mem">회원수 : ${total_data}</p>
 
 
-<table>
+<table class="user_table">
   <thead>
   <tr>
     <th>번호</th><th>아이디</th><th>이름</th><th>전화번호</th><%--<th>가입일</th>--%>

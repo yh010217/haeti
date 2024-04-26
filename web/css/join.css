@@ -15,3 +15,13 @@ ul li {
 h2{
     text-align: center;
 }
+
+#down_btn {
+
+    background-color: #E0E9FD;
+    font-size: 0.8rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 150px;
+}

@@ -13,7 +13,8 @@ import java.util.Set;
 
 @WebFilter(urlPatterns = "*.do", initParams = {@WebInitParam(
         name = "exclude"
-        , value = "/create_prod.do ,/login.do, /login_result.do , /join.do ,/join_result.do ,/loginsuccess.do ,/logout.do ,/prod_detail.do ,/create_prod_result.do ,/chatting.do")})
+        , value = "/login.do, /login_result.do , /join.do ,/join_result.do ,/loginsuccess.do ,/logout.do, /index.do ,/prod_detail.do, /signup.do")})
+
 public class LoginFilter implements Filter {
 
     private final Set<String> excluded= Collections.synchronizedSet(new HashSet<>());
@@ -41,17 +42,24 @@ public class LoginFilter implements Filter {
         if (excluded.contains(request.getServletPath())){
             filterChain.doFilter(request,response);
         }else {
-            if (session!=null){
-                String user_id=(String) session.getAttribute("user_id");
-                if (user_id !=null){
+            if (session!=null) {
+                String user_id = (String) session.getAttribute("user_id");
+                if (user_id != null) {
                     System.out.println(" filter!!! login!!");
-                    filterChain.doFilter(request,response);
+                    filterChain.doFilter(request, response);
+                } else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+                    dispatcher.forward(request, response);
+
                 }
-                RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/login/login.jsp");
-                dispatcher.forward(request,response);
+            }else {
+
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+                dispatcher.forward(request, response);
+            }
             }
         }
     }
 
 
-}
+

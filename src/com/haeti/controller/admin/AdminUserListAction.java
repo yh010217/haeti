@@ -1,3 +1,4 @@
+package com.haeti.controller.admin;
 
 import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
@@ -49,6 +50,7 @@ public class AdminUserListAction implements Action {
         }
 
         List<UserDTO> list = service.getList(startrow, pagesize, search, search_txt);
+
 
         request.setAttribute("list", list);
         request.setAttribute("currpage", currpage);

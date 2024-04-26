@@ -4,7 +4,6 @@ import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.RegionDTO;
-import com.haeti.dto.UserDTO;
 import com.haeti.service.ProdService;
 import com.haeti.service.UserService;
 
@@ -12,13 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProdMapAction implements Action {
+public class prodDistanceAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 
         //유저 세션 받아오기
         String user_id = "test2";
@@ -50,7 +47,7 @@ public class ProdMapAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 5;
+        int pagesize = 30;
         int startrow = (currpage-1)*pagesize;
 
 
@@ -74,11 +71,6 @@ public class ProdMapAction implements Action {
 
 
         request.setAttribute("list", list);
-        request.setAttribute("fav_region", fav_region);
-        request.setAttribute("fav_lat", fav_lat);
-        request.setAttribute("fav_lng", fav_lng);
-
-
         request.setAttribute("currpage", currpage);
         request.setAttribute("total_page", total_page);
         request.setAttribute("start_page", start_page);
@@ -90,7 +82,7 @@ public class ProdMapAction implements Action {
 
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("template.jsp?page=WEB-INF/prod/prod_map.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/prod/index.jsp");
 
         return forward;
     }

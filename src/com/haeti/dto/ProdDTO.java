@@ -14,6 +14,8 @@ public class ProdDTO {
     private int seller_user_no;
     private List<String> img_paths;
     private String category;
+    private LocalDate sell_date;
+    private String buyer_id;
 
     public String getCategory() {
         return category;
@@ -96,4 +98,22 @@ public class ProdDTO {
     public void setSeller_user_no(int seller_user_no) {
         this.seller_user_no = seller_user_no;
     }
+
+    public LocalDate getSell_date() {
+        return sell_date;
+    }
+
+    public void setSell_date(LocalDate sell_date) {
+        this.sell_date = sell_date;
+    }
+
+
+    public String getBuyer_id() {
+        return buyer_id;
+    }
+
+    public void setBuyer_id(String buyer_id) {
+        this.buyer_id = buyer_id;
+    }
 }
+
