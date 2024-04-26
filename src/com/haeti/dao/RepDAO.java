@@ -22,7 +22,8 @@ public class RepDAO {
         sql.append("SELECT rep_no         ");
         sql.append("       ,repcontent    ");
         sql.append("       ,repdate       ");
-        sql.append("    FROM rep          ");
+        sql.append("       ,user_id       ");
+        sql.append("    FROM rep r inner join  user u ON r.user_no=u.user_no     ");
         sql.append("   WHERE prod_no = ?; ");
 
         PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -33,6 +34,7 @@ public class RepDAO {
             RepDTO dto = new RepDTO();
             dto.setRep_no(rs.getInt("rep_no"));
             dto.setRepcontent(rs.getString("repcontent"));
+            dto.setUser_id(rs.getString("user_id"));
             dto.setRepdate(rs.getDate("repdate").toLocalDate());
             dto.setProd_no(prod_no);
             repList.add(dto);

@@ -1,0 +1,161 @@
+.prod_detail_images img {
+    display: inline-block;
+    height: 350px;
+    width: 100%;
+    object-fit: contain;
+}
+
+
+.width84 {
+    margin: 0 8%;
+    position: relative;
+}
+
+.width84 > h6 {
+    border-bottom: 1px solid black;
+    font-weight: 900;
+}
+
+#top_buttons{
+    position: absolute;
+    right: 0;
+    top:-8px;
+}
+.top_button{
+    border:0;
+    border-radius: 4px;
+    background-color: white;
+}
+
+
+.width80 {
+    margin: 0 10%;
+    position: relative;
+}
+
+.carousel-control-next > img, .carousel-control-prev > img {
+    width: 20px;
+}
+
+.prod_detail_twcc {
+    padding: 1.5rem 10%;
+}
+
+.prod_detail_twcc span {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+}
+
+.prod_detail_twcc h4 {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.prod_detail_twcc .cost_text {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.prod_detail_twcc .category_text {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.prod_detail_twcc .date_text {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+#chatting_button {
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    background-color: #FFDC4F;
+    border: 1px solid silver;
+    width: 120px;
+    height: 40px;
+    border-radius: 8px;
+    font-weight: 800;
+}
+
+.content_row > span {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.content_box {
+    display: inline-block;
+    border-radius: 30px;
+    min-height: 250px;
+    width: 94%;
+    margin: 10px 3%;
+
+    background-color: #E0E9FD;
+}
+
+.content_box > span {
+    position: relative;
+    top: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 15px;
+}
+
+#rep_show_button {
+    background-color: white;
+    width: 100px;
+    height: 30px;
+    border: 1px solid white;
+}
+
+.review_container {
+    position: relative;
+    border-bottom: 1px solid #469AFE;
+    border-top: 1px solid #469AFE;
+    padding: 12px;
+}
+
+.review_container .review_write {
+    width: 95%;
+    border: 1px solid #469AFE;
+    height: auto;
+}
+
+.review_container button {
+    width: 5%;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    top: 27%;
+    height: 50%;
+    border: 0;
+}
+
+.review_container button img {
+    display: inline-block;
+    height: 100%;
+    object-fit: contain;
+}
+
+#review_create_box{
+    margin-bottom: 1rem;
+}
+
+.rep_user {
+    text-align: center;
+    min-height: 50px;
+}
+
+.rep_content {
+    min-height: 50px;
+    border-radius: 10px;
+    background-color: #F3F7FF;
+}
+.rep_delete{
+    background-color: white;
+    border: 0;
+}
+
+.bottom_button{
+
+}

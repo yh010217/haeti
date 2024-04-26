@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: bk
@@ -23,6 +24,7 @@
                    placeholder="  찾고 싶은 매물을 이름으로 검색하세요">
             <button type="submit" class="img-search"></button>
         </form>
+      
          <c:choose>
              <c:when test="${empty user_id || user_id==null || user_id==''}">
                  <div class="login">
