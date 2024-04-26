@@ -14,6 +14,11 @@
 <html>
 <head>
     <title>Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=euc-kr">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
 </head>
 
 <body>
@@ -21,7 +26,7 @@
 <div id="_chatbox">
     <div id="messageWindow"></div>
     <br>
-    <input id="inputMessage" type="text"/>
+    <input id="inputMessage" type="text" onkeyup="enterkey()"/>
     <br>
     <input type="submit" value="send" onclick="send()"/>
 </div>
@@ -73,13 +78,13 @@
 
 
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML += "<p class='chat_content'>" + user + " : " + content + "</p>";
+        mw.innerHTML += "<p class='chat_content chat_other'>" + user + " : " + content + "</p>";
 
     }
 
     function onOpen(event) {
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML += "<p class='chat_content'>open!!</p>"
+        mw.innerHTML += "<p class='chat_content chat_open'><< open!! >></p>"
     }
 
     function onError(event) {
@@ -91,7 +96,7 @@
         if (inputMessage.value == "") {
         } else {
             let mw = document.getElementById("messageWindow")
-            mw.innerHTML += "<p class='chat_content'> 나 : " + inputMessage.value + "</p>";
+            mw.innerHTML += "<p class='chat_content my_chat'> 나 : " + inputMessage.value + "</p>";
         }
         webSocket.send(roomUser + "#" + inputMessage.value);
         inputMessage.value = "";
