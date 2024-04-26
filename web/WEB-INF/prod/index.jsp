@@ -16,11 +16,13 @@
 <body>
 <c:set var="list" value="${requestScope.list}"></c:set>
 
+<div class="prod_list">
 <c:if test="${empty list || fn.length(list)==0}">
     <ul>
         <li>해당 자료가 없습니다.</li>
     </ul>
 </c:if>
+</div>
 <div class="prod_list">
     <c:if test="${!(empty list)}">
         <c:forEach var="item" items="${list}">

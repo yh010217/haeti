@@ -86,7 +86,7 @@
                 <input type="text" name="join_date" id="join_date" readonly value="${dto.join_date}">
             </li>
             <li>
-                <button type="submit">변경하기</button>
+                <button type="submit" id="submit">변경하기</button>
             </li>
         </ul>
     </form>
