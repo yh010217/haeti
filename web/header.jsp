@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: bk
@@ -23,9 +24,17 @@
             <input type="button" class="img-search">
         </form>
 
-        <div class="login">
-            <a href="login.do">로그인 / 회원가입</a></li>
-        </div>
+        <c:if test="${empty sessionScope.user_id}">
+            <div class="login">
+                <a href="login.do">로그인 / 회원가입</a></li>
+            </div>
+        </c:if>
+        <c:if test="${!empty sessionScope.user_id}">
+            <div class="logout">
+                <a href="logout.do">로그인 / 회원가입</a></li>
+            </div>
+        </c:if>
+
 
         <div class="hambuger-menu">
             <div class="bar"></div>

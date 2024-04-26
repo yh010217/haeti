@@ -1,4 +1,4 @@
-<%@ page import="com.haeti.service.ProdService" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: seeyh
   Date: 2024-04-20
@@ -10,27 +10,38 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="true" %>
-
+<%@ page import="com.haeti.service.ProdService" %>
 <html>
 <head>
     <title>Title</title>
-    <meta http-equiv="content-type" content="text/html; charset=euc-kr">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="css/prod/chatting.css">
 </head>
-
 <body>
-<!--     채팅창 -->
-<div id="_chatbox">
-    <div id="messageWindow"></div>
-    <br>
-    <input id="inputMessage" type="text" onkeyup="enterkey()"/>
-    <br>
-    <input type="submit" value="send" onclick="send()"/>
-</div>
 
+
+<jsp:include page="/header.jsp"/>
+
+<div id="container">
+
+    <!--     채팅창 -->
+    <div id="_chatbox">
+        <div id="messageWindow">
+
+        </div>
+
+        <div class="row input_window">
+            <div class="col-11">
+                <textarea id="inputMessage" onkeyup="enterkey()"></textarea>
+            </div>
+            <div class="col-1 message_send">
+                <input id="message_submit" type="submit" value="SEND" onclick="send()"/>
+            </div>
+        </div>
+    </div>
+
+</div>
 <%-- 세션으로 buyer의 user_no를 얻을 수 있음--%>
 <%-- request로 prod를 받을 수 있음 -> 이거로 seller의 user_no를 받을 수 있음--%>
 <%-- 그 user 들을 채팅 안에다 심어서 보낼 거임. ChatRoomDTO 에서 얻어온 user들이 있을텐데, --%>
@@ -39,10 +50,12 @@
 
 <%
     //request 에 넣어
-    request.setAttribute("seller",ProdService.getInstance().getSellerId(request.getParameter("prod_no")));
+    request.setAttribute("seller", ProdService.getInstance().getSellerId(request.getParameter("prod_no")));
 %>
 </body>
+
 <script type="text/javascript">
+
     var webSocket = new WebSocket('ws://10.41.1.190:8080/haeti/ChattingRoom');
     var inputMessage = document.getElementById('inputMessage');
 
@@ -51,7 +64,9 @@
     let buyer = "${param.buyer}";
     let user1 = "${sessionScope.user_id}";
 
-    let roomUser = prod_no+"#"+buyer+"#"+user1;
+    let scroll_time = 0;//send 될때에는 0.1로 둬서 내려가게 하고, 아니면 0으로 그냥 두기
+
+    let roomUser = prod_no + "#" + buyer + "#" + user1;
     console.log(roomUser);
 
 
@@ -78,13 +93,13 @@
 
 
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML += "<p class='chat_content chat_other'>" + user + " : " + content + "</p>";
+        mw.innerHTML = "<div class='chat_content chat_div'><div class='other_chat_region'><span class='just_other'>" + user + "</span>" + content + "</div>" + mw.innerHTML;
 
     }
 
     function onOpen(event) {
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML += "<p class='chat_content chat_open'><< open!! >></p>"
+        mw.innerHTML += "<div class='chat_content chat_open'>open</div>";
     }
 
     function onError(event) {
@@ -93,13 +108,16 @@
 
 
     function send() {
+
+
         if (inputMessage.value == "") {
         } else {
             let mw = document.getElementById("messageWindow")
-            mw.innerHTML += "<p class='chat_content my_chat'> 나 : " + inputMessage.value + "</p>";
+            mw.innerHTML = "<div class='chat_content chat_div'><div class='my_chat_region'> <span class='just_me'> 나 </span>" + inputMessage.value + "</div></div>" + mw.innerHTML;
         }
         webSocket.send(roomUser + "#" + inputMessage.value);
         inputMessage.value = "";
+
     }
 
     //     엔터키를 통해 send함
@@ -117,9 +135,6 @@
     //앞에 room + 도 꼭 넣어주고
 
     //     채팅이 많아져 스크롤바가 넘어가더라도 자동적으로 스크롤바가 내려가게함
-    window.setInterval(function () {
-        var elem = document.getElementById('messageWindow');
-        elem.scrollTop = elem.scrollHeight;
-    }, 0);
+
 </script>
 </html>

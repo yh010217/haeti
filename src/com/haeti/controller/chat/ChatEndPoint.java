@@ -56,14 +56,16 @@ public class ChatEndPoint {
                 String user1 = dto.getUser1();
                 String user2 = dto.getUser2();
                 Session toSend = null;
-                if(!user1.equals(user) && user2.equals(user) ) toSend = dto.getUser1Session();
-                if(!user2.equals(user) && user1.equals(user) ) toSend = dto.getUser2Session();
+                if(!user1.equals(user) && user2.equals(user) && dto.getUser1Session()!=null) toSend = dto.getUser1Session();
+                if(!user2.equals(user) && user1.equals(user)  && dto.getUser2Session()!=null) toSend = dto.getUser2Session();
 
                 // 일단은 세션에 다 보냄. 근데 받는 친구는 그 prod_no안에서의 receiver만 받아야함
                 // 근데, 사실 보안적으로 좋지는 않은듯, 모든 신호가 다 감청되니깐
                 // 그리고, 모든 웹에다가 다 뿌려지고 그걸 각각 걸러들어야된다는 얘기니깐, 그니까 모두에게 다
                 // 뿌려줬다는 얘기니깐, session에 대한 조작도 위에 있어야될듯
-                toSend.getBasicRemote().sendText(user + "|" + content);
+                if( dto.getUser1Session()!=null && dto.getUser2Session()!=null) {
+                    toSend.getBasicRemote().sendText(user + "|" + content);
+                }//뭐 보낼사람 없으면 안보내지 뭐
             }
         }
     }
