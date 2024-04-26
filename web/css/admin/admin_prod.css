@@ -1,0 +1,41 @@
+a {
+    text-decoration: none;
+    color: #191919;
+}
+.menu_prod {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    position: relative;
+    left: 10%;
+}
+
+.line {
+    margin : 2px 10%;
+    border-top: 1px;
+    color: black;
+    padding: 3vh;
+}
+
+.font_mid {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0 2%;
+
+}
+
+.menu_prod li a{
+    padding: 1px 10px;
+    font-size: 0.8rem;
+}
+
+.user_search {
+    display: block;
+    flex-direction: row;
+    align-items: center;
+    border-color: #E0E9FD;
+    padding : 5px;
+    position: relative;
+    left: 15%;
+    top: -30px;
+}

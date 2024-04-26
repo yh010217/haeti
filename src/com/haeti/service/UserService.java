@@ -3,6 +3,7 @@ package com.haeti.service;
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.UserDAO;
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.RegionDTO;
 import com.haeti.dto.UserDTO;
 
 import javax.naming.NamingException;
@@ -188,6 +189,8 @@ public class UserService {
         return confirmId_result;
     }
 
+
+
 //    public boolean joinIdCheck(String user_id) {
 //        Connection conn=null;
 //        DBConnection db=DBConnection.getInstance();
@@ -204,5 +207,23 @@ public class UserService {
 //        }
 //        return join_result;
 //    }
+
+
+    public RegionDTO getFavRegion(String user_id) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        RegionDTO dto = null;
+        try{
+            conn = db.getConnection();
+            UserDAO dao = UserDAO.getUserDAO();
+            dto = dao.getFavRegion(conn, user_id);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("UserService getFavRegion Exception"+e.getMessage());
+        }finally {
+            db.disconn(conn);
+        }
+        return dto;
+    }
 
 }

@@ -2,9 +2,11 @@ package com.haeti.dao;
 
 import com.haeti.comm.DBConnection;
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.RegionDTO;
 
 import java.security.spec.ECField;
 import javax.naming.NamingException;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +30,7 @@ public class ProdDAO {
         sql.append("            , p.content         ");
         sql.append("            , u.nick_name            ");
         sql.append("            , c.category        ");
-        sql.append("            , write_date        ");
+       /* sql.append("            , write_date        ");*/
         sql.append("            , cost              ");
         sql.append("            , i1.img_url        ");
         sql.append("  FROM prod p LEFT OUTER JOIN        ");
@@ -46,16 +48,14 @@ public class ProdDAO {
         if (!"".equals(search) && !"".equals(search_txt)) {
             sql.append("             and                  ");
             if("title".equals(search)){
-                sql.append("     p.title like   ?         ");
+                sql.append("   (  p.title like   ?    )     ");
             } else if ("content".equals(search)) {
-                sql.append("     p.content  like  ?       ");
+                sql.append("   (  p.content  like  ?   )    ");
             } else if ("nick_name".equals(search)) {
-                sql.append("     u.nick_name like  ?      ");
+                sql.append("   (  u.nick_name like  ?   )   ");
             } else if ("category".equals(search)) {
-                sql.append("     c.category like  ?       ");
-            } else if ("fav_region".equals(search)) {
-                sql.append("     u.fav_region like  ?     ");
-            }
+                sql.append("   (  c.category like  ?    )   ");
+            } 
         }
         sql.append("   ORDER BY  p.prod_no DESC             ");
         sql.append("   limit   ? , ?                        ");
@@ -66,7 +66,6 @@ public class ProdDAO {
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 
              ) {
-
 
             if (!"".equals(search) && !"".equals(search_txt)) {
                 pstmt.setString(1, "%" + search_txt + "%");
@@ -86,7 +85,7 @@ public class ProdDAO {
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("p.title"));
-                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
+               /* dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
                 dto.setCost(rs.getInt("cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
@@ -370,8 +369,6 @@ public class ProdDAO {
                 sql.append("    where  u.nick_name like ?         ");
             } else if ("category".equals(search)) {
                 sql.append("    where  c.category like ?         ");
-            } else if ("fav_region".equals(search)) {
-                sql.append("    where  u.fav_region like ?         ");
             }
         }
 
@@ -389,13 +386,14 @@ public class ProdDAO {
                 total_data = rs.getInt(1);
             }
         } finally {
-            if(rs!=null) try{rs.close();} catch (Exception e){}
+            if(rs!=null) try{rs.close();} catch(Exception e){}
         }
         return total_data;
 
     }
 
-    public List<ProdDTO> getRegionList(Connection conn, String fav_region) throws SQLException {
+    /**관심지역의 판매 물품*/
+    public List<ProdDTO> getRegionList(Connection conn, int startrow, int pagesize, String fav_region) throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , p.title           ");
@@ -409,16 +407,20 @@ public class ProdDAO {
         sql.append("                         FROM image ) i1        ");
         sql.append("               ON p.prod_no = i1.prod_no        ");
         sql.append("               LEFT OUTER JOIN user u           ");
-        sql.append("               ON p.seller_user_no = u.user_no  ");
-        sql.append("   WHERE rn=1    and    u.fav_region =   ?      ");
-        sql.append("   ORDER BY  p.prod_no DESC;                    ");
+        sql.append("               on p.seller_user_no = u.user_no  ");
+        sql.append("   WHERE  u.fav_region =   ?                    ");
+      /*  sql.append("          and    rn = 1                         ");  // 이미지 없으면 오류!!*/
+        sql.append("   ORDER BY  p.prod_no DESC                     ");
+        sql.append("   limit   ? , ?                                ");
 
         List<ProdDTO> list = new ArrayList<>();
         ResultSet rs = null;
 
         try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ){
-            pstmt.setString(1, "%"+fav_region+"%");
+            pstmt.setString(1, fav_region);
+            pstmt.setInt(2, startrow);
+            pstmt.setInt(3, pagesize);
             rs= pstmt.executeQuery();
 
             while(rs.next()){
@@ -467,6 +469,7 @@ public class ProdDAO {
         }
         return latlng;
     }
+  
     public void modifyProd(Connection conn, int prod_no, ProdDTO dto) {
         StringBuilder sql = new StringBuilder();
         sql.append("update prod set title = ?  ");
@@ -524,5 +527,122 @@ public class ProdDAO {
             }
         }
         return prodDTO;
+    }
+
+    public int getRegionProdCount(Connection conn, String fav_region) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("   select count(*)                               ");
+        sql.append("   FROM prod p left outer join user u            ");
+        sql.append("               ON p.seller_user_no = u.user_no   ");
+        sql.append("   where  u.fav_region = ?                       ");
+
+        int total_data = 0;
+        ResultSet rs =null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setString(1, fav_region);
+
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                total_data = rs.getInt(1);
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch(Exception e){}
+        }
+        return total_data;
+    }
+
+    /**거리별 상품 리스트*/
+    public List<ProdDTO> getDistanceList(Connection conn, int startrow, int pagesize, float fav_lat, float fav_lng)
+            throws SQLException{
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("  SELECT p.prod_no              ");
+        sql.append("            , p.title           ");
+        /*sql.append("            , write_date        ");*/
+        sql.append("            , p.cost              ");
+        sql.append("            , i1.img_url        ");
+        sql.append("            , SQRT  (power( (ifnull(c.lat, 0) - ? ), 2 ) + power( (ifnull(c.lng, 0) - ? ), 2 ))  AS  distance       ");
+        sql.append("  FROM prod p LEFT OUTER JOIN                   ");
+        sql.append("                       ( SELECT img_url         ");
+        sql.append("                               , prod_no        ");
+        sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
+        sql.append("                         FROM image ) i1           ");
+        sql.append("               ON p.prod_no = i1.prod_no           ");
+        sql.append("               LEFT OUTER JOIN user u              ");
+        sql.append("               on p.seller_user_no = u.user_no     ");
+        sql.append("               LEFT OUTER JOIN coordinate c        ");
+        sql.append("               on u.fav_region = c.eup_myeun_dong  ");
+        /*  sql.append("   WHERE          rn = 1                         ");  // 이미지 없으면 오류!!*/
+        sql.append("   ORDER BY  distance,  p.prod_no DESC             ");
+        sql.append("   limit   ? , ?                                   ");
+
+        List<ProdDTO> list = new ArrayList<>();
+        ResultSet rs = null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setFloat(1, fav_lat);
+            pstmt.setFloat(2, fav_lng);
+            pstmt.setInt(3, startrow);
+            pstmt.setInt(4, pagesize);
+            rs= pstmt.executeQuery();
+
+            while(rs.next()){
+                ProdDTO dto = new ProdDTO();
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("i1.img_url"));
+
+                dto.setProd_no(rs.getInt("p.prod_no"));
+                dto.setTitle(rs.getString("p.title"));
+                /*dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
+                dto.setCost(rs.getInt("p.cost"));
+                dto.setImg_paths(img_paths);
+                list.add(dto);
+
+            }
+        }finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return list;
+
+    }
+
+
+    public List<RegionDTO> getProdCoord(Connection conn) throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select prod_no         ");
+        sql.append("        , fav_region     ");
+        sql.append("        , lat            ");
+        sql.append("        , lng            ");
+        sql.append("   from prod p left outer join user u           ");
+        sql.append("        on p.seller_user_no = u.user_no         ");
+        sql.append("        left outer join coordinate c            ");
+        sql.append("        on u.fav_region = c.eup_myeun_dong      ");
+
+        ResultSet rs = null;
+        List<RegionDTO> list = new ArrayList<>();
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                RegionDTO dto = new RegionDTO();
+                dto.setProd_no(rs.getInt("prod_no"));
+                dto.setEup_myeun_dong(rs.getString("fav_region"));
+                dto.setLat(rs.getFloat("lat"));
+                dto.setLng(rs.getFloat("lng"));
+                list.add(dto);
+            }
+
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+
+        return list;
+
     }
 }

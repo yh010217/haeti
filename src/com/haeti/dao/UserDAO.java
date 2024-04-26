@@ -1,7 +1,9 @@
 package com.haeti.dao;
 
+import com.haeti.dto.RegionDTO;
 import com.haeti.dto.UserDTO;
 
+import javax.swing.plaf.synth.Region;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,7 +34,7 @@ public class UserDAO {
         sql.append("         , addr_detail       ");
         sql.append("         , fav_region        ");
         sql.append("  from user                  ");
-        sql.append("  where user_id = ?          ");
+        sql.append("  where user_id  =  ?        ");
 
         ResultSet rs=null;
         UserDTO userDTO=new UserDTO();
@@ -47,12 +49,14 @@ public class UserDAO {
                 userDTO.setNick_name(rs.getString("nick_name"));
                 userDTO.setTel(rs.getString("tel"));
                 userDTO.setEmail(rs.getString("email"));
-           /*     userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+                userDTO.setJoin_date(rs.getDate("join_date").toLocalDate());
                 userDTO.setTeacher_school(rs.getString("teacher_school"));
                 userDTO.setAddr_dong(rs.getString("addr_dong"));
                 userDTO.setAddr_detail(rs.getString("addr_detail"));
                 userDTO.setFav_region(rs.getString("fav_region"));
             }
+        }finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
         }
         return userDTO;
     }
@@ -289,7 +293,7 @@ public class UserDAO {
                 dto.setUser_id(rs.getString("user_id"));
                 dto.setName(rs.getString("name"));
                 dto.setTel(rs.getString("tel"));
-                /*dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+              /*  dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
                 list.add(dto);
             }
 
@@ -370,6 +374,8 @@ public class UserDAO {
         return confirmId_result;
     }
 
+
+
 //    public boolean joinIdCheck(Connection conn, String user_id) throws  SQLException{
 //        StringBuilder sql=new StringBuilder();
 //        sql.append(" select   user_id    ");
@@ -386,6 +392,36 @@ public class UserDAO {
 //        }
 //        return  join_result;
 //    }
+
+    /**유저 관심지역과 좌표 가져오기*/
+    public RegionDTO getFavRegion(Connection conn, String user_id) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select u.fav_region                      ");
+        sql.append("         , c.lat                           ");
+        sql.append("         , c.lng                           ");
+        sql.append("  from user u                              ");
+        sql.append("       left outer join coordinate c        ");
+        sql.append("       on u.fav_region = c.eup_myeun_dong  ");
+        sql.append("  where u.user_id = ?                      ");
+
+        ResultSet rs = null;
+        RegionDTO dto = new RegionDTO();
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setString(1, user_id);
+            rs=pstmt.executeQuery();
+
+            while (rs.next()) {
+                dto.setEup_myeun_dong(rs.getString("u.fav_region"));
+                dto.setLat(rs.getFloat("c.lat"));
+                dto.setLng(rs.getFloat("c.lng"));
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return dto;
+    }
 
 }
 

@@ -13,6 +13,7 @@ import java.util.List;
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.ProdDAO;
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.RegionDTO;
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +107,7 @@ public class ProdService {
             conn=db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
             list = dao.getList(conn, startrow, pagesize, search, search_txt);
+
 
         }catch (SQLException | NamingException e){
             System.out.println("ProdService getList exception"+e.getMessage());
@@ -243,7 +245,8 @@ public class ProdService {
 
     }
 
-    public List<ProdDTO> getRegionList(String fav_region) {
+    /**관심지역의 판매 물품 리스트*/
+    public List<ProdDTO> getRegionList(int startrow, int pagesize, String fav_region) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
         List<ProdDTO> list = new ArrayList<>();
@@ -251,7 +254,7 @@ public class ProdService {
         try{
             conn = db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
-            list = dao.getRegionList(conn, fav_region);
+            list = dao.getRegionList(conn, startrow, pagesize, fav_region);
 
         } catch (SQLException | NamingException e){
             System.out.println("ProdService getRegionList exception"+e.getMessage());
@@ -356,5 +359,60 @@ public class ProdService {
             db.disconn(conn);
         }
         return prodDTO;
+    }
+
+    /**관심 지역의 상품 갯수*/
+    public int getRegionProdCount(String fav_region) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        int result = 0;
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            result = dao.getRegionProdCount(conn, fav_region);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getRegionProdCount Exception!!"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+
+    /**거리별 상품 리스트*/
+    public List<ProdDTO> getDistanceList(int startrow, int pagesize, float fav_lat, float fav_lng) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getDistanceList(conn, startrow, pagesize, fav_lat, fav_lng);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getDistanceList exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
+
+
+
+    }
+
+    public List<RegionDTO> getProdCoord() {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<RegionDTO> list = new ArrayList<>();
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getProdCoord(conn);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getProdCoord exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
     }
 }
