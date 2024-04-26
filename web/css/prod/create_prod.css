@@ -19,17 +19,20 @@
     font-weight: 900;
 }
 
-/*
-
-.width80 {
-    margin: 0 10%;
-    position: relative;
-}
-*/
-
 
 .carousel-control-next > img, .carousel-control-prev > img {
     width: 20px;
+}
+
+.prod_image_modify_container label{
+    display: inline-block;
+    width:96px;
+    padding: 8px 0;
+    border-radius: 4px;
+    background-color: #48baff;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
 }
 
 input[type="file"] {
@@ -39,4 +42,23 @@ input[type="file"] {
     padding: 0;
     overflow: hidden;
     border: 0;
+}
+
+
+textarea{
+    position: relative;
+    top: 1rem;
+}
+
+.col-8 label{
+    text-align: center;
+    width: 96px;
+    margin-top: 1rem;
+}
+
+.blue_input{
+    border: 1px solid #469AFE;
+    width: 76%;
+    border-radius: 4px;
+    height: 2rem;
 }

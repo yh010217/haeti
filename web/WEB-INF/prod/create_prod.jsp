@@ -97,16 +97,15 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-
                 <div class="col-8">
                     <label for="title">제목</label>
-                    <input type="text" id="title" name="title"><br>
+                    <input type="text" id="title" name="title" class="blue_input"><br>
 
                     <label for="cost">가격</label>
-                    <input type="number" id="cost" name="cost"><br>
+                    <input type="number" id="cost" name="cost" class="blue_input"><br>
 
                     <label for="category_id">카테고리</label>
-                    <select id="category_id" name="category_id">
+                    <select id="category_id" name="category_id" class="blue_input">
                         <option value="1">천재교과서</option>
                         <option value="2">지학사</option>
                         <option value="3">비상교과서</option>
