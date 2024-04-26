@@ -6,13 +6,16 @@
 ul li {
     list-style: none;
 }
+/*.prod_wrap {
+    width: 100%;
+}*/
 .prod_list {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
-    margin: 20px 8%;
 }
+
 .prod_list img{
     width : 130px;
     height: 180px;
@@ -35,6 +38,7 @@ ul li {
 
     height: 70vh;
     margin :  0 8%;
+
 }
 
 .page_num {
