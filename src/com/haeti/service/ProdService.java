@@ -431,4 +431,38 @@ public class ProdService {
         }
         return list;
     }
+
+    public String getUserRegion(String user_id){
+        DBConnection db = DBConnection.getInstance();
+        ProdDAO dao = ProdDAO.getProdDAO();
+        Connection conn = null;
+        String userRegion = "";
+        try{
+            conn=db.getConnection();
+            userRegion = dao.getUserRegion(conn,user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println("getUserRegion Exception : " + e);
+        }finally {
+            db.disconn(conn);
+        }
+        return userRegion;
+    }
+
+    public String[] getNoRegion(String user_id) {
+        DBConnection db = DBConnection.getInstance();
+        ProdDAO dao = ProdDAO.getProdDAO();
+        Connection conn = null;
+        String[] noRegion = new String[2];
+        try{
+            conn=db.getConnection();
+            noRegion = dao.getNoRegion(conn,user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println("getUserRegion Exception : " + e);
+        }finally {
+            db.disconn(conn);
+        }
+        return noRegion;
+    }
 }

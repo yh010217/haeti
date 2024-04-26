@@ -48,6 +48,12 @@ input[type="file"] {
 textarea{
     position: relative;
     top: 1rem;
+    margin-bottom:64px;
+    width: 100%;
+    border-radius: 16px;
+    border: 0;
+    background: #E0E9FD;
+    padding : 0.5rem;
 }
 
 .col-8 label{
@@ -61,4 +67,40 @@ textarea{
     width: 76%;
     border-radius: 4px;
     height: 2rem;
+}
+.blue_div{
+    display: inline-block;
+    position:relative;
+    top:2rem;
+}
+.create_prod_user{
+    display: inline-block;
+    position:absolute;
+    bottom: -2rem;
+    right:1rem;
+}
+
+.blue_button{
+    position:absolute;
+    bottom: 0.5rem;
+    right : 80px;
+    width:64px;
+    height: 32px;
+    background: #469AFE;
+    border:0;
+    border-radius: 6px;
+    color : whitesmoke;
+    font-weight: 500;
+}
+.gray_button{
+
+    position:absolute;
+    bottom: 0.5rem;
+    right : 8px;
+    width:64px;
+    height: 32px;
+    background: #CBDAE1;
+    border:0;
+    border-radius: 6px;
+
 }

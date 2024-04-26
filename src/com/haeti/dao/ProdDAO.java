@@ -693,4 +693,52 @@ public class ProdDAO {
         return list;
 
     }
+
+    public String getUserRegion(Connection conn, String user_id) throws SQLException{
+        String userRegion = "";
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select   addr_dong ");
+        sql.append("  from user          ");
+        sql.append("  where user_id = ?          ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,user_id);
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            userRegion = rs.getString("addr_dong");
+        }
+        if(rs!=null){
+            try{rs.close();}catch (Exception e){}
+        }
+        if(pstmt!=null){
+            try{pstmt.close();}catch (Exception e){}
+        }
+
+
+        return userRegion;
+    }
+
+    public String[] getNoRegion(Connection conn, String user_id)  throws SQLException{
+        String[] noRegion = new String[2];
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select   addr_dong ");
+        sql.append("      , user_no ");
+        sql.append("  from user          ");
+        sql.append("  where user_id = ?          ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,user_id);
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            noRegion[0] = rs.getString("user_no");
+            noRegion[1] = rs.getString("addr_dong");
+        }
+        if(rs!=null){
+            try{rs.close();}catch (Exception e){}
+        }
+        if(pstmt!=null){
+            try{pstmt.close();}catch (Exception e){}
+        }
+
+
+        return noRegion;
+    }
 }

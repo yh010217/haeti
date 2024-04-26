@@ -98,24 +98,36 @@
                     </button>
                 </div>
                 <div class="col-8">
-                    <label for="title">제목</label>
-                    <input type="text" id="title" name="title" class="blue_input"><br>
+                    <div class="blue_div">
+                        <label for="title">제목</label>
+                        <input type="text" id="title" name="title" class="blue_input"><br>
 
-                    <label for="cost">가격</label>
-                    <input type="number" id="cost" name="cost" class="blue_input"><br>
+                        <label for="cost">가격</label>
+                        <input type="number" id="cost" name="cost" class="blue_input"><br>
 
-                    <label for="category_id">카테고리</label>
-                    <select id="category_id" name="category_id" class="blue_input">
-                        <option value="1">천재교과서</option>
-                        <option value="2">지학사</option>
-                        <option value="3">비상교과서</option>
-                    </select>
+                        <label for="category_id">카테고리</label>
+                        <select id="category_id" name="category_id" class="blue_input">
+                            <option value="1">천재교과서</option>
+                            <option value="2">지학사</option>
+                            <option value="3">비상교과서</option>
+                        </select>
+
+                        <label for="user_region">판매지역</label>
+                        <input type="text" id="user_region" value="${requestScope.region}" class="blue_input" readonly/>
+
+                        <span class="create_prod_user">
+                            <c:if test="${!empty sessionScope.user_id}">${sessionScope.user_id}</c:if>
+                            <c:if test="${empty sessionScope.user_id}">로그인 후 이용해주세요</c:if>
+                        </span>
+
+                        <%--<c:out value="잠시 : ${requestScope.user_no}"/>--%>
+                    </div>
                 </div>
             </div>
             <textarea id="content" name="content" placeholder="상품 설명입니다." cols=40 rows="6"></textarea>
 
-            <button type="submit">등록</button>
-            <button type="reset">취소</button>
+            <button type="submit" class="blue_button">등록</button>
+            <button type="reset" class="gray_button">취소</button>
         </form>
 
     </div>
