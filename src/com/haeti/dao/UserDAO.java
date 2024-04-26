@@ -82,34 +82,43 @@ public class UserDAO {
         return modify_result;
     }
 
-    public void insertData(Connection conn, String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) throws SQLException {
+
+    /** 회원가입 */
+    public int JoinUser(Connection conn, UserDTO dto) throws SQLException {
         StringBuilder sql=new StringBuilder();
         sql.append(" insert into user(             ");
         sql.append("                    user_id    ");
         sql.append("                  , pwd       ");
         sql.append("                  , name       ");
         sql.append("                  , nick_name  ");
+        sql.append("                  , teacher_school ");
         sql.append("                  , tel        ");
         sql.append("                  , email      ");
+        sql.append("                 , join_date   ");
         sql.append("                  , addr_dong  ");
         sql.append("                  , addr_detail  ");
         sql.append("                  , fav_region ) ");
-        sql.append("     values(  ?,  ?,   ?,  ?, ? , ? , ?, ?, ? )           ");
+        sql.append("     values(  ?,  ?,   ?,  ?, ? , ? ,?, curdate(), ?, ? ,? )           ");
+        int join_result=0;
         try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
-            pstmt.setString(1,user_id);
-            pstmt.setString(2,pwd);
-            pstmt.setString(3,name);
-            pstmt.setString(4,nick_name);
-            pstmt.setString(5,tel);
-            pstmt.setString(6,email);
-            pstmt.setString(7,addr_dong);
-            pstmt.setString(8,addr_detail);
-            pstmt.setString(9,fav_region);
-            pstmt.executeUpdate();
-        }
+            pstmt.setString(1,dto.getUser_id());
+            pstmt.setString(2,dto.getPwd());
+            pstmt.setString(3,dto.getName());
+            pstmt.setString(4,dto.getNick_name());
+            pstmt.setString(5,dto.getTeacher_school());
+            pstmt.setString(6,dto.getTel());
+            pstmt.setString(7,dto.getEmail());
+            pstmt.setString(8,dto.getAddr_dong());
+            pstmt.setString(9,dto.getAddr_detail());
+            pstmt.setString(10,dto.getFav_region());
 
+            pstmt.executeUpdate();
+            join_result=1; //성공
+        }
+        return join_result;
     }
+    /**로그인 */
     public int login(Connection conn,String user_id, String pwd) {
         StringBuffer sql = new StringBuffer();
         sql.append(" select     pwd   ");
@@ -343,50 +352,52 @@ public class UserDAO {
         }
         return result;
     }
-
-    public int confirmID(String user_id) {
+    /**  회원가입용 아이디 체크 */
+    public boolean useridCheck(Connection conn, String user_id) throws  SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("   select user_id    ");
-        sql.append("     from  user      ");
-        sql.append("    where user_id = ? ");
-        Connection conn=null;
-        int confirmId_result=-1;
+        sql.append("    select   user_id    ");
+        sql.append("   from user            ");
+        sql.append("    where  user_id = ?   ");
         ResultSet rs=null;
-        try (PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+//            System.out.println(user_id+"id1");
             pstmt.setString(1, user_id);
             rs=pstmt.executeQuery();
-            if (rs.next()){
-                confirmId_result=1;
-            }else {
-                confirmId_result=-1;
-            }
-        }catch (Exception e){
-            System.out.println(e);
-        }finally {
-            if (rs!=null) try {rs.close();}catch (Exception e){}
-            if (conn!=null) try {conn.close();}catch (Exception e){}
-
-        }
-        return confirmId_result;
+            result=rs.next();
+         }
+        return result;
     }
 
-//    public boolean joinIdCheck(Connection conn, String user_id) throws  SQLException{
-//        StringBuilder sql=new StringBuilder();
-//        sql.append(" select   user_id    ");
-//        sql.append("          ,nick_ name  ");
-//        sql.append("          , email       ");
-//        sql.append("       from user         ");
-//        sql.append("    where  user_id = ?   ");
-//        boolean join_result=false;
-//        ResultSet rs=null;
-//        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
-//            pstmt.setString(1, user_id);
-//            rs=pstmt.executeQuery();
-//            while (rs.next()) join_result=true; // 해당 아이디 존재
-//        }
-//        return  join_result;
-//    }
-
-
+  /** 회원가입용 닉네임 체크*/
+    public boolean usernickCheck(Connection conn, String nick_name) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("   select nick_name    ");
+        sql.append("    from user         ");
+        sql.append("  where nick_name  =  ? ");
+        ResultSet rs=null;
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setString(1,nick_name);
+            rs=pstmt.executeQuery();
+            result=rs.next();
+        }
+        return result;
+    }
+    /** 회원가입용 이메일체크*/
+    public boolean useremailCheck(Connection conn, String email) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select email   ");
+        sql.append("   from user     ");
+        sql.append(" where  email = ? ");
+        ResultSet rs=null;
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setString(1,email);
+            rs=pstmt.executeQuery();
+            result=rs.next();
+        }
+        return result ;
+    }
 }
 
