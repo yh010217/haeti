@@ -1,0 +1,71 @@
+.menu_user {
+    display: flex;
+    flex-direction: row;
+    padding : 5px;
+    position: relative;
+    left: 10%;
+}
+.font_mid {
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 0 2%;
+}
+.menu_user li a{
+    padding: 1px 10px;
+    font-size: 0.8rem;
+}
+.line {
+    margin : 2px 10%;
+    border-top: 1px;
+    color: black;
+    padding: 3vh;
+}
+
+.user_search {
+    display: block;
+    flex-direction: row;
+    align-items: center;
+    border-color: #E0E9FD;
+    padding : 5px;
+    position: relative;
+    left: 15%;
+    top: -30px;
+}
+
+.user_table {
+    border-collapse: collapse;
+    width: 75%;
+    margin: 1rem auto;
+    background-color: white;
+}
+
+.user_table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+.user_table th {
+    padding: 8px;
+    text-align: left;
+    text-align: center;
+    border-top: 2px solid #CBDAE1;
+    border-bottom: 2px solid #CBDAE1;
+    color: #469AFE;
+}
+
+/* 테이블 올렸을 때 */
+.user_table tbody tr:hover {
+    background-color: #d3d3d3;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+th, td {
+    border-left: none;
+    border-right: none;
+}
+
+.mem {
+    margin : 0 13%
+}
