@@ -1,8 +1,9 @@
 package com.haeti.dao;
 
+import com.haeti.dto.RegionDTO;
 import com.haeti.dto.UserDTO;
 
-import javax.naming.NamingException;
+import javax.swing.plaf.synth.Region;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +34,7 @@ public class UserDAO {
         sql.append("         , addr_detail       ");
         sql.append("         , fav_region        ");
         sql.append("  from user                  ");
-        sql.append("  where user_id = ?          ");
+        sql.append("  where user_id  =  ?        ");
 
         ResultSet rs=null;
         UserDTO userDTO=new UserDTO();
@@ -54,6 +55,8 @@ public class UserDAO {
                 userDTO.setAddr_detail(rs.getString("addr_detail"));
                 userDTO.setFav_region(rs.getString("fav_region"));
             }
+        }finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
         }
         return userDTO;
     }
@@ -83,34 +86,43 @@ public class UserDAO {
         return modify_result;
     }
 
-    public void insertData(Connection conn, String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) throws SQLException {
+
+    /** 회원가입 */
+    public int JoinUser(Connection conn, UserDTO dto) throws SQLException {
         StringBuilder sql=new StringBuilder();
         sql.append(" insert into user(             ");
         sql.append("                    user_id    ");
         sql.append("                  , pwd       ");
         sql.append("                  , name       ");
         sql.append("                  , nick_name  ");
+        sql.append("                  , teacher_school ");
         sql.append("                  , tel        ");
         sql.append("                  , email      ");
+        sql.append("                 , join_date   ");
         sql.append("                  , addr_dong  ");
         sql.append("                  , addr_detail  ");
         sql.append("                  , fav_region ) ");
-        sql.append("     values(  ?,  ?,   ?,  ?, ? , ? , ?, ?, ? )           ");
+        sql.append("     values(  ?,  ?,   ?,  ?, ? , ? ,?, curdate(), ?, ? ,? )           ");
+        int join_result=0;
         try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
-            pstmt.setString(1,user_id);
-            pstmt.setString(2,pwd);
-            pstmt.setString(3,name);
-            pstmt.setString(4,nick_name);
-            pstmt.setString(5,tel);
-            pstmt.setString(6,email);
-            pstmt.setString(7,addr_dong);
-            pstmt.setString(8,addr_detail);
-            pstmt.setString(9,fav_region);
-            pstmt.executeUpdate();
-        }
+            pstmt.setString(1,dto.getUser_id());
+            pstmt.setString(2,dto.getPwd());
+            pstmt.setString(3,dto.getName());
+            pstmt.setString(4,dto.getNick_name());
+            pstmt.setString(5,dto.getTeacher_school());
+            pstmt.setString(6,dto.getTel());
+            pstmt.setString(7,dto.getEmail());
+            pstmt.setString(8,dto.getAddr_dong());
+            pstmt.setString(9,dto.getAddr_detail());
+            pstmt.setString(10,dto.getFav_region());
 
+            pstmt.executeUpdate();
+            join_result=1; //성공
+        }
+        return join_result;
     }
+    /**로그인 */
     public int login(Connection conn,String user_id, String pwd) {
         StringBuffer sql = new StringBuffer();
         sql.append(" select     pwd   ");
@@ -142,9 +154,33 @@ public class UserDAO {
         return login_result;
     }
 
+    public String loginemail(Connection conn, String user_id) {
+        StringBuffer sql = new StringBuffer();
+        sql.append(" select     pwd   ");
+        sql.append("           , email ");
+        sql.append(" from     user      ");
+        sql.append(" where    user_id = ?  ");
+        String result="";
+        ResultSet rs=null;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString());
+        ){
 
+            pstmt.setString(1, user_id);
+            rs = pstmt.executeQuery();
+            if (rs.next()){
+                result=rs.getString("email");
+            }
 
+        } catch (SQLException e) {
+            System.out.println(e);
+        } finally {
+            if (conn!=null) try {conn.close();}catch (Exception e){}
+            if (rs!=null) try {rs.close();}catch (Exception e){}
 
+        }
+        return result;
+
+    }
 
 
     public UserDTO loginlist(Connection conn, String user_id) throws SQLException{
@@ -183,26 +219,238 @@ public class UserDAO {
         return dto;
     }
 
-    public List<UserDTO> userListCheck(Connection conn, String user_id) throws SQLException{
-        StringBuilder sql=new StringBuilder();
-        sql.append("  select nick_name         ");
-        sql.append("        , email            ");
-        sql.append("  from user                ");
-        sql.append("  WHERE user_id <> ?      ");
 
-        List<UserDTO> userList=new ArrayList<>();
-        ResultSet rs=null;
-        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
-            pstmt.setString(1, user_id);
-            rs= pstmt.executeQuery();
-            while (rs.next()){
-                UserDTO dto=new UserDTO();
-                dto.setNick_name(rs.getString("nick_name"));
-                dto.setEmail(rs.getString("email"));
-                userList.add(dto);
+    /** 회원 수*/
+    public int getCount(Connection conn, String search, String search_txt) throws SQLException{
+
+        StringBuilder sql = new StringBuilder();
+
+        sql.append("   select   count(*)   ");
+        sql.append("   from     user   ");
+
+        if(!"".equals(search) && !"".equals(search_txt)){
+            if("user_id".equals(search)){
+                sql.append("    where  user_id like  ?      ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like ?       ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?         ");
             }
         }
-        return userList;
+
+        int total_data = 0;
+        ResultSet rs =null;
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            if(!"".equals(search) && !"".equals(search_txt)){
+                pstmt.setString(1, "%"+search_txt+"%");
+            }
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                total_data = rs.getInt(1);
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return total_data;
     }
+
+    /**회원 목록 가져오기*/
+    public List<UserDTO> getList(Connection conn, int startrow, int pagesize, String search, String search_txt)
+            throws SQLException {
+        StringBuilder sql = new StringBuilder();
+        sql.append("    select        user_no        ");
+        sql.append("                  , user_id      ");
+        sql.append("                  , name         ");
+        sql.append("                  , tel          ");
+        /* sql.append("                  , join_date    ");*/
+        sql.append("    from    user                 ");
+
+        if (!"".equals(search) && !"".equals(search_txt)) {
+            if ("user_id".equals(search)) {
+                sql.append("    where  user_id like   ?    ");
+            } else if ("name".equals(search)) {
+                sql.append("   where  name  like  ?        ");
+            } else if ("tel".equals(search)) {
+                sql.append("   where  tel like ?           ");
+            }
+        }
+        sql.append("  order by user_no DESC                ");
+        sql.append("  limit   ?,  ?                        ");
+
+        ResultSet rs = null;
+        ArrayList<UserDTO> list = new ArrayList<>();
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            if (!"".equals(search) && !"".equals(search_txt)) {
+                pstmt.setString(1, "%" + search_txt + "%");
+                pstmt.setInt(2, startrow);
+                pstmt.setInt(3, pagesize);
+            } else {
+                pstmt.setInt(1, startrow);
+                pstmt.setInt(2, pagesize);
+            }
+
+            rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                UserDTO dto = new UserDTO();
+                dto.setUser_no(rs.getInt("user_no"));
+                dto.setUser_id(rs.getString("user_id"));
+                dto.setName(rs.getString("name"));
+                dto.setTel(rs.getString("tel"));
+              /*  dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+                list.add(dto);
+            }
+
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+            }
+        }
+        return list;
+    }
+
+    public boolean nickCheck(Connection conn, String nick_name, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select nick_name      ");
+        sql.append("  from user             ");
+        sql.append("  where nick_name = ?   ");
+        sql.append("  and user_id <> ?      ");
+
+        ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, nick_name);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
+            }
+        }
+        return result;
+    }
+
+    public boolean emailCheck(Connection conn, String email, String user_id) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select email          ");
+        sql.append("  from user             ");
+        sql.append("  where email = ?       ");
+        sql.append("  and user_id <> ?      ");
+
+        ResultSet rs=null;
+        boolean result=true; // 아이디 중복O
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setString(1, email);
+            pstmt.setString(2, user_id);
+            rs=pstmt.executeQuery();
+
+            if (!rs.next()){
+                result=false; // 아이디 중복X
+            }
+        }
+        return result;
+    }
+    /**  회원가입용 아이디 체크 */
+    public boolean useridCheck(Connection conn, String user_id) throws  SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("    select   user_id    ");
+        sql.append("   from user            ");
+        sql.append("    where  user_id = ?   ");
+        ResultSet rs=null;
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+//            System.out.println(user_id+"id1");
+            pstmt.setString(1, user_id);
+            rs=pstmt.executeQuery();
+            result=rs.next();
+         }
+        return result;
+    }
+
+  /** 회원가입용 닉네임 체크*/
+    public boolean usernickCheck(Connection conn, String nick_name) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("   select nick_name    ");
+        sql.append("    from user         ");
+        sql.append("  where nick_name  =  ? ");
+        ResultSet rs=null;
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setString(1,nick_name);
+            rs=pstmt.executeQuery();
+            result=rs.next();
+        }
+        return result;
+    }
+    /** 회원가입용 이메일체크*/
+    public boolean useremailCheck(Connection conn, String email) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select email   ");
+        sql.append("   from user     ");
+        sql.append(" where  email = ? ");
+        ResultSet rs=null;
+        boolean result=false;
+        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+            pstmt.setString(1,email);
+            rs=pstmt.executeQuery();
+            result=rs.next();
+        }
+        return result ;
+    }
+
+
+//    public boolean joinIdCheck(Connection conn, String user_id) throws  SQLException{
+//        StringBuilder sql=new StringBuilder();
+//        sql.append(" select   user_id    ");
+//        sql.append("          ,nick_ name  ");
+//        sql.append("          , email       ");
+//        sql.append("       from user         ");
+//        sql.append("    where  user_id = ?   ");
+//        boolean join_result=false;
+//        ResultSet rs=null;
+//        try (PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
+//            pstmt.setString(1, user_id);
+//            rs=pstmt.executeQuery();
+//            while (rs.next()) join_result=true; // 해당 아이디 존재
+//        }
+//        return  join_result;
+//    }
+
+    /**유저 관심지역과 좌표 가져오기*/
+    public RegionDTO getFavRegion(Connection conn, String user_id) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select u.fav_region                      ");
+        sql.append("         , c.lat                           ");
+        sql.append("         , c.lng                           ");
+        sql.append("  from user u                              ");
+        sql.append("       left outer join coordinate c        ");
+        sql.append("       on u.fav_region = c.eup_myeun_dong  ");
+        sql.append("  where u.user_id = ?                      ");
+
+        ResultSet rs = null;
+        RegionDTO dto = new RegionDTO();
+
+        try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ){
+            pstmt.setString(1, user_id);
+            rs=pstmt.executeQuery();
+
+            while (rs.next()) {
+                dto.setEup_myeun_dong(rs.getString("u.fav_region"));
+                dto.setLat(rs.getFloat("c.lat"));
+                dto.setLng(rs.getFloat("c.lng"));
+            }
+        } finally {
+            if(rs!=null) try{rs.close();} catch (Exception e){}
+        }
+        return dto;
+    }
+
 }
 

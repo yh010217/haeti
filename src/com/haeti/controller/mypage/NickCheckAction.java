@@ -1,21 +1,25 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.UserDTO;
 import com.haeti.service.ProdService;
+import com.haeti.service.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "SalesListResultAction", value = "/sales_list_result")
-public class SalesListResultAction extends HttpServlet {
+@WebServlet(name = "NickCheckAction", value = "/nick_name_check")
+public class NickCheckAction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doReq(request, response);
@@ -26,34 +30,27 @@ public class SalesListResultAction extends HttpServlet {
         doReq(request, response);
     }
 
-    protected void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/json;charset=utf-8");
 
-        int user_no=1;
-        String status=request.getParameter("status");
+        String nick_name=request.getParameter("nick_name");
 
+        HttpSession session=request.getSession();
+        String user_id= (String) session.getAttribute("user_id");
 
-        if("sale".equals(status) || status==null)
-            status="판매중";
-        else if("sale_comp".equals(status))
-            status="판매완료";
+        UserService userService= UserService.getUserService();
+
+        boolean result=userService.nickCheck(nick_name, user_id);
 
         JSONArray arr=new JSONArray();
+        JSONObject o1=new JSONObject();
 
-        ProdService prodService=ProdService.getInstance();
-        List<ProdDTO> sales_list=prodService.salesList(status, user_no);
-
-        for(ProdDTO dto:sales_list){
-            JSONObject o1=new JSONObject();
-
-            o1.put("title",dto.getTitle());
-            o1.put("cost",dto.getCost());
-
-            arr.add(o1);
-        }
+        o1.put("result", result);
+        arr.add(o1);
 
         PrintWriter out=response.getWriter();
         out.print(arr);
-    }
 
+
+    }
 }

@@ -37,6 +37,7 @@ public class RepShowServlet extends HttpServlet {
             JSONObject o = new JSONObject();
             o.put("rep_no", dto.getRep_no());
             o.put("repcontent", dto.getRepcontent());
+            o.put("user_id",dto.getUser_id());
             //o.put("repdate", dto.getRepdate());
             o.put("prod_no", dto.getProd_no());
             arr.add(o);

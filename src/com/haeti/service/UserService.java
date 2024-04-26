@@ -2,10 +2,11 @@ package com.haeti.service;
 
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.UserDAO;
+import com.haeti.dto.ProdDTO;
+import com.haeti.dto.RegionDTO;
 import com.haeti.dto.UserDTO;
 
 import javax.naming.NamingException;
-import javax.swing.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,19 +54,22 @@ public class UserService {
         }
         return modify_result;
     }
-
-    public void insertService(String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) {
+    /** 회원가입 */
+    public int JoinUser(UserDTO dto) {
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
+
+        int join_result=0;
         try {
             conn=db.getConnection();
-            dao.insertData(conn,user_id,pwd, name,nick_name, tel, email, addr_dong, addr_detail, fav_region);
+            join_result=dao.JoinUser(conn,dto);
         }catch (SQLException| NamingException e){
             System.out.println(e);
         }finally {
-            if (conn!=null) try {conn.close();}catch (Exception e){System.out.println(e);}
+           db.disconn(conn);
         }
+        return join_result;
     }
 
 
@@ -107,22 +111,111 @@ public class UserService {
         return dto;
     }
 
-
-    public List<UserDTO> userListCheck(String user_id) {
+    public boolean nickCheck(String nick_name, String user_id) {
         Connection conn=null;
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
-        List<UserDTO> userList=new ArrayList<>();
+        boolean result=true;
 
         try{
             conn= db.getConnection();
-            userList=dao.userListCheck(conn, user_id);
+            result=dao.nickCheck(conn, nick_name, user_id);
 
         }catch (SQLException | NamingException e){
             System.out.println(e);
         }finally {
             db.disconn(conn);
         }
-        return userList;
+        return result;
     }
+
+    public boolean emailCheck(String email, String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=true;
+
+        try{
+            conn= db.getConnection();
+            result=dao.emailCheck(conn, email, user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+
+    public boolean useridCheck(String user_id) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=false;
+        try {
+            conn=db.getConnection();
+            result=dao.useridCheck(conn,user_id);
+            //System.out.println(result+"iddddd");
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+
+
+    public boolean usernickCheck(String nick_name) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=false;
+        try {
+            conn=db.getConnection();
+            result=dao.usernickCheck(conn,nick_name);
+//            System.out.println(result+"nick_name!!!!!!");
+//            System.out.println(result+"nick_name");
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return  result;
+    }
+
+    public boolean useremailCheck(String email) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=false;
+
+        try {
+            conn=db.getConnection();
+            result=dao.useremailCheck(conn,email);
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
+
+    }
+    public RegionDTO getFavRegion(String user_id) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        RegionDTO dto = null;
+        try{
+            conn = db.getConnection();
+            UserDAO dao = UserDAO.getUserDAO();
+            dto = dao.getFavRegion(conn, user_id);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("UserService getFavRegion Exception"+e.getMessage());
+        }finally {
+            db.disconn(conn);
+        }
+        return dto;
+    }
+
 }

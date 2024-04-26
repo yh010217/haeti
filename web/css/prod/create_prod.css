@@ -1,0 +1,64 @@
+.prod_modify_image img{
+    display: inline-block;
+    height: 350px;
+    width: 100%;
+    object-fit: contain;
+}
+
+.prod_image_modify_container {
+    text-align: center;
+}
+
+.width84 {
+    margin: 0 8%;
+    position: relative;
+}
+
+.width84 > h6 {
+    border-bottom: 1px solid black;
+    font-weight: 900;
+}
+
+
+.carousel-control-next > img, .carousel-control-prev > img {
+    width: 20px;
+}
+
+.prod_image_modify_container label{
+    display: inline-block;
+    width:96px;
+    padding: 8px 0;
+    border-radius: 4px;
+    background-color: #48baff;
+    font-size: 1rem;
+    color: white;
+    font-weight: 600;
+}
+
+input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+
+textarea{
+    position: relative;
+    top: 1rem;
+}
+
+.col-8 label{
+    text-align: center;
+    width: 96px;
+    margin-top: 1rem;
+}
+
+.blue_input{
+    border: 1px solid #469AFE;
+    width: 76%;
+    border-radius: 4px;
+    height: 2rem;
+}

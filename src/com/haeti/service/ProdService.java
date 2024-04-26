@@ -13,8 +13,10 @@ import java.util.List;
 import com.haeti.comm.DBConnection;
 import com.haeti.dao.ProdDAO;
 import com.haeti.dto.ProdDTO;
+import com.haeti.dto.RegionDTO;
 
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -106,6 +108,7 @@ public class ProdService {
             ProdDAO dao = ProdDAO.getProdDAO();
             list = dao.getList(conn, startrow, pagesize, search, search_txt);
 
+
         }catch (SQLException | NamingException e){
             System.out.println("ProdService getList exception"+e.getMessage());
         }finally {
@@ -158,7 +161,7 @@ public class ProdService {
         }
     }
 
-    private void fileDelete(List<String> img_paths,String uploadPath) {
+    public void fileDelete(List<String> img_paths,String uploadPath) {
         for(String img_path : img_paths) {
             img_path = uploadPath + "/" + img_path;
             File file = new File(img_path);
@@ -240,5 +243,192 @@ public class ProdService {
         }
         return result;
 
+    }
+
+    /**관심지역의 판매 물품 리스트*/
+    public List<ProdDTO> getRegionList(int startrow, int pagesize, String fav_region) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getRegionList(conn, startrow, pagesize, fav_region);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getRegionList exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
+    }
+
+    public List getLatLng(String fav_region) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List LatLng = new ArrayList();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            LatLng = dao.getLatLng(conn, fav_region);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getLatLng exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return LatLng;
+    }
+    public void modifyProd(int prod_no, ProdDTO dto, List<String> toUpdate) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO prodDAO = ProdDAO.getProdDAO();
+        ImageDAO imageDAO = ImageDAO.getInstance();
+
+        List<String> img_paths = dto.getImg_paths();
+
+        try {
+            conn = db.getConnection();
+            conn.setAutoCommit(false);
+
+            //imageDAO.deleteImages(conn);
+            //얘를 delete 인 애만 해야되는데 걍 다지워버림 그래서 dB에서 사라져있음
+
+            prodDAO.modifyProd(conn, prod_no, dto);
+
+            int updateNum = toUpdate.size();
+            for(int i = 0 ; i < updateNum ; i++){
+                //update
+                imageDAO.updateImage(conn, toUpdate.get(i),img_paths.get(i));
+            }
+            for(int i = updateNum ; i < img_paths.size() ; i++){
+                //단순 create
+                imageDAO.createImage(conn,prod_no,img_paths.get(i));
+            }
+
+/*
+            for(String img_path : img_paths) {
+                imageDAO.createImage(conn, prod_no, img_path);
+            }
+*/
+            conn.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+            try {
+                conn.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
+        } finally {
+            db.disconn(conn);
+        }
+
+    }
+
+    public void deleteImg(List<String> deleteList) {
+        ImageDAO dao = ImageDAO.getInstance();
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        try {
+            conn = db.getConnection();
+            for(String delete : deleteList) {
+                dao.deleteOneImage(conn, delete);
+            }
+        }catch (SQLException|NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+    }
+  
+    public ProdDTO salesProd(int user_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDTO prodDTO=new ProdDTO();
+        ProdDAO dao=ProdDAO.getProdDAO();
+
+        try{
+            conn= db.getConnection();
+            prodDTO=dao.salesProd(conn, user_no);
+
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return prodDTO;
+    }
+
+    public List<String> chatBuyer_no(int prod_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDAO dao=ProdDAO.getProdDAO();
+        List<String> buyer_userList=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            buyer_userList=dao.chatBuyer_no(conn, prod_no);
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return buyer_userList;
+  }
+    /**관심 지역의 상품 갯수*/
+    public int getRegionProdCount(String fav_region) {
+        DBConnection db=DBConnection.getInstance();
+        Connection conn=null;
+        int result = 0;
+        try{
+            conn=db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            result = dao.getRegionProdCount(conn, fav_region);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getRegionProdCount Exception!!"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return result;
+    }
+
+    /**거리별 상품 리스트*/
+    public List<ProdDTO> getDistanceList(int startrow, int pagesize, float fav_lat, float fav_lng) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<ProdDTO> list = new ArrayList<>();
+
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getDistanceList(conn, startrow, pagesize, fav_lat, fav_lng);
+
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getDistanceList exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
+
+
+
+    }
+
+    public List<RegionDTO> getProdCoord() {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        List<RegionDTO> list = new ArrayList<>();
+        try{
+            conn = db.getConnection();
+            ProdDAO dao = ProdDAO.getProdDAO();
+            list = dao.getProdCoord(conn);
+        } catch (SQLException | NamingException e){
+            System.out.println("ProdService getProdCoord exception"+e.getMessage());
+        } finally {
+            db.disconn(conn);
+        }
+        return list;
     }
 }

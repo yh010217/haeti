@@ -64,6 +64,18 @@ a {
         background-color: #CBDAE1;
     }
 
+    .mypage a {
+        background-color: #dee7fc;
+        font-size: 0.8rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .mypage a:hover {
+        background-color: #CBDAE1;
+    }
+
     nav ul {
         display: flex;
         justify-content: space-between;

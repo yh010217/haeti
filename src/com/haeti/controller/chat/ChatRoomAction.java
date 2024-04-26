@@ -17,6 +17,8 @@ public class ChatRoomAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
         // 지금은 prod 에서 buyer만 들어가는 듯한 로직인데, 마이페이지에서 들어가는것도 구현해야함
         // 글 작성자가 왔을 때, if 같은거로 하는 로직을 추가해야할 듯
 

@@ -86,4 +86,24 @@ public class ImageDAO {
 
 
     }
+
+    public void deleteOneImage(Connection conn, String delete) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("  delete from image where img_url = ?   ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,delete);
+        pstmt.executeUpdate();
+        if(pstmt!=null) pstmt.close();
+    }
+
+    public void updateImage(Connection conn, String toUpdate, String result) throws SQLException{
+        StringBuilder sql = new StringBuilder();
+        sql.append("   update image set img_url = ? where img_url = ?    ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,result);
+        pstmt.setString(2,toUpdate);
+        pstmt.executeUpdate();
+        if(pstmt!=null) pstmt.close();
+
+    }
 }

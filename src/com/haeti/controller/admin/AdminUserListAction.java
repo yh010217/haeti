@@ -16,9 +16,8 @@ public class AdminUserListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 관리자 세션 확인 할 것
+        // 관리자 세션 확인 꼭 할 것
 
-        /*
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");
         String search_txt = request.getParameter("search_txt");
@@ -52,6 +51,7 @@ public class AdminUserListAction implements Action {
 
         List<UserDTO> list = service.getList(startrow, pagesize, search, search_txt);
 
+
         request.setAttribute("list", list);
         request.setAttribute("currpage", currpage);
         request.setAttribute("total_page", total_page);
@@ -69,7 +69,4 @@ public class AdminUserListAction implements Action {
         return forward;
     }
 
-         */
-        return null;
-    }
 }

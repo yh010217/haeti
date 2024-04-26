@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
+<jsp:include page="/header.jsp"/>
+
 
 <main class="form-singin">
     <form class="writeForm" method="post" action="login_result.do">
@@ -38,7 +40,7 @@
 
     </form>
 </main>
-
+<jsp:include page="/footer.jsp"/>
 
 </body>
 </html>
