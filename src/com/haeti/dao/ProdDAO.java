@@ -469,7 +469,7 @@ public class ProdDAO {
         }
         return latlng;
     }
-
+  
     public void modifyProd(Connection conn, int prod_no, ProdDTO dto) {
         StringBuilder sql = new StringBuilder();
         sql.append("update prod set title = ?  ");
