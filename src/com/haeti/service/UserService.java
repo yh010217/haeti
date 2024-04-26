@@ -54,19 +54,22 @@ public class UserService {
         }
         return modify_result;
     }
-
-    public void insertService(String user_id, String pwd, String name, String nick_name, String tel, String email, String addr_dong, String addr_detail, String fav_region) {
+    /** 회원가입 */
+    public int JoinUser(UserDTO dto) {
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
         Connection conn=null;
+
+        int join_result=0;
         try {
             conn=db.getConnection();
-            dao.insertData(conn,user_id,pwd, name,nick_name, tel, email, addr_dong, addr_detail, fav_region);
+            join_result=dao.JoinUser(conn,dto);
         }catch (SQLException| NamingException e){
             System.out.println(e);
         }finally {
-            if (conn!=null) try {conn.close();}catch (Exception e){System.out.println(e);}
+           db.disconn(conn);
         }
+        return join_result;
     }
 
 
@@ -173,42 +176,61 @@ public class UserService {
         }
         return result;
     }
-    public int confirmId(String user_id) {
+
+    public boolean useridCheck(String user_id) {
         Connection conn=null;
         DBConnection db=DBConnection.getInstance();
         UserDAO dao=UserDAO.getUserDAO();
-        int confirmId_result=-1;// 있으면 1, 없으면 -1 초기값은 -1로 설정
+        boolean result=false;
         try {
             conn=db.getConnection();
-            confirmId_result=dao.confirmID(user_id);
-        }catch (Exception e){
+            result=dao.useridCheck(conn,user_id);
+            //System.out.println(result+"iddddd");
+        }catch (SQLException | NamingException e){
             System.out.println(e);
         }finally {
             db.disconn(conn);
         }
-        return confirmId_result;
+        return result;
     }
 
 
+    public boolean usernickCheck(String nick_name) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=false;
+        try {
+            conn=db.getConnection();
+            result=dao.usernickCheck(conn,nick_name);
+//            System.out.println(result+"nick_name!!!!!!");
+//            System.out.println(result+"nick_name");
 
-//    public boolean joinIdCheck(String user_id) {
-//        Connection conn=null;
-//        DBConnection db=DBConnection.getInstance();
-//        UserDAO dao=UserDAO.getUserDAO();
-//        boolean join_result=false;
-//        try {
-//            conn=db.getConnection();
-//            join_result=dao.joinIdCheck(conn,user_id);
-//
-//        }catch (SQLException | NamingException e){
-//            System.out.println(e);
-//        }finally {
-//            db.disconn(conn);
-//        }
-//        return join_result;
-//    }
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return  result;
+    }
 
+    public boolean useremailCheck(String email) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        UserDAO dao=UserDAO.getUserDAO();
+        boolean result=false;
 
+        try {
+            conn=db.getConnection();
+            result=dao.useremailCheck(conn,email);
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return result;
+
+    }
     public RegionDTO getFavRegion(String user_id) {
         DBConnection db=DBConnection.getInstance();
         Connection conn=null;

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <html>
 <head>
@@ -13,7 +14,7 @@
     <link rel="stylesheet" href="css/header.css">
 </head>
 <body>
-
+<c:set var= "user_id" value="${sessionScope.user_id}"/>
 <header>
     <div class="top">
         <a class="logo" href="index.do"><img src="img/logo.png" alt="logo"></a>
@@ -22,10 +23,22 @@
                    placeholder="  찾고 싶은 매물을 이름으로 검색하세요">
             <button type="submit" class="img-search"></button>
         </form>
-
-        <div class="login">
-            <a href="login.do">로그인 / 회원가입</a></li>
-        </div>
+         <c:choose>
+             <c:when test="${empty user_id || user_id==null || user_id==''}">
+                 <div class="login">
+                     <a href="login.do">로그인 </a>
+                     <a href="join.do">회원가입</a>
+                 </div>
+             </c:when>
+             <c:otherwise>
+                 <div class="login">
+                     <a href="logout.do">로그아웃</a>
+                 </div>
+                 <div class="mypage">
+                     <a href="mypage.do">마이페이지</a>
+                 </div>
+             </c:otherwise>
+         </c:choose>
 
         <div class="hambuger-menu">
             <div class="bar"></div>
