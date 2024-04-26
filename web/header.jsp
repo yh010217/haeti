@@ -24,7 +24,7 @@
         </form>
 
         <div class="login">
-            <a href="#">로그인 / 회원가입</a></li>
+            <a href="login.do">로그인 / 회원가입</a></li>
         </div>
 
         <div class="hambuger-menu">
@@ -42,7 +42,7 @@
             <li><a href="#">거리별</a></li>
             <li><a href="categorylist.do">출판사별</a></li>
             <li><a href="favregion.do">관심지역 매물</a></li>
-            <li><a href="#">매물지도</a></li>
+            <li><a href="prodmap.do">매물지도</a></li>
         </ul>
     </nav>
 

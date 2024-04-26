@@ -1,0 +1,8 @@
+.prod_image_detail_container{
+    height: 250px;
+}
+
+.prod_detail_images{
+    border : 1px solid red;
+    height: 250px;
+}
