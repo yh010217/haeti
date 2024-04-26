@@ -8,7 +8,10 @@
 <body>
 <c:set var="dto" value="${requestScope.userInfo}"/>
 <c:set var="prodDTO" value="${requestScope.prodDTO}"/>
-<c:set var="img_paths" value="${requestScope.img_paths}"/>
+<%--<c:set var="img_paths" value="${requestScope.img_paths}"/>--%>
+<c:set var="uploadPath" value="${requestScope.uploadPath}\\"/>
+<c:set var="img" value="${requestScope.img}"/>
+
 <div id="wrap">
     <h1>마이페이지</h1>
     <div id="top">
@@ -24,7 +27,7 @@
             </div>
             <div>
                 <a href="#">고객센터</a>
-                <a href="#">로그아웃</a>
+                <a href="logout.do">로그아웃</a>
             </div>
         </div>
     </div>
@@ -34,11 +37,17 @@
             <a href="#">더보기></a>
         </div>
         <div class="sales_info">
-<%--            <img src="img/logo.png" alt="판매 중인 상품">--%>
-            <img src="upload/${img_paths}" alt=${img_paths}>
-            <p>${prodDTO.title}</p>
-            <p>${prodDTO.write_date}</p>
-            <p>${prodDTO.cost}</p>
+            <c:choose>
+                <c:when test="${(empty prodDTO.title)}">
+                    <p>판매 중인 상품이 없습니다.</p>
+                </c:when>
+                <c:otherwise>
+                    <img src="upload/${prodDTO.prod_no}/${img}" alt="upload/${prodDTO.prod_no}/${img}">
+                    <p>${prodDTO.title}</p>
+                    <p>${prodDTO.write_date}</p>
+                    <p>${prodDTO.cost}</p>
+                </c:otherwise>
+            </c:choose>
         </div>
     </div>
     <div id="bottom">

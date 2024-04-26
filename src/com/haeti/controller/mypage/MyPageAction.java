@@ -1,6 +1,7 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.comm.Forward;
+import com.haeti.controller.Action;
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.UserDTO;
 import com.haeti.service.ProdService;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyPageAction implements Action{
+public class MyPageAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService=UserService.getUserService();
@@ -28,15 +29,25 @@ public class MyPageAction implements Action{
 
         ProdDTO prodDTO=prodService.salesProd(user_no);
 
+        String uploadPath=request.getServletContext().getRealPath("upload")+"\\"+prodDTO.getProd_no();
+        String img="";
+
+
+        if(prodDTO.getImg_paths()!=null){
+            img=prodDTO.getImg_paths().get(0);
+        }else{
+            System.out.println("이미지 없음");
+        }
+
         request.setAttribute("userInfo", userDTO);
         request.setAttribute("prodDTO", prodDTO);
-        request.setAttribute("img_paths",prodDTO.getImg_paths().get(0));
- //       System.out.println(prodDTO.getImg_paths().get(0)+"...");
+        request.setAttribute("uploadPath",uploadPath);
+        request.setAttribute("img",img);
 
 
         Forward forward=new Forward();
         forward.setForward(true);
-        forward.setUrl("/WEB-INF/mypage/mypage.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/mypage/mypage.jsp");
         return forward;
     }
 }

@@ -12,17 +12,33 @@ fetch("sales_list_result"
         let ele_tr=document.createElement('div');
         let ele_td1= document.createElement('div');
         let ele_td2=document.createElement('div');
+        let ele_td3=document.createElement('div');
+        let ele_td4=document.createElement('div');
+
+        let prod_no=item.prod_no;
+        let img=item.img;
+        let ele_img=document.createElement('img');
+        ele_img.src="upload/"+prod_no+"/"+img;
+        ele_img.alt="판매목록 이미지";
+
         ele_tr.className='tr';
         ele_td1.className='td';
         ele_td2.className='td';
+        ele_td3.className='td';
+        ele_td4.className='td';
 
         let txt1=document.createTextNode(item.title);
-        let txt2=document.createTextNode(item.cost);
+        let txt2=document.createTextNode(item.write_date);
+        let txt3=document.createTextNode(item.cost);
 
-        ele_td1.appendChild(txt1);
-        ele_td2.appendChild(txt2);
+        ele_td1.appendChild(ele_img);
+        ele_td2.appendChild(txt1);
+        ele_td3.appendChild(txt2);
+        ele_td4.appendChild(txt3);
         ele_tr.appendChild(ele_td1)
         ele_tr.appendChild(ele_td2)
+        ele_tr.appendChild(ele_td3)
+        ele_tr.appendChild(ele_td4)
 
         document.getElementById("result").appendChild(ele_tr)
     })
@@ -54,17 +70,33 @@ function selectChange(value){
             let ele_tr=document.createElement('div');
             let ele_td1= document.createElement('div');
             let ele_td2=document.createElement('div');
+            let ele_td3=document.createElement('div');
+            let ele_td4=document.createElement('div');
+
+            let prod_no=item.prod_no;
+            let img=item.img;
+            let ele_img=document.createElement('img');
+            ele_img.src="upload/"+prod_no+"/"+img;
+            ele_img.alt="판매목록 이미지";
+
             ele_tr.className='tr';
             ele_td1.className='td';
             ele_td2.className='td';
+            ele_td3.className='td';
+            ele_td4.className='td';
 
             let txt1=document.createTextNode(item.title);
-            let txt2=document.createTextNode(item.cost);
+            let txt2=document.createTextNode(item.write_date);
+            let txt3=document.createTextNode(item.cost);
 
-            ele_td1.appendChild(txt1);
-            ele_td2.appendChild(txt2);
+            ele_td1.appendChild(ele_img);
+            ele_td2.appendChild(txt1);
+            ele_td3.appendChild(txt2);
+            ele_td4.appendChild(txt3);
             ele_tr.appendChild(ele_td1)
             ele_tr.appendChild(ele_td2)
+            ele_tr.appendChild(ele_td3)
+            ele_tr.appendChild(ele_td4)
 
             document.getElementById("result").appendChild(ele_tr)
         })

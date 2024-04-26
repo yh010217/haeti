@@ -322,4 +322,21 @@ public class ProdService {
         }
         return prodDTO;
     }
+
+    public List<String> chatBuyer_no(int prod_no) {
+        Connection conn=null;
+        DBConnection db=DBConnection.getInstance();
+        ProdDAO dao=ProdDAO.getProdDAO();
+        List<String> buyer_userList=new ArrayList<>();
+
+        try{
+            conn= db.getConnection();
+            buyer_userList=dao.chatBuyer_no(conn, prod_no);
+        }catch (SQLException | NamingException e){
+            System.out.println(e);
+        }finally {
+            db.disconn(conn);
+        }
+        return buyer_userList;
+    }
 }

@@ -25,10 +25,10 @@ form{
     margin: 10px auto;
     display: table;
     width: 70vw;
-/*    border-top: 1px solid silver;
-    border-left: 1px solid silver;
-    border-right: 1px solid silver;*/
-    border: 1px solid silver;
+    border-top: 2px solid silver;
+    border-left: 2px solid silver;
+    border-right: 2px solid silver;
+    border-bottom: 1px solid silver;
 
 }
 
@@ -44,5 +44,9 @@ form{
 
 .tr:last-child .td:first-child,
 .tr:last-child .td:last-child{
-    border-bottom: none;
+    /*border-bottom: none;*/
+}
+
+img{
+    width: 100px;
 }

@@ -1,4 +1,4 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.UserDTO;

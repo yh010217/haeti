@@ -270,11 +270,18 @@ public class ProdDAO {
     public List<ProdDTO> purchaseList(Connection conn, int period, int user_no) throws SQLException{
         //쿼리문 수정 필요!!
         StringBuilder sql=new StringBuilder();
-        sql.append("  select        title                     ");
+        sql.append("  select        t.prod_no                 ");
+        sql.append("              , title                     ");
         sql.append("              , cost                      ");
         sql.append("              , sell_date                 ");
-        sql.append("  from  prod p inner join trade t         ");
+        sql.append("              , img_url                   ");
+        sql.append("              , user_id                   ");
+        sql.append("  from  prod p left join trade t          ");
         sql.append("  on p.prod_no = t.prod_no                ");
+        sql.append("  left join image i                       ");
+        sql.append("  on p.prod_no = i.prod_no                ");
+        sql.append("  left join user u                        ");
+        sql.append("  on u.user_no = t.buyer_user_no          ");
         sql.append("  WHERE DATEDIFF(NOW(), sell_date) <= ?   ");
         sql.append("  and buyer_user_no = ?                   ");
         sql.append("  order by sell_date desc                 ");
@@ -289,8 +296,14 @@ public class ProdDAO {
             rs=pstmt.executeQuery();
             while (rs.next()){
                 ProdDTO dto=new ProdDTO();
+                dto.setProd_no(rs.getInt("t.prod_no"));
                 dto.setTitle(rs.getString("title"));
                 dto.setCost(rs.getInt("cost"));
+                dto.setSell_date((rs.getDate("sell_date").toLocalDate()));
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("img_url"));
+                dto.setImg_paths(img_paths);
+                dto.setBuyer_id(rs.getString("user_id"));
 
                 purchase_list.add(dto);
             }
@@ -328,12 +341,19 @@ public class ProdDAO {
     /**  상태별 판매내역  */
     public List<ProdDTO> salesList(Connection conn, String status, int user_no) throws SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("  select title                        ");
+        sql.append("  select t.prod_no                      ");
+        sql.append("         , title                      ");
         sql.append("         , cost                       ");
+        sql.append("         , write_date                 ");
+        sql.append("         , img_url                    ");
         sql.append("  from prod p left join trade t       ");
         sql.append("  on p.prod_no = t.prod_no            ");
+        sql.append("  left join image i                   ");
+        sql.append("  on p.prod_no=i.prod_no              ");
         sql.append("  where p.seller_user_no = ?          ");
         sql.append("  and t.status = ?                    ");
+        sql.append("  group by trade_id                   ");
+        sql.append("  order by write_date                 ");
 
         List<ProdDTO> sales_list=new ArrayList<>();
         ResultSet rs=null;
@@ -343,8 +363,14 @@ public class ProdDAO {
             rs= pstmt.executeQuery();
             while (rs.next()){
                 ProdDTO dto=new ProdDTO();
+                dto.setProd_no(rs.getInt("t.prod_no"));
                 dto.setTitle(rs.getString("title"));
                 dto.setCost(rs.getInt("cost"));
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
+                List<String> img_paths=new ArrayList<>();
+                img_paths.add(rs.getString("img_url"));
+                dto.setImg_paths(img_paths);
+
                 sales_list.add(dto);
             }
         }
@@ -418,7 +444,8 @@ public class ProdDAO {
     }
     public ProdDTO salesProd(Connection conn, int user_no) throws SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("  select title                        ");
+        sql.append("  select p.prod_no                    ");
+        sql.append("         , title                      ");
         sql.append("         , cost                       ");
         sql.append("         , write_date                 ");
         sql.append("         , img_url                    ");
@@ -428,26 +455,48 @@ public class ProdDAO {
         sql.append("  on p.prod_no = i.prod_no            ");
         sql.append("  where p.seller_user_no = ?          ");
         sql.append("  and t.status = ?                    ");
+        sql.append("  group by trade_id                   ");
+        sql.append("  order by write_date                 ");
         sql.append("  limit 1                             ");
 
         ResultSet rs=null;
         ProdDTO prodDTO=new ProdDTO();
         try(PreparedStatement pstmt=conn.prepareStatement(sql.toString())){
             pstmt.setInt(1, user_no);
-            pstmt.setString(2, "판매완료");
+            pstmt.setString(2, "판매중");
             rs= pstmt.executeQuery();
 
-            List<String> img_paths=new ArrayList<>();
-
-
             if(rs.next()){
+                prodDTO.setProd_no(rs.getInt("p.prod_no"));
                 prodDTO.setTitle(rs.getString("title"));
                 prodDTO.setCost(rs.getInt("cost"));
                 prodDTO.setWrite_date(rs.getDate("write_date").toLocalDate());
+                List<String> img_paths=new ArrayList<>();
                 img_paths.add(rs.getString("img_url"));
                 prodDTO.setImg_paths(img_paths);
+
             }
         }
         return prodDTO;
+    }
+
+    public List<String> chatBuyer_no(Connection conn, int prod_no) throws SQLException{
+        StringBuilder sql=new StringBuilder();
+        sql.append("  select user_id                     ");
+        sql.append("  from user u inner join chat c      ");
+        sql.append("  on u.user_no = c.buyer_no          ");
+        sql.append("  where c.prod_no = ?                ");
+
+        List<String> buyer_userList=new ArrayList<>();
+        ResultSet rs=null;
+        try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
+            pstmt.setInt(1, prod_no);
+            rs= pstmt.executeQuery();
+
+            while (rs.next()){
+                buyer_userList.add(rs.getString("user_id"));
+            }
+        }
+        return buyer_userList;
     }
 }
