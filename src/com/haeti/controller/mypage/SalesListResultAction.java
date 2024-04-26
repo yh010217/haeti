@@ -1,4 +1,4 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.UserDTO;
@@ -54,12 +54,14 @@ public class SalesListResultAction extends HttpServlet {
         for(ProdDTO dto:sales_list){
             JSONObject o1=new JSONObject();
 
+            o1.put("prod_no", dto.getProd_no());
             o1.put("title",dto.getTitle());
             o1.put("cost",dto.getCost());
+            o1.put("write_date",dto.getWrite_date().toString());
+            o1.put("img_path",dto.getImg_paths().get(0));
 
             arr.add(o1);
         }
-
         PrintWriter out=response.getWriter();
         out.print(arr);
     }

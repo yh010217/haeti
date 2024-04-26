@@ -1,6 +1,7 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.comm.Forward;
+import com.haeti.controller.Action;
 import com.haeti.dto.UserDTO;
 import com.haeti.service.UserService;
 
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class ModifyUserAction implements Action{
+public class ModifyUserAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -40,7 +41,7 @@ public class ModifyUserAction implements Action{
         request.setAttribute("fav_region", fav_region);
         Forward forward=new Forward();
         forward.setForward(true);
-        forward.setUrl("/WEB-INF/mypage/modify_user.jsp");
+        forward.setUrl("template.jsp?page=WEB-INF/mypage/modify_user.jsp");
         return forward;
     }
 }

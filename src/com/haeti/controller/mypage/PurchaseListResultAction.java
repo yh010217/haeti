@@ -1,4 +1,4 @@
-package com.haeti.controller;
+package com.haeti.controller.mypage;
 
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.UserDTO;
@@ -53,9 +53,19 @@ public class PurchaseListResultAction extends HttpServlet {
 
         for(ProdDTO dto:purchase_list){
             JSONObject o1=new JSONObject();
+            String uploadPath=request.getServletContext().getRealPath("upload")+"\\"+dto.getProd_no();
+            String img=dto.getImg_paths().get(0);
 
+            o1.put("prod_no", dto.getProd_no());
             o1.put("title",dto.getTitle());
             o1.put("cost",dto.getCost());
+            o1.put("sell_date",dto.getSell_date().toString());
+            o1.put("uploadPath", uploadPath);
+            o1.put("img", img);
+            o1.put("buyer_id",dto.getBuyer_id());
+
+            /** 채팅 주소 */
+
 
             arr.add(o1);
         }
