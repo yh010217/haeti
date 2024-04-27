@@ -16,7 +16,7 @@
 .slide-inner{
 
     display: inline-block;
-    height: 500px;
+    height: 400px;
     width:100%;
     position:relative;
     overflow: hidden;
@@ -69,7 +69,7 @@
 }
 
 
-.slide-item label{
+.slide-item .modify_label{
     display: inline-block;
     width:96px;
     padding: 8px 0;
@@ -80,7 +80,27 @@
     font-weight: 600;
 }
 
-input[type="file"] {
+
+.remove_label:hover{
+    transition-duration: 0.8s;
+    filter:blur(4px);
+}
+.blur{
+    filter:blur(4px);
+    background-repeat : no-repeat;
+}
+.blur:before{
+    content: "";
+    background-image: url("../../img/trash_can.png");
+    position:absolute;
+    display: inline-block;
+    top:175px;
+    width: 50px;
+    height: 50px;
+    filter:blur(0px)
+}
+
+input[type="file"] ,.image_remove_checkbox {
     position: absolute;
     width: 0;
     height: 0;
@@ -123,4 +143,31 @@ textarea{
     position: relative;
     min-height: 2.2rem;
     right: 1rem;
+}
+
+
+.blue_button{
+    position:absolute;
+    bottom: 0.5rem;
+    right : 80px;
+    width:64px;
+    height: 32px;
+    background: #469AFE;
+    border:0;
+    border-radius: 6px;
+    color : whitesmoke;
+    font-weight: 500;
+}
+
+.yellow_button{
+    position:absolute;
+    bottom: 0.5rem;
+    right : 8px;
+    width:64px;
+    height: 32px;
+    background: #FFDC4F;
+    border:0;
+    border-radius: 6px;
+    color : black;
+    font-weight: 500;
 }

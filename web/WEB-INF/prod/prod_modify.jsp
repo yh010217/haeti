@@ -45,16 +45,20 @@
 
                                 <div class="prod_image_modify_container">
 
+
                                     <div id="image_container<%=i%>" class="prod_modify_image">
-                                        <img id="white_image<%=i%>" src="upload/${dto.prod_no}/${image}">
+                                        <label for="remove_image<%=i%>" class="remove_label">
+                                            <img id="white_image<%=i%>" src="upload/${dto.prod_no}/${image}">
+                                        </label>
                                     </div>
 
 
-                                    <label for="modify_image<%=i%>">이미지 변경</label>
+                                    <label for="modify_image<%=i%>" class="modify_label">이미지 변경</label>
                                     <input type="file" class="picture_image" name="picture_image<%=i%>"
                                            id="modify_image<%=i%>"
                                            onchange="setPreview(event,<%=i%>);"><br>
-                                    <label for="remove_image<%=i%>">이미지 삭제</label>
+
+                                    <%--<label for="remove_image<%=i%>">이미지 삭제</label>--%>
                                     <input type="checkbox" class="image_remove_checkbox" name="remove_image<%=i%>"
                                            id="remove_image<%=i%>"
                                            value="remove"><br>
@@ -73,7 +77,7 @@
                                              src="img/white_background.jpg">
                                     </div>
 
-                                    <label for="modify_image${fi}">이미지 변경</label>
+                                    <label for="modify_image${fi}" class="modify_label">이미지 변경</label>
                                     <input type="file" class="picture_image" name="picture_image${fi}"
                                            id="modify_image${fi}"
                                            onchange="setPreview(event,${fi});"><br>
@@ -147,7 +151,8 @@
             <textarea name="content"><c:out value="${dto.content}"/></textarea>
         </div>
 
-        <button type="submit">전송</button>
+        <button type="reset" class="yellow_button">취소</button>
+        <button type="submit" class="blue_button">완료</button>
     </form>
 </div>
 
@@ -173,6 +178,8 @@
     }
 </script>
 <script src="js/slide_mine.js"></script>
+<script src="js/remove_blur.js"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
