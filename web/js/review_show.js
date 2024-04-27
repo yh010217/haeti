@@ -38,11 +38,11 @@ document.getElementById('rep_show_button').onclick = function () {
 
         let review_form = document.createElement('form');
         review_form.className='review_container';
-        //review_form.method='post';
-        //review_form.action='prod_detail.do?prod_no='+prod_no;
+        review_form.method='post';
+        review_form.action='review_write_result.do?prod_no='+num;
 
         let review_write = document.createElement('textarea');
-        review_write.name='review_write';
+        review_write.name='repcontent';
         review_write.cols=2;
         review_write.className='review_write';
 

@@ -741,4 +741,25 @@ public class ProdDAO {
 
         return noRegion;
     }
+
+    public void repWrite(Connection conn, String user_id, String prod_no, String repcontent) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into rep (user_no, prod_no, repcontent, repdate)           ");
+        sql.append("  values ((select user_no from user where user_id = ?), ?, ?, now())");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, user_id);
+            pstmt.setString(2, prod_no);
+            pstmt.setString(3, repcontent);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
 }

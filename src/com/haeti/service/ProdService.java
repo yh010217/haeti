@@ -465,4 +465,18 @@ public class ProdService {
         }
         return noRegion;
     }
+
+    public void repWrite(String user_id, String prod_no, String repcontent) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.repWrite(conn, user_id, prod_no, repcontent);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
 }

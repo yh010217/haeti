@@ -28,7 +28,7 @@
                                 <div id="image_container1" class="prod_modify_image">
                                     <img id="white_image1" src="img/white_background.jpg">
                                 </div>
-                                <label for="picture_image1">파일추가</label>
+                                <label for="picture_image1">파일추가1</label>
                                 <input type="file" class="picture_image" name="picture_image1"
                                        id="picture_image1" onchange="setPreview(event,1);"><br>
                             </div>
@@ -40,7 +40,7 @@
                                     <img id="white_image2" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image2">파일추가</label>
+                                <label for="picture_image2">파일추가2</label>
                                 <input type="file" class="picture_image" name="picture_image2"
                                        id="picture_image2" onchange="setPreview(event,2);"><br>
                             </div>
@@ -53,7 +53,7 @@
                                     <img id="white_image3" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image3">파일추가</label>
+                                <label for="picture_image3">파일추가3</label>
                                 <input type="file" class="picture_image" name="picture_image3"
                                        id="picture_image3" onchange="setPreview(event,3);"><br>
                             </div>
@@ -65,7 +65,7 @@
                                     <img id="white_image4" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image4">파일추가</label>
+                                <label for="picture_image4">파일추가4</label>
                                 <input type="file" class="picture_image" name="picture_image4"
                                        id="picture_image4" onchange="setPreview(event,4);"><br>
                             </div>
@@ -77,7 +77,7 @@
                                     <img id="white_image5" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image5">파일추가</label>
+                                <label for="picture_image5">파일추가5</label>
                                 <input type="file" class="picture_image" name="picture_image5"
                                        id="picture_image5" onchange="setPreview(event,5);"><br>
                             </div>
