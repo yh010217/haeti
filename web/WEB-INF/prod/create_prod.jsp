@@ -99,22 +99,30 @@
                 </div>
                 <div class="col-8">
                     <div class="blue_div">
-                        <label for="title">제목</label>
-                        <input type="text" id="title" name="title" class="blue_input"><br>
+                        <div class="blue_div_ele">
+                            <label for="title">제목</label>
+                            <input type="text" id="title" name="title" class="blue_input"><br>
+                        </div>
+                        <div class="blue_div_ele">
 
-                        <label for="cost">가격</label>
-                        <input type="number" id="cost" name="cost" class="blue_input"><br>
+                            <label for="cost">가격</label>
+                            <input type="number" id="cost" name="cost" class="blue_input"><br>
+                        </div>
+                        <div class="blue_div_ele">
 
-                        <label for="category_id">카테고리</label>
-                        <select id="category_id" name="category_id" class="blue_input">
-                            <option value="1">천재교과서</option>
-                            <option value="2">지학사</option>
-                            <option value="3">비상교과서</option>
-                        </select>
+                            <label for="category_id">카테고리</label>
+                            <select id="category_id" name="category_id" class="blue_input">
+                                <option value="1">천재교과서</option>
+                                <option value="2">지학사</option>
+                                <option value="3">비상교과서</option>
+                            </select>
+                        </div>
+                        <div class="blue_div_ele">
 
-                        <label for="user_region">판매지역</label>
-                        <input type="text" id="user_region" value="${requestScope.region}" class="blue_input" readonly/>
-
+                            <label for="user_region">판매지역</label>
+                            <input type="text" id="user_region" value="${requestScope.region}" class="blue_input"
+                                   readonly/>
+                        </div>
                         <span class="create_prod_user">
                             <c:if test="${!empty sessionScope.user_id}">${sessionScope.user_id}</c:if>
                             <c:if test="${empty sessionScope.user_id}">로그인 후 이용해주세요</c:if>
@@ -151,11 +159,11 @@
         let reader = new FileReader();
         reader.onload = function (event) {
             let img_container = document.getElementById('image_container' + num);
-            let white_img = document.getElementById('white_image' + num);
+            let white_img = document.getElementById('white_image'+num);
             img_container.removeChild(white_img);
             let image = document.createElement('img');
             image.src = event.target.result;
-            image.id = 'image' + num;
+            image.id = 'white_image' + num;
             img_container.appendChild(image);
         }
         reader.readAsDataURL(event.target.files[0]);

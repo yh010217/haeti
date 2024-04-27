@@ -75,7 +75,7 @@ document.getElementById('rep_show_button').onclick = function () {
 
 
                 let ele_div = document.createElement('div');
-                ele_div.className='row';
+                ele_div.className='row rep_box';
 
                 let ele_div1 = init_text1(item);
 
@@ -92,9 +92,13 @@ document.getElementById('rep_show_button').onclick = function () {
         });
 
         RepShow = 1;
+
+
     } else {
+        document.getElementById('review_create_box').innerHTML = '';
         document.getElementById('review_list').innerHTML = '';
         RepShow = 0;
     }
+
 }
 

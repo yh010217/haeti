@@ -132,7 +132,8 @@ public class ProdDAO {
         sql.append("   ,write_date              ");
         sql.append("   ,cost                    ");
         sql.append("   ,category_id             ");
-        sql.append(" ) values (?,?,CURDATE(),?,?) ");
+        sql.append("   ,seller_user_no             ");
+        sql.append(" ) values (?,?,CURDATE(),?,?,?) ");
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(sql.toString());
@@ -140,6 +141,7 @@ public class ProdDAO {
             pstmt.setString(2, prod.getContent());
             pstmt.setInt(3, prod.getCost());
             pstmt.setInt(4, prod.getCategory_id());
+            pstmt.setInt(5,prod.getSeller_user_no());
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -159,6 +161,8 @@ public class ProdDAO {
         sql.append("        ,content                                ");
         sql.append("        ,write_date                             ");
         sql.append("        ,cost                                   ");
+        sql.append("        ,seller_user_no                         ");
+        sql.append("        ,c.category_id                            ");
         sql.append("        ,c.category as category                 ");
         sql.append("    from prod p  inner join category c          ");
         sql.append("        on p.category_id = c.category_id        ");
@@ -177,7 +181,9 @@ public class ProdDAO {
                 result.setContent(rs.getString("content"));
                 result.setWrite_date(rs.getDate("write_date").toLocalDate());
                 result.setCost(rs.getInt("cost"));
+                result.setSeller_user_no(rs.getInt("seller_user_no"));
                 result.setCategory(rs.getString("category"));
+                result.setCategory_id(rs.getInt("category_id"));
 
             }
         } catch (Exception e) {
@@ -720,8 +726,8 @@ public class ProdDAO {
     public String[] getNoRegion(Connection conn, String user_id)  throws SQLException{
         String[] noRegion = new String[2];
         StringBuilder sql = new StringBuilder();
-        sql.append("  select   addr_dong ");
-        sql.append("      , user_no ");
+        sql.append("  select   user_no ");
+        sql.append("      , addr_dong ");
         sql.append("  from user          ");
         sql.append("  where user_id = ?          ");
         PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -752,6 +758,24 @@ public class ProdDAO {
             pstmt.setString(1, user_id);
             pstmt.setString(2, prod_no);
             pstmt.setString(3, repcontent);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void setAutoIncrement(Connection conn, int result) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  alter table prod auto_increment = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, result);
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

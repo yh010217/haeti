@@ -76,11 +76,13 @@
                 <span class="date_text"><c:out value="${dto.write_date}작성"/></span><br>
             </div>
 
+            <span class="seller_id">판매자 : ${requestScope.seller_id}</span>
 
             <button id="chatting_button">
                 <a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅하기</a>
             </button>
         </div>
+
 
     </div>
     <div class="row">
@@ -93,11 +95,11 @@
     </div>
 
     <button type="button" id="rep_show_button">댓글 확인</button>
-    <div id="review_create_box"></div>
     <ul id="review_list">
 
     </ul>
 
+    <div id="review_create_box"></div>
 
 </div>
 

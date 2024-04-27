@@ -37,9 +37,20 @@ public class ProdService {
         ProdDAO prodDAO = ProdDAO.getProdDAO();
         try {
             conn = db.getConnection();
+            conn.setAutoCommit(false);
             result = prodDAO.getNextProdNum(conn);
+            //그냥 가장 큰 숫자를 넘기면 삭제하고 바로 삭제한 사람이 있어서 안되니깐,
+            // auto_increment를 이 숫자로 맞춰줘야할 듯
+            prodDAO.setAutoIncrement(conn,result);
+
+            conn.commit();
         } catch (Exception e) {
             System.out.println(e);
+            try {
+                conn.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
         } finally {
             db.disconn(conn);
         }
