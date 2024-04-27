@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>Title</title>
-  <link rel="stylesheet" href="css/admin_user.css">
+  <link rel="stylesheet" href="css/admin/admin_user.css">
 </head>
 <body>
 

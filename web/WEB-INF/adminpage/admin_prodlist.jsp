@@ -10,8 +10,8 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/admin_prod.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/admin/admin_prod.css">
+    <link rel="stylesheet" href="css/prod/index.css">
 </head>
 <body>
 
