@@ -44,9 +44,11 @@ public class UserIdCheckAction extends HttpServlet {
         //System.out.println(result+"hello44444");
         String name1="";
 
-        if (result == true){
+        if (result){
           name1="중복된 아이디입니다.";
-        }else {
+        } else if (name1==null || "".equals(name1)) {
+            name1="아이디를 작성해주세요!";
+        } else {
             name1="사용가능한 아이디입니다.";
         }
 

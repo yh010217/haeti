@@ -39,9 +39,11 @@ public class UserNickAction extends HttpServlet {
 
         String nick_name1="";
 
-        if (result == true){
+        if (result){
             nick_name1="중복된 닉네임입니다.";
-        }else {
+        }else if(nick_name==null || "".equals(nick_name)){
+            nick_name1="닉네임을 작성해주세요!";
+        } else {
             nick_name1="사용가능한 닉네임입니다.";
         }
 
