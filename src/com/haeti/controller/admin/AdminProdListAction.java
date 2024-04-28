@@ -10,6 +10,7 @@ import com.haeti.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,6 +19,9 @@ public class AdminProdListAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 관리자 세션 확인 꼭 할 것
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+
 
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");

@@ -10,6 +10,7 @@ import com.haeti.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -18,7 +19,11 @@ public class prodDistanceAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //유저 세션 받아오기
-        String user_id = "test2";
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+        if (user_id == null) {
+            user_id = "test";
+        }
 
         // 유저의 관심지역 정보 가져오기 - regionDTO
 
