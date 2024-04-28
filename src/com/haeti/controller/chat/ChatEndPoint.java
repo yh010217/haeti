@@ -33,12 +33,18 @@ public class ChatEndPoint {
     @OnMessage
     public void onMessage(String message, Session session) throws IOException {
 
+
         String[] splitMessage = message.split("#");
         String prod_no = splitMessage[0];
         String buyer = splitMessage[1];
         String room = prod_no+"#"+buyer;
         String user = splitMessage[2];
         String content = splitMessage[3];
+
+        ProdService prodService = ProdService.getInstance();
+        int buyer_no = Integer.parseInt(prodService.getNoRegion(buyer)[0]);
+        String sender_id = user;
+        prodService.insertChat(prod_no, content, buyer_no, sender_id);
 /*
         String sender = "";
         String receiver = "";

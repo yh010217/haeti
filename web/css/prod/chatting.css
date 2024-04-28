@@ -28,12 +28,15 @@ html{
 }
 #inputMessage{
     width:100%;
+    border-radius: 8px;
+    border: 1px solid #469AFE;
 }
 #message_submit{
     position: relative;
+    left: -1.5rem;
     font-size: 1rem;
     font-weight: 500;
-    width: 150%;
+    width: 5rem;
     height: 50px;
     background-color: #fff419;
     border-radius: 5px;
@@ -57,11 +60,14 @@ html{
     border-radius: 5px;
     background-color: white;
     position: absolute;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     right: 1.5rem;
     height: 100%;
     max-width : 75%;
     border: 1px solid #f0f0f0;
 }
+
 .just_me{
     position:absolute;
     top:-1.4rem;
@@ -79,11 +85,36 @@ html{
     height: 100%;
     max-width : 75%;
     border: 1px solid #f0f0f0;
+
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 }
 .just_other{
     position:absolute;
     top:-1.4rem;
     left: 1.5rem;
     font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#sell_end{
+    background-color: #ABB3C3;
+    border: 1px solid #ABB3C3;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 500;
+    width:96px;
+    padding: 8px 0;
+    position: absolute;
+    right: 0;
+    top:0;
+    z-index: 100;
+}
+
+.chat_end{
+    position: absolute;
+    top:0;
+    text-align: center;
+    font-size: 1.6rem;
     font-weight: 500;
 }

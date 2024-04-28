@@ -490,4 +490,62 @@ public class ProdService {
             db.disconn(conn);
         }
     }
+
+    public void setCreateStatus(ProdDTO prod) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.setCreateStatus(conn, prod);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    public void sellEnd(int prod_no, String buyer) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.sellEnd(conn, prod_no, buyer);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    public String getProdStatus(String prod_no) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        String status = "";
+        try {
+            conn = db.getConnection();
+            status = dao.getProdStatus(conn, prod_no);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+        return status;
+    }
+
+    public void insertChat(String prod_no, String content, int buyer_no, String sender_id) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.insertChat(conn, prod_no, content, buyer_no, sender_id);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
 }

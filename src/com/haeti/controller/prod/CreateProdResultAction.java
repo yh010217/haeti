@@ -66,6 +66,11 @@ public class CreateProdResultAction implements Action {
         service.createProd(prod);
 
 
+
+        //status 관련한 것도 넣기
+        service.setCreateStatus(prod);
+
+
         Forward forward = new Forward();
         forward.setForward(false);
         forward.setUrl("prod_detail.do?prod_no="+nextProdNum);

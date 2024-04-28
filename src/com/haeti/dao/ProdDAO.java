@@ -786,4 +786,99 @@ public class ProdDAO {
             }
         }
     }
+
+    public void setCreateStatus(Connection conn, ProdDTO prod) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into trade (prod_no, status) ");
+        sql.append("  values (?, '판매중') ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, prod.getProd_no());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void sellEnd(Connection conn, int prod_no, String buyer) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  update trade set status = '판매완료' ");
+        sql.append(" ,buyer_user_no = (select user_no from user where user_id = ?) ");
+        sql.append("  ,sell_date = curdate() ");
+        sql.append("  where prod_no = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, buyer);
+            pstmt.setInt(2, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public String getProdStatus(Connection conn, String prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select status ");
+        sql.append("  from trade ");
+        sql.append("  where prod_no = ? ");
+        String status = "";
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                status = rs.getString("status");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return status;
+    }
+
+    public void insertChat(Connection conn, String prod_no, String content, int buyer_no, String sender_id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into chat(");
+        sql.append(" prod_no");
+               // ", content, buyer_no, sender_id, chatdate) "
+        sql.append(" ,chat_content ");
+        sql.append(" ,buyer_no ");
+        sql.append(" ,sender_id ");
+        sql.append(" ,chat_time ) ");
+        sql.append("  values (?, ?, ?, ?, now()) ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, prod_no);
+            pstmt.setString(2, content);
+            pstmt.setInt(3, buyer_no);
+            pstmt.setString(4, sender_id);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
 }

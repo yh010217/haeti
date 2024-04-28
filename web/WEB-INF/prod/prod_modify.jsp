@@ -47,7 +47,7 @@
 
 
                                     <div id="image_container<%=i%>" class="prod_modify_image">
-                                        <label for="remove_image<%=i%>" class="remove_label">
+                                        <label for="remove_image<%=i%>" class="remove_label before_blur">
                                             <img id="white_image<%=i%>" src="upload/${dto.prod_no}/${image}">
                                         </label>
                                     </div>
@@ -148,7 +148,7 @@
         </div>
 
         <div class="row">
-            <textarea name="content"><c:out value="${dto.content}"/></textarea>
+            <textarea name="content" rows="6"><c:out value="${dto.content}"/></textarea>
         </div>
 
         <button type="reset" class="yellow_button">취소</button>

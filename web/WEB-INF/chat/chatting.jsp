@@ -11,6 +11,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page session="true" %>
 <%@ page import="com.haeti.service.ProdService" %>
+
 <html>
 <head>
     <title>Title</title>
@@ -23,12 +24,18 @@
 
 <jsp:include page="/header.jsp"/>
 
+
 <div id="container">
 
+    <c:if test="${param.iam == 'seller'}">
+        <button id="sell_end">판매 완료</button>
+    </c:if>
+    <c:if test="${requestScope.status == '판매완료'}">
+        <div class="chat_content chat_end">판매가 종료되었습니다.</div>
+    </c:if>
     <!--     채팅창 -->
     <div id="_chatbox">
         <div id="messageWindow">
-
         </div>
 
         <div class="row input_window">
@@ -38,6 +45,7 @@
             <div class="col-1 message_send">
                 <input id="message_submit" type="submit" value="SEND" onclick="send()"/>
             </div>
+
         </div>
     </div>
 
@@ -52,11 +60,18 @@
     //request 에 넣어
     request.setAttribute("seller", ProdService.getInstance().getSellerId(request.getParameter("prod_no")));
 %>
+
+<script>
+    document.getElementById("sell_end").addEventListener("click", function () {
+        location.href = "sell_end.do?prod_no=${param.prod_no}&buyer=${param.buyer}";
+    });
+</script>
+
 </body>
 
 <script type="text/javascript">
 
-    var webSocket = new WebSocket('ws://10.41.1.190:8080/haeti/ChattingRoom');
+    var webSocket = new WebSocket('ws://172.30.1.88:8080/haeti/ChattingRoom');
     var inputMessage = document.getElementById('inputMessage');
 
     let prod_no = "${param.prod_no}";
@@ -93,7 +108,7 @@
 
 
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML = "<div class='chat_content chat_div'><div class='other_chat_region'><span class='just_other'>" + user + "</span>" + content + "</div>" + mw.innerHTML;
+        mw.innerHTML = "<div class='chat_content chat_div'><div class='other_chat_region'><span class='just_other'>" + user + "</span>" + content + "</div></div>" + mw.innerHTML;
 
     }
 
@@ -103,7 +118,7 @@
     }
 
     function onError(event) {
-        alert(event.data);
+        //alert(event.data);
     }
 
 

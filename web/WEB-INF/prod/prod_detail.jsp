@@ -42,7 +42,7 @@
 
     <div class="row width80">
 
-        <div id="carouselExample" class="carousel slide col-4">
+        <div id="carouselExample" class="carousel slide col-md-4 col-12">
             <div class="carousel-inner">
 
                 <c:forEach var="image" items="${images}">
@@ -68,7 +68,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div class="col-8">
+        <div class="col-md-8 col-12">
             <div class="prod_detail_twcc">
                 <h4><c:out value="${dto.title}"/></h4> <br>
                 <span class="cost_text"><c:out value="가격 : ${dto.cost}원"/></span><br>

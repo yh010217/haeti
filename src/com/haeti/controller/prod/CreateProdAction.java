@@ -22,6 +22,7 @@ public class CreateProdAction implements Action {
 
         String[] noRegion = service.getNoRegion(user_id);
 
+
         //request.setAttribute("region",userRegion);
         request.setAttribute("user_no",noRegion[0]);
         request.setAttribute("region",noRegion[1]);

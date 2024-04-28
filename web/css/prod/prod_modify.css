@@ -81,23 +81,16 @@
 }
 
 
-.remove_label:hover{
-    transition-duration: 0.8s;
-    filter:blur(4px);
-}
-.blur{
-    filter:blur(4px);
-    background-repeat : no-repeat;
-}
-.blur:before{
-    content: "";
-    background-image: url("../../img/trash_can.png");
+.before_blur:hover:before{
+    content: "클릭시 삭제";
     position:absolute;
-    display: inline-block;
-    top:175px;
-    width: 50px;
-    height: 50px;
-    filter:blur(0px)
+    color:gray;
+    right:0;
+    top:0;
+}
+
+.blur{
+    filter:blur(3px);
 }
 
 input[type="file"] ,.image_remove_checkbox {
