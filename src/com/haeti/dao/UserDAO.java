@@ -267,16 +267,18 @@ public class UserDAO {
         sql.append("                  , user_id      ");
         sql.append("                  , name         ");
         sql.append("                  , tel          ");
-        /* sql.append("                  , join_date    ");*/
+        sql.append("                  , join_date    ");
         sql.append("    from    user                 ");
+        sql.append("    where  user_no <> 19         ");  // 관리자 계정 제외
+
 
         if (!"".equals(search) && !"".equals(search_txt)) {
             if ("user_id".equals(search)) {
-                sql.append("    where  user_id like   ?    ");
+                sql.append("    and  user_id like   ?    ");
             } else if ("name".equals(search)) {
-                sql.append("   where  name  like  ?        ");
+                sql.append("   and  name  like  ?        ");
             } else if ("tel".equals(search)) {
-                sql.append("   where  tel like ?           ");
+                sql.append("   and  tel like ?           ");
             }
         }
         sql.append("  order by user_no DESC                ");
@@ -304,7 +306,7 @@ public class UserDAO {
                 dto.setUser_id(rs.getString("user_id"));
                 dto.setName(rs.getString("name"));
                 dto.setTel(rs.getString("tel"));
-              /*  dto.setJoin_date(rs.getDate("join_date").toLocalDate());*/
+                dto.setJoin_date(rs.getDate("join_date").toLocalDate());
                 list.add(dto);
             }
 

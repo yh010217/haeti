@@ -9,15 +9,20 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/prodcategory.css">
+    <link rel="stylesheet" href="css/prod/prodcategory.css">
 </head>
 <body>
-<div class=menu>
-    <a href="categoryResult.do?category=chunjae">천재교과서</a>
-    <a href="categoryResult.do?category=jihak">지학사</a>
-    <a href="categoryResult.do?category=bisang">비상교과서</a>
-    <a href="categoryResult.do?category=etc">기타</a>
-</div>
+
+    <div class="category_menu">
+    <a href="categoryResult.do?category=1"><img src="img/logo_chunjae.jpg" alt="천재교과서"></a>
+    <a href="categoryResult.do?category=2"><img src="img/logo_jihak.png" alt="지학사"></a>
+    </div>
+
+    <div class="category_menu">
+    <a href="categoryResult.do?category=3"><img src="img/logo_visang.png" alt="비상교과서"></a>
+    <a href="categoryResult.do?category=4"><img src="img/logo_etc.png" alt="기타출판사"></a>
+    </div>
+
 
 </form>
 </body>

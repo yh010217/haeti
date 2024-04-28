@@ -10,15 +10,16 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/admin_prod.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/admin/admin_prod.css">
+    <link rel="stylesheet" href="css/prod/index.css">
 </head>
 <body>
 
+
 <ul class="menu_prod">
         <li class="font_mid">관리자 페이지</li>
-        <li><a href="adminuserlist.do">회원관리</a></li>
-        <li><a href="adminprodlist.do">상품관리</a></li>
+        <li><a href="admin.do">회원관리</a></li>
+        <li><a href="adminprodlist.do"><b>상품관리</b></a></li>
         <li><a href="#">카테고리 관리</a></li>
         <li><a href="#">고객센터</a></li>
     </ul>

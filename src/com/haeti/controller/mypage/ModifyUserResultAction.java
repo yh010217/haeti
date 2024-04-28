@@ -8,6 +8,7 @@ import com.haeti.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,19 @@ public class ModifyUserResultAction implements Action {
         request.setAttribute("modify_result", modify_result);
 
         Forward forward=new Forward();
-        forward.setForward(true);
-        forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
+
+        // 관리자 계정에서 수정했을 경우에는 관리자 페이지로 돌아가도록 함
+        HttpSession session = request.getSession();
+        String user_check = (String) session.getAttribute("user_id");
+
+        if("admin".equals(user_check)){
+            forward.setForward(false);
+            forward.setUrl("admin.do");
+        } else {
+            forward.setForward(true);
+            forward.setUrl("/WEB-INF/mypage/modify_user_result.jsp");
+        }
+
         return forward;
     }
 }

@@ -15,12 +15,43 @@ public class CategoryResultListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String category = request.getParameter("category");
+
+        String curr = request.getParameter("curr");
+        String search = "category_id";
+        String search_txt = request.getParameter("category");
+
+
+        int currpage = 1;
+        if (curr != null) {
+            currpage = Integer.parseInt(curr);
+        }
+
+        int pagesize = 24;
+        int startrow = (currpage-1)*pagesize;
 
         ProdService service = ProdService.getInstance();
-        List<ProdDTO> list = service.categoryList(category);
+
+        int total_data = service.getCount(search, search_txt);
+        int block_size = 5;
+        int start_page = ((currpage-1)/block_size)*block_size+1;
+        int end_page = start_page+block_size-1;
+        int total_page = (int)(Math.ceil(total_data/(float)pagesize));
+
+        if(end_page > total_page){
+            end_page=total_page;
+        }
+
+        List<ProdDTO> list = service.categoryList(startrow, pagesize, search, search_txt);
 
         request.setAttribute("list", list);
+        request.setAttribute("currpage", currpage);
+        request.setAttribute("total_page", total_page);
+        request.setAttribute("start_page", start_page);
+        request.setAttribute("end_page", end_page);
+        request.setAttribute("search", search);
+        request.setAttribute("search_txt", search_txt);
+        request.setAttribute("total_data", total_data);
+
 
         Forward forward = new Forward();
         forward.setForward(true);

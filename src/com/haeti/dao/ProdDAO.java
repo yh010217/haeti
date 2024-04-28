@@ -28,11 +28,13 @@ public class ProdDAO {
         sql.append("  SELECT    p.prod_no           ");
         sql.append("            , p.title           ");
         sql.append("            , p.content         ");
-        sql.append("            , u.nick_name            ");
+        sql.append("            , u.nick_name       ");
         sql.append("            , c.category        ");
-       /* sql.append("            , write_date        ");*/
+        sql.append("            , write_date        ");
         sql.append("            , cost              ");
         sql.append("            , i1.img_url        ");
+        sql.append("            , u.fav_region      ");
+        sql.append("            , ifnull(rn, 1)     ");
         sql.append("  FROM prod p LEFT OUTER JOIN        ");
         sql.append("                       ( SELECT img_url       ");
         sql.append("                               , prod_no      ");
@@ -43,7 +45,7 @@ public class ProdDAO {
         sql.append("               ON p.seller_user_no = u.user_no      ");
         sql.append("               LEFT OUTER JOIN category c           ");
         sql.append("               ON p.category_id = c.category_id     ");
-        sql.append("   WHERE rn=1                                       ");
+        sql.append("   WHERE ifnull(rn, 1) =1                                       ");
 
         if (!"".equals(search) && !"".equals(search_txt)) {
             sql.append("             and                  ");
@@ -85,7 +87,7 @@ public class ProdDAO {
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("p.title"));
-               /* dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
                 dto.setCost(rs.getInt("cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
@@ -201,36 +203,42 @@ public class ProdDAO {
         return result;
     }
 
-    public List<ProdDTO> getCategoryList(Connection conn, String category) throws SQLException {
+    public List<ProdDTO> getCategoryList(Connection conn, int startrow, int pagesize, String search, String search_txt)
+            throws SQLException {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , title             ");
         sql.append("            , write_date        ");
         sql.append("            , cost              ");
         sql.append("            , i1.img_url        ");
-        sql.append("  FROM prod p Inner JOIN        ");
+        sql.append("            , ifnull(rn, 1)     ");
+        sql.append("  FROM prod p left outer join   ");
         sql.append("                       ( SELECT img_url      ");
         sql.append("                               , prod_no     ");
         sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
         sql.append("                         FROM image ) i1     ");
         sql.append("               ON p.prod_no = i1.prod_no     ");
-        sql.append("   WHERE rn=1    and    category_id = ?      ");
-        sql.append("   ORDER BY  p.prod_no DESC;                 ");
+        sql.append("   WHERE    ifnull(rn, 1) =1                 ");
+        sql.append("              and    category_id = ?         ");
+        sql.append("   ORDER BY  p.prod_no DESC                  ");
+        sql.append("   limit   ? , ?                             ");
 
         List<ProdDTO> list = new ArrayList<>();
         ResultSet rs = null;
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ) {
-            if("chunjae".equals(category)){
+            if("1".equals(search_txt)){
                 pstmt.setInt(1, 1);
-            } else if("jihak".equals(category)){
+            } else if("2".equals(search_txt)){
                 pstmt.setInt(1, 2);
-            } else if("bisang".equals(category)){
+            } else if("3".equals(search_txt)){
                 pstmt.setInt(1, 3);
             } else {
                 pstmt.setInt(1, 4);
             }
+            pstmt.setInt(2, startrow);
+            pstmt.setInt(3, pagesize);
 
             rs = pstmt.executeQuery();
 
@@ -414,7 +422,7 @@ public class ProdDAO {
             } else if ("nick_name".equals(search)) {
                 sql.append("    where  u.nick_name like ?         ");
             } else if ("category".equals(search)) {
-                sql.append("    where  c.category like ?         ");
+                sql.append("    where  p.category =         ");
             }
         }
 
@@ -424,7 +432,11 @@ public class ProdDAO {
         try(PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ){
             if(!"".equals(search) && !"".equals(search_txt)){
-                pstmt.setString(1, "%"+search_txt+"%");
+                if ("category".equals(search)){
+                    pstmt.setString(1, search_txt);
+                } else {
+                    pstmt.setString(1, "%" + search_txt + "%");
+                }
             }
             rs = pstmt.executeQuery();
 
@@ -443,9 +455,10 @@ public class ProdDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , p.title           ");
-        /*sql.append("            , write_date        ");*/
-        sql.append("            , p.cost              ");
+        sql.append("            , write_date        ");
+        sql.append("            , p.cost            ");
         sql.append("            , i1.img_url        ");
+        sql.append("            , ifnull(rn, 1)     ");
         sql.append("  FROM prod p LEFT OUTER JOIN                   ");
         sql.append("                       ( SELECT img_url         ");
         sql.append("                               , prod_no        ");
@@ -455,7 +468,7 @@ public class ProdDAO {
         sql.append("               LEFT OUTER JOIN user u           ");
         sql.append("               on p.seller_user_no = u.user_no  ");
         sql.append("   WHERE  u.fav_region =   ?                    ");
-      /*  sql.append("          and    rn = 1                         ");  // 이미지 없으면 오류!!*/
+        sql.append("          and    ifnull(rn, 1) =1               ");
         sql.append("   ORDER BY  p.prod_no DESC                     ");
         sql.append("   limit   ? , ?                                ");
 
@@ -476,7 +489,7 @@ public class ProdDAO {
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("p.title"));
-                /*dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
                 dto.setCost(rs.getInt("p.cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
@@ -500,7 +513,7 @@ public class ProdDAO {
 
         try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
         ) {
-            pstmt.setString(1, "%" + fav_region + "%");
+            pstmt.setString(1, fav_region);
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -578,6 +591,7 @@ public class ProdDAO {
         return prodDTO;
     }
 
+
     public List<String> chatBuyer_no(Connection conn, int prod_no) throws SQLException{
         StringBuilder sql=new StringBuilder();
         sql.append("  select user_id                     ");
@@ -597,6 +611,8 @@ public class ProdDAO {
         }
         return buyer_userList;
   }
+
+    /**관심 지역의 매물 갯수*/
     public int getRegionProdCount(Connection conn, String fav_region) throws SQLException{
         StringBuilder sql = new StringBuilder();
         sql.append("   select count(*)                               ");
@@ -629,13 +645,15 @@ public class ProdDAO {
         StringBuilder sql = new StringBuilder();
         sql.append("  SELECT p.prod_no              ");
         sql.append("            , p.title           ");
-        /*sql.append("            , write_date        ");*/
-        sql.append("            , p.cost              ");
+        sql.append("            , write_date        ");
+        sql.append("            , p.cost            ");
         sql.append("            , i1.img_url        ");
+        sql.append("            , ifnull(rn, 1)     ");
+
         sql.append("            , SQRT  (power( (ifnull(c.lat, 0) - ? ), 2 ) + power( (ifnull(c.lng, 0) - ? ), 2 ))  AS  distance       ");
-        sql.append("  FROM prod p LEFT OUTER JOIN                   ");
-        sql.append("                       ( SELECT img_url         ");
-        sql.append("                               , prod_no        ");
+        sql.append("  FROM prod p LEFT OUTER JOIN                      ");
+        sql.append("                       ( SELECT img_url            ");
+        sql.append("                               , prod_no           ");
         sql.append("                               , ROW_NUMBER() OVER(PARTITION BY prod_no ORDER BY img_no) AS rn   ");
         sql.append("                         FROM image ) i1           ");
         sql.append("               ON p.prod_no = i1.prod_no           ");
@@ -643,7 +661,7 @@ public class ProdDAO {
         sql.append("               on p.seller_user_no = u.user_no     ");
         sql.append("               LEFT OUTER JOIN coordinate c        ");
         sql.append("               on u.fav_region = c.eup_myeun_dong  ");
-        /*  sql.append("   WHERE          rn = 1                         ");  // 이미지 없으면 오류!!*/
+        sql.append("   WHERE          ifnull(rn, 1) =1                 ");  // 이미지 없으면 오류?
         sql.append("   ORDER BY  distance,  p.prod_no DESC             ");
         sql.append("   limit   ? , ?                                   ");
 
@@ -665,7 +683,7 @@ public class ProdDAO {
 
                 dto.setProd_no(rs.getInt("p.prod_no"));
                 dto.setTitle(rs.getString("p.title"));
-                /*dto.setWrite_date(rs.getDate("write_date").toLocalDate());*/
+                dto.setWrite_date(rs.getDate("write_date").toLocalDate());
                 dto.setCost(rs.getInt("p.cost"));
                 dto.setImg_paths(img_paths);
                 list.add(dto);
