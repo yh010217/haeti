@@ -31,7 +31,7 @@ public class NickCheckAction extends HttpServlet {
     }
 
     private void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/json;charset=utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String nick_name=request.getParameter("nick_name");
 
@@ -42,14 +42,17 @@ public class NickCheckAction extends HttpServlet {
 
         boolean result=userService.nickCheck(nick_name, user_id);
 
-        JSONArray arr=new JSONArray();
-        JSONObject o1=new JSONObject();
-
-        o1.put("result", result);
-        arr.add(o1);
+        String nick_result="";
+        if(result){
+            nick_result="true";
+        }else if(nick_name==null || "".equals(nick_name)){
+            nick_result="null";
+        }else{
+            nick_result="false";
+        }
 
         PrintWriter out=response.getWriter();
-        out.print(arr);
+        out.print(nick_result);
 
 
     }

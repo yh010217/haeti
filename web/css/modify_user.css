@@ -6,11 +6,18 @@
 
 #wrap{
     width: 90%;
-    margin: 30px auto;
+    margin: 70px auto;
 }
 
 h1{
     text-align: center;
+}
+
+form{
+    margin: 7vh auto;
+    width: 70vw;
+    display: flex;
+    justify-content: center;
 }
 
 ul li{
@@ -18,9 +25,19 @@ ul li{
     padding: 20px;
 }
 
-form{
-    margin: 7vh auto;
-    width: 60vw;
+label{
+    padding-right: 10px;
+    margin-right: 3vw;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    display: inline-block;
+    width: 120px;
+}
+
+input{
+    color: dimgray;
+    padding: 5px 3px;
+    font-size: 1.1rem;
 }
 
 .impossible{
@@ -29,4 +46,47 @@ form{
 
 .possible{
     color: green;
+}
+
+#nick_check, #email_check{
+    padding: 5px 8px;
+    margin-left: 10px;
+    background-color: #469AFE;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+#sample6_address, #sample6_detailAddress
+, #sample6_extraAddress{
+    position: relative;
+    left: 180px;
+    margin-top: 5px;
+}
+
+#sample6_address{
+    width: 300px;
+}
+
+#postcode_btn{
+    margin-left: 10px;
+    border: 1px solid silver;
+    border-radius: 5px;
+}
+
+ul li:last-child{
+    display: flex;
+    justify-content: center;
+}
+
+#submit{
+    padding: 5px 10px;
+    background-color: #03C75A;
+    color: white;
+    font-weight: bolder;
+    font-size: 1.1rem;
+    border: 1px solid silver;
+    border-radius: 5px;
 }

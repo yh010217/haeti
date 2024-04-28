@@ -22,7 +22,7 @@
 <c:set var="addr" value="${requestScope.addr}"/>
 <c:set var="addr_detail" value="${requestScope.addr_detail}"/>
 <c:set var="addr_extra" value="${requestScope.addr_extra}"/>
-<c:set var="fav_regions" value="${requestScope.fav_region}"/>
+<c:set var="fav_region" value="${requestScope.fav_region}"/>
 
 
 <div id="wrap">
@@ -35,8 +35,7 @@
             </li>
             <li>
                 <label for="pwd">비밀번호</label>
-                <input type="password" name="pwd" id="pwd" value="${dto.pwd}">
-                <button type="submit" name="check">비밀번호 변경</button>
+                <input type="password" name="pwd" id="pwd" value="${dto.pwd}" required>
             </li>
             <li>
                 <label for="name">이름</label>
@@ -44,7 +43,7 @@
             </li>
             <li>
                 <label for="nick_name">닉네임</label>
-                <input type="text" name="nick_name" id="nick_name" value="${dto.nick_name}">
+                <input type="text" name="nick_name" id="nick_name" value="${dto.nick_name}" required>
                 <button type="button" name="nick_check" id="nick_check">중복확인</button>
                 <span id="nick_check_result"></span>
             </li>
@@ -59,17 +58,15 @@
             <li>
                 <label>주소</label>
                 <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" value="${postcode}">
-                <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="button" id="postcode_btn" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                 <input type="text" name="addr" id="sample6_address" placeholder="주소" value="${addr}"><br>
-                <input type="text" name="addr_detail" id="sample6_detailAddress" placeholder="상세주소" value="${addr_detail}">
+                <input type="text" name="addr_detail" id="sample6_detailAddress"
+                       placeholder="상세주소" value="${addr_detail}">
                 <input type="text" name="addr_extra" id="sample6_extraAddress" placeholder="참고항목" value="${addr_extra}">
             </li>
             <li>
-               <label>관심지역</label>
-                <c:forEach var="item" items="${fav_regions}" >
-                    <input type="text" name="fav_region" value="${item}" >
-                </c:forEach>
-
+                <label>관심지역</label>
+                <input type="text" name="fav_region" value="${fav_region}" >
             </li>
             <li>
                 <label>휴대전화</label>
