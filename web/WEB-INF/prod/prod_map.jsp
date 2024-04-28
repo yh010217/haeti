@@ -49,7 +49,7 @@
         <%--페이지번호--%>
         <div class="page_num">
             <c:if test="${start_page>1}">
-                <a href="prodmap.do?curr=${start_page-1}&lat=${fav_lat}&lng=${fav_lng}&dong=${dong}">이전</a>
+                <a href="prodmap.do?curr=${start_page-1}&lat=${fav_lat}&lng=${fav_lng}&dong=${param.dong}">이전</a>
             </c:if>
 
             <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
@@ -58,13 +58,13 @@
                         <c:out value="${i}"/>
                     </c:when>
                     <c:otherwise>
-                        <a href="prodmap.do?curr=${i}&lat=${fav_lat}&lng=${fav_lng}&dong=${dong}"><c:out value="${i}"/></a>
+                        <a href="prodmap.do?curr=${i}&lat=${fav_lat}&lng=${fav_lng}&dong=${param.dong}"><c:out value="${i}"/></a>
                     </c:otherwise>
                 </c:choose>
             </c:forEach>
 
             <c:if test="${end_page < total_page}">
-                <a href="prodmap.do?curr=${end_page+1}&lat=${fav_lat}&lng=${fav_lng}&dong=${dong}">다음</a>
+                <a href="prodmap.do?curr=${end_page+1}&lat=${fav_lat}&lng=${fav_lng}&dong=${param.dong}">다음</a>
             </c:if>
         </div>
     </div>
@@ -77,7 +77,7 @@
 <div class="space"></div>
 
 
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=[mykey]&libraries=clusterer,services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=39e6966e11fb77579a6ab5fed53f2e28&libraries=clusterer,services"></script>
 <script>
 
 

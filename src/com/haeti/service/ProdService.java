@@ -565,4 +565,20 @@ public class ProdService {
         }
         return chatList;
     }
+
+    public List<String[]> getProdBuyer(int prod_no) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        List<String[]> chattingList = new ArrayList<>();
+        try {
+            conn = db.getConnection();
+            chattingList = dao.getProdBuyer(conn, prod_no);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+        return chattingList;
+    }
 }

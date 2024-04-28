@@ -51,6 +51,9 @@ public class LoginFilter implements Filter {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
                     dispatcher.forward(request, response);
                 }
+            }else{
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+                dispatcher.forward(request, response);
             }
         }
     }

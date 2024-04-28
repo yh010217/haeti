@@ -54,6 +54,10 @@ form{
 
 img{
     width: 12vw;
+    height: 12vw;
+    object-fit: contain;
+
+
     position: relative;
     top: 4vh;
     left: 1vw;
