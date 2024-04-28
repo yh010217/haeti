@@ -40,6 +40,17 @@ fetch("sales_list_result"
         let txt2=document.createTextNode(item.write_date);
         let txt3=document.createTextNode(item.cost);
 
+        /*채팅: prod_no, buyer_id*/
+        let buyer_id=item.buyer_id;
+        let chat_url=document.createElement('a');
+        // chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=buyer";
+        chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=seller";
+        let chat_icon=document.createElement('img');
+        chat_icon.src="img/chatting_icon.png";
+        chat_icon.alt="채팅";
+        chat_icon.id="chat_icon";
+        chat_url.appendChild(chat_icon);
+
         /*ele_td2 ul1 li*/
         ele_li1.appendChild(txt1);
         ele_li2.appendChild(txt2);
@@ -51,11 +62,12 @@ fetch("sales_list_result"
         /*td,tr*/
         ele_td1.appendChild(ele_img);
         ele_td2.appendChild(ele_ul1);
-        ele_tr.appendChild(ele_td1)
-        ele_tr.appendChild(ele_td2)
-        ele_tr.appendChild(ele_td3)
+        ele_td3.appendChild(chat_url);
+        ele_tr.appendChild(ele_td1);
+        ele_tr.appendChild(ele_td2);
+        ele_tr.appendChild(ele_td3);
 
-        document.getElementById("result").appendChild(ele_tr)
+        document.getElementById("result").appendChild(ele_tr);
     })
 }).catch(error => {
     console.log(error + "error!!!!")
@@ -113,6 +125,17 @@ function selectChange(value){
             let txt2=document.createTextNode(item.write_date);
             let txt3=document.createTextNode(item.cost);
 
+            /*채팅: prod_no, buyer_id*/
+            let buyer_id=item.buyer_id;
+            let chat_url=document.createElement('a');
+            // chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=buyer";
+            chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=seller";
+            let chat_icon=document.createElement('img');
+            chat_icon.src="img/chatting_icon.png";
+            chat_icon.alt="채팅";
+            chat_icon.id="chat_icon";
+            chat_url.appendChild(chat_icon);
+
             /*ele_td2 ul1 li*/
             ele_li1.appendChild(txt1);
             ele_li2.appendChild(txt2);
@@ -124,11 +147,12 @@ function selectChange(value){
             /*td,tr*/
             ele_td1.appendChild(ele_img);
             ele_td2.appendChild(ele_ul1);
-            ele_tr.appendChild(ele_td1)
-            ele_tr.appendChild(ele_td2)
-            ele_tr.appendChild(ele_td3)
+            ele_td3.appendChild(chat_url);
+            ele_tr.appendChild(ele_td1);
+            ele_tr.appendChild(ele_td2);
+            ele_tr.appendChild(ele_td3);
 
-            document.getElementById("result").appendChild(ele_tr)
+            document.getElementById("result").appendChild(ele_tr);
         })
     }).catch(error => {
         console.log(error + "error!!!!")

@@ -274,7 +274,6 @@ public class ProdDAO {
 
     /**  기간별 구매내역  */
     public List<ProdDTO> purchaseList(Connection conn, String period, int user_no) throws SQLException{
-        //쿼리문 수정 필요!!
         StringBuilder sql=new StringBuilder();
         sql.append("  select        t.prod_no                 ");
         sql.append("              , title                     ");
@@ -282,13 +281,13 @@ public class ProdDAO {
         sql.append("              , sell_date                 ");
         sql.append("              , img_url                   ");
         sql.append("              , user_id                   ");
-        sql.append("  from  prod p left join trade t          ");
+        sql.append("  from  prod p inner join trade t         ");
         sql.append("  on p.prod_no = t.prod_no                ");
-        sql.append("  left join image i                       ");
+        sql.append("  inner join image i                      ");
         sql.append("  on p.prod_no = i.prod_no                ");
-        sql.append("  left join user u                        ");
+        sql.append("  inner join user u                       ");
         sql.append("  on u.user_no = t.buyer_user_no          ");
-        if("week".equals(period)){
+        if("week".equals(period) || period==null){
             sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -1 week ))  ");
         }else if("month".equals(period)){
             sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -1 month )) ");
@@ -296,6 +295,7 @@ public class ProdDAO {
             sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -3 month )) ");
         }
         sql.append("  and buyer_user_no = ?                   ");
+        sql.append("  group by t.prod_no                      ");
         sql.append("  order by sell_date desc                 ");
 
         List<ProdDTO> purchase_list=new ArrayList<>();
@@ -321,6 +321,8 @@ public class ProdDAO {
         }
         return purchase_list;
     }
+
+
 
     public String getSellerId(Connection conn, String prod_no) {
         StringBuilder sql = new StringBuilder();
@@ -352,18 +354,23 @@ public class ProdDAO {
     /**  상태별 판매내역  */
     public List<ProdDTO> salesList(Connection conn, String status, int user_no) throws SQLException{
         StringBuilder sql=new StringBuilder();
-        sql.append("  select t.prod_no                      ");
+        sql.append("  select t.prod_no                    ");
         sql.append("         , title                      ");
         sql.append("         , cost                       ");
         sql.append("         , write_date                 ");
         sql.append("         , img_url                    ");
+        sql.append("         , user_id                    ");
         sql.append("  from prod p left join trade t       ");
         sql.append("  on p.prod_no = t.prod_no            ");
         sql.append("  left join image i                   ");
         sql.append("  on p.prod_no=i.prod_no              ");
+        sql.append("  left join chat c                    ");
+        sql.append("  on c.prod_no = p.prod_no            ");
+        sql.append("  left join user u                    ");
+        sql.append("  on u.user_no = c.buyer_no           ");
         sql.append("  where p.seller_user_no = ?          ");
         sql.append("  and t.status = ?                    ");
-        sql.append("  group by trade_id                   ");
+        sql.append("  group by t.prod_no                  ");
         sql.append("  order by write_date                 ");
 
         List<ProdDTO> sales_list=new ArrayList<>();
@@ -381,12 +388,14 @@ public class ProdDAO {
                 List<String> img_paths=new ArrayList<>();
                 img_paths.add(rs.getString("img_url"));
                 dto.setImg_paths(img_paths);
+                dto.setBuyer_id(rs.getString("user_id"));
 
                 sales_list.add(dto);
             }
         }
         return sales_list;
     }
+
     public int getCount(Connection conn, String search, String search_txt) throws SQLException {
 
         StringBuilder sql = new StringBuilder();

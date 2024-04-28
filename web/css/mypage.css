@@ -66,6 +66,10 @@ a{
     top: 1px;
 }
 
+.info1 a:hover{
+    background-color: #03C75A;
+}
+
 .info2{
     display: table-cell;
 }
@@ -86,7 +90,7 @@ a{
     margin: 5px 10px;
     position: relative;
     top: 27px;
-    left: 10px;
+    left: 20px;
 }
 
 .info3 a{
@@ -157,6 +161,21 @@ a{
 
 .td ul li:nth-child(2){
     color: dimgray;
+}
+
+.td3{
+    display: flex;
+    justify-content: right;
+    padding: 5px 15px;
+    position: relative;
+    top: 60px;
+}
+
+.td3 img{
+    width: 35px;
+    position: relative;
+    top: 5px;
+    left: -5px;
 }
 
 /*#bottom{
