@@ -19,4 +19,12 @@
     width: 23vw; height: 15vh;
     border-radius: 10px;
     border: 2px dotted #03C75A;
+    filter: brightness(80%);
+    transition: filter 0.3s ease, transform 0.3s ease; /* 효과를 부드럽게 전환 */
+}
+
+.category_menu a img:hover{
+    filter: brightness(100%); /* 마우스를 올렸을 때 이미지를 기본 밝기로 되돌림 */
+    transition: filter 0.3s ease; /* 효과를 부드럽게 전환 */
+    transform: scale(1.05); /* 이미지를 1.05배로 확대 */
 }

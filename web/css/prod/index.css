@@ -31,7 +31,7 @@ ul li {
 }
 .prod_list ul .title, .prod_list ul .cost {
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 .prod_list ul .write_date {
     font-weight: 300;
@@ -44,8 +44,11 @@ ul li {
     margin: 20px auto;
     font-weight: bolder;
     font-size: small;
-}
 
+}
+.page_num a {
+    margin: 0 10px;
+}
 
 .write_btn{
     display: flex;

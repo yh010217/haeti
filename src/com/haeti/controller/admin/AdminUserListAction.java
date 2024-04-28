@@ -40,6 +40,10 @@ public class AdminUserListAction implements Action {
         UserService service = UserService.getUserService();
 
         int total_data = service.getCount(search, search_txt);
+
+
+
+
         int block_size = 10;
         int start_page = ((currpage-1)/block_size)*block_size+1;
         int end_page = start_page+block_size-1;
@@ -48,6 +52,8 @@ public class AdminUserListAction implements Action {
         if(end_page > total_page){
             end_page=total_page;
         }
+
+
 
         List<UserDTO> list = service.getList(startrow, pagesize, search, search_txt);
 

@@ -14,8 +14,9 @@ ul li {
     flex: 4;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     position: relative;
+    margin-left: 10%;
+    height: 90vh;
 }
 .prod_list_none {
     text-align: center;
@@ -28,7 +29,6 @@ ul li {
     float: left;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -37,12 +37,12 @@ ul li {
     height: 180px;
 }
 .prod_list ul {
+    display: inline-block;
     width: 50%;
-    margin-bottom: 20px;
 }
 .prod_list ul .title, .prod_list ul .cost {
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 .prod_list ul .write_date {
     font-weight: 300;
@@ -50,9 +50,8 @@ ul li {
 }
 
 #map {
-    flex: 7;
+    flex: 8;
     height: 90vh;
-    margin :  0 8%;
 
 }
 
@@ -68,6 +67,11 @@ ul li {
     font-weight: bolder;
     font-size: small;
 }
+
+.page_num a {
+    margin: 0 10px;
+}
+
 
 .space {
     clear: both;

@@ -23,60 +23,61 @@
 
 <div class="prod_wrap">
     <div class="section_left">
-    <div class="prod_list_none">
-        <c:if test="${empty list || fn.length(list)==0}">
-            <ul>
-                <li>현재 관심 지역에 <br>
-                    매물이 없습니다.</li>
-            </ul>
-        </c:if>
-    </div>
-
-    <div class="prod_list">
-        <c:if test="${!(empty list)}">
-            <c:forEach var="item" items="${list}">
+        <div class="prod_list_none">
+            <c:if test="${empty list || fn.length(list)==0}">
                 <ul>
-                    <li><a href="prod_detail.do?prod_no=${item.prod_no}">
-                        <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
-                    <li class="title">${item.title}</li>
-                    <li class="cost">${item.cost}원</li>
-                    <li class="write_date">${item.write_date}</li>
+                    <li>현재 관심 지역에 <br>
+                        매물이 없습니다.
+                    </li>
                 </ul>
+            </c:if>
+        </div>
+
+        <div class="prod_list">
+            <c:if test="${!(empty list)}">
+                <c:forEach var="item" items="${list}">
+                    <ul>
+                        <li><a href="prod_detail.do?prod_no=${item.prod_no}">
+                            <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
+                        <li class="title">${item.title}</li>
+                        <li class="cost">${item.cost}원</li>
+                        <li class="write_date">${item.write_date}</li>
+                    </ul>
+                </c:forEach>
+            </c:if>
+        </div>
+        <%--페이지번호--%>
+        <div class="page_num">
+            <c:if test="${start_page>1}">
+                <a href="index.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
+            </c:if>
+
+            <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
+                <c:choose>
+                    <c:when test="${i==currpage}">
+                        <c:out value="${i}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="index.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
+                    </c:otherwise>
+                </c:choose>
             </c:forEach>
-        </c:if>
-    </div>
-    <%--페이지번호--%>
-    <div class="page_num">
-        <c:if test="${start_page>1}">
-            <a href="index.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
-        </c:if>
 
-        <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
-            <c:choose>
-                <c:when test="${i==currpage}">
-                    <c:out value="${i}"/>
-                </c:when>
-                <c:otherwise>
-                    <a href="index.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-
-        <c:if test="${end_page < total_page}">
-            <a href="index.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
-        </c:if>
-    </div>
+            <c:if test="${end_page < total_page}">
+                <a href="index.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
+            </c:if>
+        </div>
     </div>
 
-<%--지도--%>
-<div id="map"></div>
+    <%--지도--%>
+
+    <div id="map"></div>
 </div>
 
-    <div class="space"></div>
+<div class="space"></div>
 
 
-
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=[my key]&libraries=clusterer,services"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=[mykey]&libraries=clusterer,services"></script>
 <script>
 
 
@@ -98,9 +99,9 @@
 
     // 마커 클러스터러를 생성합니다
     var clusterer = new kakao.maps.MarkerClusterer({
-        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
-        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
-        minLevel: 1, // 클러스터 할 최소 지도 레벨
+        map             : map, // 마커들을 클러스터로 관리하고 표시할 지도 객체
+        averageCenter   : true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
+        minLevel        : 1, // 클러스터 할 최소 지도 레벨
         disableClickZoom: true // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
     });
 
@@ -111,20 +112,20 @@
     // 상품 목록 json 파일 가져와서 마크추가, 클러스터링
     fetch("prodmapmarker"
         , {
-            method : 'GET'
+            method   : 'GET'
             , headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
-                , "Accept": "text/json"
+                , "Accept"    : "text/json"
             }
         }).then(res => {
         return res.json()
-    }).then(data=> {
+    }).then(data => {
         data.forEach(item => {
 
             // 지도에 마커를 생성하고 표시한다
             var marker = new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(item.lat, item.lng), // 마커의 좌표
-                map      : map // 마커를 표시할 지도 객체
+                position: new kakao.maps.LatLng(item.lat, item.lng), // 마커의 좌표
+                map     : map // 마커를 표시할 지도 객체
             });
             markers.push(marker);
 
@@ -133,7 +134,7 @@
 
 
         // 클러스터링 클릭시 지역 정보 가져옴
-        kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+        kakao.maps.event.addListener(clusterer, 'clusterclick', function (cluster) {
 
             var position = map.getCenter(cluster.getCenter());
 
@@ -146,20 +147,23 @@
 
             // 동정보 가져오기
             var dong;
-            var callback = function(result, status) {
+            var callback = function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     dong = result[0].region_3depth_name;
 
                     // 주소에 정보 담아서 이동
-                    location.href="prodmaplist.do?dong="+dong+"&lat="+lat+"&lng="+lng;
+                    location.href = "prodmaplist.do?dong=" + dong + "&lat=" + lat + "&lng=" + lng;
 
-                   /* // HTML 요소에 JavaScript 변수 값 설정
-                    document.getElementById('map_list').textContent = dong;*/
+                    /* // HTML 요소에 JavaScript 변수 값 설정
+                     document.getElementById('map_list').textContent = dong;*/
                 }
             };
             geocoder.coord2RegionCode(lat, lng, callback);
 
         });
+
+
+
     });
 
 
