@@ -267,7 +267,7 @@ public class ProdDAO {
     }
 
     /**  기간별 구매내역  */
-    public List<ProdDTO> purchaseList(Connection conn, int period, int user_no) throws SQLException{
+    public List<ProdDTO> purchaseList(Connection conn, String period, int user_no) throws SQLException{
         //쿼리문 수정 필요!!
         StringBuilder sql=new StringBuilder();
         sql.append("  select        t.prod_no                 ");
@@ -282,7 +282,13 @@ public class ProdDAO {
         sql.append("  on p.prod_no = i.prod_no                ");
         sql.append("  left join user u                        ");
         sql.append("  on u.user_no = t.buyer_user_no          ");
-        sql.append("  WHERE DATEDIFF(NOW(), sell_date) <= ?   ");
+        if("week".equals(period)){
+            sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -1 week ))  ");
+        }else if("month".equals(period)){
+            sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -1 month )) ");
+        }else if("3month".equals(period)){
+            sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -3 month )) ");
+        }
         sql.append("  and buyer_user_no = ?                   ");
         sql.append("  order by sell_date desc                 ");
 
@@ -291,8 +297,7 @@ public class ProdDAO {
 
         try(PreparedStatement pstmt=conn.prepareStatement(sql.toString());
         ){
-            pstmt.setInt(1, period);
-            pstmt.setInt(2, user_no);
+            pstmt.setInt(1, user_no);
             rs=pstmt.executeQuery();
             while (rs.next()){
                 ProdDTO dto=new ProdDTO();

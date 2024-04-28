@@ -9,6 +9,10 @@
     margin: 80px auto;
 }
 
+ul li{
+    list-style: none;
+}
+
 h1{
     text-align: center;
 }
@@ -20,23 +24,81 @@ a{
 #top{
     margin: 30px auto;
     width: 70vw;
-    height: 10vh;
+    height: 110px;
     border: 1px solid silver;
-    display: flex;
-    justify-content: space-between;
+    display: table;
+}
+
+.tr{
+    display: table-row;
 }
 
 .info1{
+    display: table-cell;
     width: 30vw;
-    height: 10vh;
+    height: 110px;
     background-color: #E0E9FD;
 }
 
+.info1 p{
+    padding: 5px 7px;
+    position: relative;
+    top: 15px;
+}
+
+.info1 p:first-child{
+    font-weight: bolder;
+}
+
+.info1 p:last-child{
+    color: dimgray;
+}
+
+.info1 a{
+    padding: 5px 7px;
+    margin: 0 10px;
+    border: 1px solid #CBDAE1;
+    border-radius: 5px;
+    background-color: #469AFE;
+    color: white;
+    float: right;
+    position: relative;
+    top: 1px;
+}
+
+.info2{
+    display: table-cell;
+}
+
+.info2 p{
+    padding: 5px 7px;
+    position: relative;
+    top: 15px;
+}
+
+.info3{
+    width: 120px;
+    display: table-cell;
+}
+
+.info3 li{
+    padding: 5px;
+    margin: 5px 10px;
+    position: relative;
+    top: 27px;
+    left: 10px;
+}
+
+.info3 a{
+    border: 2px solid silver;
+    padding: 2px 3px;
+    position: relative;
+}
 
 #middle{
-    margin: 50px auto;
+    margin: 70px auto;
     width: 70vw;
-    height: 20vh;
+    height: 210px;
 }
 
 .sales{
@@ -44,20 +106,61 @@ a{
     justify-content: space-between;
 }
 
+.sales>h2{
+    margin-bottom: 5px;
+}
+
 .sales_info{
     margin: 0 auto;
     width: 70vw;
-    height: 20vh;
+    height: 180px;
     border: 1px solid silver;
     border-top: 3px solid silver;
+    display: table;
 }
 
-.sales_info>img{
-    width: 150px;
+.sales_info>p{
+    font-size: 1.1rem;
+    text-align: center;
+    position: relative;
+    top: 80px;
 }
 
-#bottom{
-    margin: 0 auto;
+.tr{
+    display: table-row;
+}
+
+.td{
+    display: table-cell;
+}
+
+.td1{
+    width: 17vw;
+}
+
+.td1 img{
+    width: 110px;
+}
+
+.td2 ul li{
+    padding: 5px;
+    margin-left: 10px;
+    position: relative;
+    top: -70px;
+}
+
+.td ul li:first-child
+, .td ul li:last-child{
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.td ul li:nth-child(2){
+    color: dimgray;
+}
+
+/*#bottom{
+    margin: 80px auto;
     width: 70vw;
     display: flex;
     justify-content: space-between;
@@ -77,4 +180,45 @@ a{
 .btm_p{
     position: relative;
     top: 70px;
+}*/
+
+#bottom{
+    margin: 0 auto;
+    width: 70vw;
+}
+
+.btm{
+    padding: 10px 5px 25px;
+    border-top: 3px solid #CBDAE1;
+    font-size: 1.2rem;
+    font-weight: bolder;
+    color: dimgray;
+}
+
+.purchase:before{
+    content: url("../img/purchase_icon.png");
+    padding: 0 20px 0 5px;
+    position: relative;
+    top: 10px;
+}
+
+.sale:before{
+    content: url("../img/sale_icon.png");
+    padding: 0 20px 0 5px;
+    position: relative;
+    top: 10px;
+}
+
+.chat:before{
+    content: url("../img/chatting_icon.png");
+    padding: 0 20px 0 5px;
+    position: relative;
+    top: 10px;
+}
+
+.review:before{
+    content: url("../img/review_icon.png");
+    padding: 0 20px 0 5px;
+    position: relative;
+    top: 10px;
 }
