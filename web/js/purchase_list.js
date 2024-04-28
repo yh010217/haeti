@@ -43,7 +43,7 @@ fetch("purchase_list_result"
 
         /*리뷰*/
         let review_url=document.createElement('a');
-        review_url.href="#";
+        review_url.href="prod_detail.do?prod_no="+prod_no;
         review_url.innerText="리뷰 작성하기";
         review_url.id='review';
 
@@ -147,7 +147,7 @@ function selectChange(value){
 
             /*리뷰*/
             let review_url=document.createElement('a');
-            review_url.href="#";
+            review_url.href="prod_detail.do?prod_no="+prod_no;
             review_url.innerText="리뷰 작성하기";
             review_url.id='review';
 

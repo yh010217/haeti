@@ -10,12 +10,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" href="../../css/login.css">
 <html>
 <head>
     <meta charset="UTF-8">
     <title>loginform</title>
-    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="css/login/login.css">
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
@@ -34,7 +34,7 @@
             <input class="login_btn" type="submit" value="로그인">
         </div>
         <ul>
-            <li>처음이신가요?<a href="join.do" class="join_btn">회원가입</a></li>
+            <li>처음이신가요?<a href="signup.do" class="join_btn">회원가입</a></li>
         </ul>
 
 

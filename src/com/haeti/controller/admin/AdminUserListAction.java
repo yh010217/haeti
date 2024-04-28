@@ -17,6 +17,7 @@ public class AdminUserListAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 관리자 세션 확인 꼭 할 것
+/*
 
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");
@@ -66,6 +67,7 @@ public class AdminUserListAction implements Action {
         request.setAttribute("search", search);
         request.setAttribute("search_txt", search_txt);
         request.setAttribute("total_data", total_data);
+*/
 
         Forward forward = new Forward();
         forward.setForward(true);

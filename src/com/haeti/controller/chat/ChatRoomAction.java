@@ -30,8 +30,12 @@ public class ChatRoomAction implements Action {
         String iam = request.getParameter("iam");
         String buyer_id = request.getParameter("buyer");
 
+        String status = service.getProdStatus(prod_no);
+        request.setAttribute("status",status);
+
         HttpSession session = request.getSession();
         String user = (String)session.getAttribute("user_id");
+
         //buyer 입장
         PrintWriter writer = response.getWriter();
         if("buyer".equals(iam) && seller_id.equals(user)){

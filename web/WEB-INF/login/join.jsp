@@ -11,10 +11,10 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
-<%--    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>--%>
-    <script defer scr="js/addr.js"></script>
+    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+    <script defer src="js/addr.js"></script>
     <script defer src="js/join_user.js"></script>
-    <link rel="stylesheet" href="css/join.css">
+    <link rel="stylesheet" href="css/login/join.css">
 </head>
 <body>
 
@@ -54,7 +54,7 @@
             <li>
                 <label>주소</label>
                 <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호">
-                <input type="button"  onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+                <input type="button"  id="sample6_postcode2" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
                 <input type="text" name="addr" id="sample6_address" placeholder="주소"><br>
                 <input type="text" name="addr_detail" id="sample6_detailAddress" placeholder="상세주소">
                 <input type="text" name="addr_extra" id="sample6_extraAddress" placeholder="참고항목">
@@ -85,6 +85,9 @@
         <a href="signup.do">이전</a>
     </div>
 </div>
+<div id="next">
+    <a href="login.do">다음</a>
+</div>
 
 
 
@@ -92,10 +95,9 @@
 
 
 
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 
 </body>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </html>

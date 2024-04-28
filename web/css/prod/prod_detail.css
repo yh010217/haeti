@@ -107,11 +107,16 @@
     height: 30px;
     border: 1px solid white;
 }
+#review_list{
+    margin-top: 1rem;
+    border-top: 1px solid #469AFE;
+
+}
 
 .review_container {
     position: relative;
     border-bottom: 1px solid #469AFE;
-    border-top: 1px solid #469AFE;
+    /*border-top: 1px solid #469AFE;*/
     padding: 12px;
 }
 
@@ -156,6 +161,12 @@
     border: 0;
 }
 
-.bottom_button{
-
+.rep_box{
+    padding: 0.5rem;
+}
+.seller_id{
+    position: absolute;
+    right: 3rem;
+    font-size: 0.8rem;
+    font-weight: 700;
 }

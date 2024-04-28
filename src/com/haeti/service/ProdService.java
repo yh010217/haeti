@@ -37,9 +37,20 @@ public class ProdService {
         ProdDAO prodDAO = ProdDAO.getProdDAO();
         try {
             conn = db.getConnection();
+            conn.setAutoCommit(false);
             result = prodDAO.getNextProdNum(conn);
+            //그냥 가장 큰 숫자를 넘기면 삭제하고 바로 삭제한 사람이 있어서 안되니깐,
+            // auto_increment를 이 숫자로 맞춰줘야할 듯
+            prodDAO.setAutoIncrement(conn,result);
+
+            conn.commit();
         } catch (Exception e) {
             System.out.println(e);
+            try {
+                conn.rollback();
+            } catch (Exception e1) {
+                System.out.println(e1);
+            }
         } finally {
             db.disconn(conn);
         }
@@ -432,4 +443,109 @@ public class ProdService {
         return list;
     }
 
+    public String getUserRegion(String user_id){
+        DBConnection db = DBConnection.getInstance();
+        ProdDAO dao = ProdDAO.getProdDAO();
+        Connection conn = null;
+        String userRegion = "";
+        try{
+            conn=db.getConnection();
+            userRegion = dao.getUserRegion(conn,user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println("getUserRegion Exception : " + e);
+        }finally {
+            db.disconn(conn);
+        }
+        return userRegion;
+    }
+
+    public String[] getNoRegion(String user_id) {
+        DBConnection db = DBConnection.getInstance();
+        ProdDAO dao = ProdDAO.getProdDAO();
+        Connection conn = null;
+        String[] noRegion = new String[2];
+        try{
+            conn=db.getConnection();
+            noRegion = dao.getNoRegion(conn,user_id);
+
+        }catch (SQLException | NamingException e){
+            System.out.println("getUserRegion Exception : " + e);
+        }finally {
+            db.disconn(conn);
+        }
+        return noRegion;
+    }
+
+    public void repWrite(String user_id, String prod_no, String repcontent) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.repWrite(conn, user_id, prod_no, repcontent);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    public void setCreateStatus(ProdDTO prod) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.setCreateStatus(conn, prod);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    public void sellEnd(int prod_no, String buyer) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.sellEnd(conn, prod_no, buyer);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
+
+    public String getProdStatus(String prod_no) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        String status = "";
+        try {
+            conn = db.getConnection();
+            status = dao.getProdStatus(conn, prod_no);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+        return status;
+    }
+
+    public void insertChat(String prod_no, String content, int buyer_no, String sender_id) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        try {
+            conn = db.getConnection();
+            dao.insertChat(conn, prod_no, content, buyer_no, sender_id);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+    }
 }

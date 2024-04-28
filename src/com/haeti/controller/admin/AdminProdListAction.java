@@ -72,5 +72,4 @@ public class AdminProdListAction implements Action {
 
         return forward;
     }
-
 }

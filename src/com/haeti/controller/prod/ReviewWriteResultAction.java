@@ -3,8 +3,6 @@ package com.haeti.controller.prod;
 import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
 import com.haeti.service.ProdService;
-import com.haeti.service.RepService;
-import com.sun.net.httpserver.HttpsServer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,15 +10,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class RepDeleteAction implements Action {
+public class ReviewWriteResultAction implements Action {
+
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int prod_no = Integer.parseInt(request.getParameter("prod_no"));
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+        String prod_no = request.getParameter("prod_no");
+        String repcontent = request.getParameter("repcontent");
 
-        int rep_no = Integer.parseInt(request.getParameter("rep_no"));
-        RepService repService = RepService.getInstance();
-        repService.repDelete(rep_no);
+        ProdService service = ProdService.getInstance();
+        service.repWrite(user_id, prod_no, repcontent);
 
 
 
