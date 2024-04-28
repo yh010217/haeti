@@ -22,7 +22,7 @@ public class ProdFavRegionAction implements Action {
 
 
         // 세션정보로 수정할 것
-        String user_id = "test2";
+        String user_id = "test18";
 
 
         // 유저의 관심지역 정보 가져오기 - regionDTO
@@ -69,8 +69,8 @@ public class ProdFavRegionAction implements Action {
 
 
 
-        request.setAttribute("fav_dto", fav_dto);
-        request.setAttribute("list", list);
+        request.setAttribute("fav_dto", fav_dto);  // 관심지역정보
+        request.setAttribute("list", list);  // 매물 목록
 
         request.setAttribute("currpage", currpage);
         request.setAttribute("total_page", total_page);

@@ -13,77 +13,88 @@
 <head>
     <title>Title</title>
     <link rel="stylesheet" href="css/prod/prod_map.css">
-
 </head>
 <body>
+
 <c:set var="list" value="${requestScope.list}"></c:set>
 <c:set var="fav_region" value="${requestScope.fav_region}"></c:set>
 <c:set var="fav_lat" value="${requestScope.fav_lat}"></c:set>
 <c:set var="fav_lng" value="${requestScope.fav_lng}"></c:set>
 
 <div class="prod_wrap">
-<div class="prod_list">
-<c:if test="${empty list || fn.length(list)==0}">
-    <ul>
-        <li>해당 자료가 없습니다.</li>
-    </ul>
-</c:if>
-</div>
-<div class="prod_list">
-    <c:if test="${!(empty list)}">
-        <c:forEach var="item" items="${list}">
+    <div class="section_left">
+    <div class="prod_list_none">
+        <c:if test="${empty list || fn.length(list)==0}">
             <ul>
-                <li><a href="prod_detail.do?prod_no=${item.prod_no}">
-                    <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
-                <li class="title">${item.title}</li>
-                <li class="cost">${item.cost}원</li>
-               <%-- <li class="write_date">${item.write_date}</li>--%>
+                <li>현재 관심 지역에 <br>
+                    매물이 없습니다.</li>
             </ul>
+        </c:if>
+    </div>
+
+    <div class="prod_list">
+        <c:if test="${!(empty list)}">
+            <c:forEach var="item" items="${list}">
+                <ul>
+                    <li><a href="prod_detail.do?prod_no=${item.prod_no}">
+                        <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
+                    <li class="title">${item.title}</li>
+                    <li class="cost">${item.cost}원</li>
+                    <li class="write_date">${item.write_date}</li>
+                </ul>
+            </c:forEach>
+        </c:if>
+    </div>
+    <%--페이지번호--%>
+    <div class="page_num">
+        <c:if test="${start_page>1}">
+            <a href="index.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
+        </c:if>
+
+        <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
+            <c:choose>
+                <c:when test="${i==currpage}">
+                    <c:out value="${i}"/>
+                </c:when>
+                <c:otherwise>
+                    <a href="index.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
+                </c:otherwise>
+            </c:choose>
         </c:forEach>
-    </c:if>
-</div>
-<%--페이지번호--%>
-<div class="page_num">
-    <c:if test="${start_page>1}">
-        <a href="index.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
-    </c:if>
 
-    <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
-        <c:choose>
-            <c:when test="${i==currpage}">
-                <c:out value="${i}"/>
-            </c:when>
-            <c:otherwise>
-                <a href="index.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
-            </c:otherwise>
-        </c:choose>
-    </c:forEach>
+        <c:if test="${end_page < total_page}">
+            <a href="index.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
+        </c:if>
+    </div>
+    </div>
 
-    <c:if test="${end_page < total_page}">
-        <a href="index.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
-    </c:if>
-</div>
-
-
-
-
-<%-- 선호 지역 --%>
-<c:set var="fav_region" value="${requestScope.fav_region}"/>
-
+<%--지도--%>
 <div id="map"></div>
-
-
 </div>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=[MY KEY]&libraries=clusterer,services"></script>
+
+    <div class="space"></div>
+
+
+
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=[my key]&libraries=clusterer,services"></script>
 <script>
+
+
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         mapOption = {
             center: new kakao.maps.LatLng(${fav_lat}, ${fav_lng}), // 지도의 중심좌표
-            level: 3, // 지도의 확대 레벨
+            // draggable: false, // 지도를 생성할때 지도 이동 및 확대/축소를 막으려면 draggable: false 옵션을 추가
+            level: 4, // 지도의 확대 레벨
         };
 
-  // 지도를 생성한다
+
+    // 지도를 생성한다
     var map = new kakao.maps.Map(mapContainer, mapOption);
+
+
+    // 버튼 클릭에 따라 지도 확대, 축소 기능을 막거나 풀고 싶은 경우에는 map.setZoomable 함수를 사용합니다
+    map.setZoomable(false);
+
 
     // 마커 클러스터러를 생성합니다
     var clusterer = new kakao.maps.MarkerClusterer({
@@ -96,44 +107,17 @@
     // 클러스트 담을 배열
     var markers = [];
 
-/*
-      var data = accidentDeath.searchResult.accidentDeath;
 
-      for(let i=0; i<data.length; i++) {
-          // 지도에 마커를 생성하고 표시한다
-          var marker = new kakao.maps.Marker({
-              position: new kakao.maps.LatLng(data[i].grd_la, data[i].grd_lo), // 마커의 좌표
-              map     : map // 마커를 표시할 지도 객체
-          });
-          markers.push(marker);
-      }
-      clusterer.addMarkers(markers);*/
-
-/*    // 데이터를 가져오기 위해 jQuery를 사용합니다
-    // 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
-    $.get("/download/web/data/chicken.json", function(data) {
-        // 데이터에서 좌표 값을 가지고 마커를 표시합니다
-        // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
-        var markers = $(data.positions).map(function(i, position) {
-            return new kakao.maps.Marker({
-                position : new kakao.maps.LatLng(position.lat, position.lng)
-            });
-        });
-
-        // 클러스터러에 마커들을 추가합니다
-        clusterer.addMarkers(markers);
-    });*/
-    /*===========================================================================*/
-
-    fetch("prodmaplist"
-    , {
-        method : 'GET'
+    // 상품 목록 json 파일 가져와서 마크추가, 클러스터링
+    fetch("prodmapmarker"
+        , {
+            method : 'GET'
             , headers: {
                 "Content-Type": "application/x-www-form-urlencoded"
                 , "Accept": "text/json"
             }
         }).then(res => {
-            return res.json()
+        return res.json()
     }).then(data=> {
         data.forEach(item => {
 
@@ -146,8 +130,37 @@
 
         })
         clusterer.addMarkers(markers);
-    })
 
+
+        // 클러스터링 클릭시 지역 정보 가져옴
+        kakao.maps.event.addListener(clusterer, 'clusterclick', function(cluster) {
+
+            var position = map.getCenter(cluster.getCenter());
+
+            // 위경도 가져오기
+            var lat = position.La;
+            var lng = position.Ma;
+
+            // 지오코딩 하기
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            // 동정보 가져오기
+            var dong;
+            var callback = function(result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    dong = result[0].region_3depth_name;
+
+                    // 주소에 정보 담아서 이동
+                    location.href="prodmaplist.do?dong="+dong+"&lat="+lat+"&lng="+lng;
+
+                   /* // HTML 요소에 JavaScript 변수 값 설정
+                    document.getElementById('map_list').textContent = dong;*/
+                }
+            };
+            geocoder.coord2RegionCode(lat, lng, callback);
+
+        });
+    });
 
 
 </script>

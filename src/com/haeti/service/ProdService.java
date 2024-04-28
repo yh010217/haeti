@@ -117,16 +117,16 @@ public class ProdService {
         return list;
     }
 
-    public List<ProdDTO> categoryList(String category) {
+    public List<ProdDTO> categoryList(int startrow, int pagesize, String search, String search_txt) {
         DBConnection db = DBConnection.getInstance();
         Connection conn = null;
         List<ProdDTO> list = new ArrayList<>();
         try{
             conn=db.getConnection();
             ProdDAO dao = ProdDAO.getProdDAO();
-            list = dao.getCategoryList(conn, category);
+            list = dao.getCategoryList(conn, startrow, pagesize, search, search_txt);
         }catch (SQLException | NamingException e){
-            System.out.println("ProdService categoryList exception");
+            System.out.println("ProdService categoryList exception"+e.getMessage());
         }finally {
             db.disconn(conn);
         }
@@ -415,4 +415,5 @@ public class ProdService {
         }
         return list;
     }
+
 }

@@ -6,12 +6,21 @@
 ul li {
     list-style: none;
 }
+.space {
+    margin: 20px 0;
+}
+
+.prod_list_none{
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+}
 .prod_list {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-between;
     flex-wrap: wrap;
-    margin: 20px 8%;
+    padding: 10px 8%;
+    margin: 10px auto;
 }
 .prod_list img{
     width : 130px;
@@ -27,6 +36,33 @@ ul li {
 .prod_list ul .write_date {
     font-weight: 300;
     font-size: 0.7rem;
+}
+
+.page_num {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    font-weight: bolder;
+    font-size: small;
+}
+
+
+.write_btn{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.write_btn a {
+    text-align: center;
+    margin: 0 10vw 0 0;
+    padding: 1vw 25px;
+    background-color: #469AFE;
+    border-radius: 5px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bolder;
+
 }
 
 

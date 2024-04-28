@@ -6,12 +6,28 @@
 ul li {
     list-style: none;
 }
-/*.prod_wrap {
-    width: 100%;
-}*/
-.prod_list {
+.prod_wrap {
     display: flex;
-    justify-content: flex-start;
+    height: 100vh;
+}
+.section_left {
+    flex: 4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+.prod_list_none {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 auto;
+}
+
+.prod_list {
+    float: left;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
@@ -21,7 +37,8 @@ ul li {
     height: 180px;
 }
 .prod_list ul {
-    margin: 1% 2%;
+    width: 50%;
+    margin-bottom: 20px;
 }
 .prod_list ul .title, .prod_list ul .cost {
     font-weight: 500;
@@ -33,14 +50,26 @@ ul li {
 }
 
 #map {
-    position: absolute;
-    width: 100%;
-
-    height: 70vh;
+    flex: 7;
+    height: 90vh;
     margin :  0 8%;
 
 }
 
 .page_num {
-    margin: 1% 10%;
+
+    position: absolute; /* 상위 요소에 대해 상대적으로 위치 설정 */
+    bottom: 0; /* 하단으로 이동 */
+    left: 50%; /* 가운데로 이동 */
+    transform: translateX(-50%); /* 가로 방향으로 50%만큼 이동하여 정확히 가운데로 위치 */
+    text-align: center; /* 가운데 정렬 */
+    margin-bottom: 20px; /* 하단 여백 설정 */
+
+    font-weight: bolder;
+    font-size: small;
+}
+
+.space {
+    clear: both;
+    padding: 10px 10px;
 }
