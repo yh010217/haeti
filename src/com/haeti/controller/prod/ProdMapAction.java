@@ -50,7 +50,7 @@ public class ProdMapAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 6;
+        int pagesize = 4;
         int startrow = (currpage-1)*pagesize;
 
 

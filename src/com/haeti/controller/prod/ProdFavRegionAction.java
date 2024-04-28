@@ -49,7 +49,7 @@ public class ProdFavRegionAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 30;
+        int pagesize = 24;
         int startrow = (currpage-1)*pagesize;
 
         int total_data = prod_service.getRegionProdCount(fav_region);

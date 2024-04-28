@@ -16,9 +16,10 @@ public class ProdMapListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        // 모르겠는데 바꿔서 넣어야 작동함..
         String fav_region = request.getParameter("dong");
-        float lat = Float.parseFloat(request.getParameter("lat"));
-        float lng = Float.parseFloat(request.getParameter("lng"));
+        float lng = Float.parseFloat(request.getParameter("lat"));
+        float lat = Float.parseFloat(request.getParameter("lng"));
 
 
         // 동에 해당하는 매물 목록 가져오기
@@ -36,7 +37,7 @@ public class ProdMapListAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 6;
+        int pagesize = 4;
         int startrow = (currpage-1)*pagesize;
 
         int total_data = prod_service.getRegionProdCount(fav_region);

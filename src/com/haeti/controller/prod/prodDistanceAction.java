@@ -47,7 +47,7 @@ public class prodDistanceAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 30;
+        int pagesize = 24;
         int startrow = (currpage-1)*pagesize;
 
 

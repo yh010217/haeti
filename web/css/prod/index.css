@@ -17,7 +17,7 @@ ul li {
 }
 .prod_list {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     padding: 10px 8%;
     margin: 10px auto;

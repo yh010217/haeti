@@ -81,10 +81,10 @@
             ${item.user_no}
         </td>
         <td>
-          <a href="modify_user.do">${item.user_id}</a>
+          <a href="modify_user.do?user_id=${item.user_id}">${item.user_id}</a>
         </td>
         <td>
-          <a href="modify_user.do">${item.name}</a>
+          <a href="modify_user.do?user_id=${item.user_id}">${item.name}</a>
         </td>
         <td>
             ${item.tel}
