@@ -8,7 +8,6 @@
 <body>
 <c:set var="dto" value="${requestScope.userInfo}"/>
 <c:set var="prodDTO" value="${requestScope.prodDTO}"/>
-<%--<c:set var="img_paths" value="${requestScope.img_paths}"/>--%>
 <c:set var="uploadPath" value="${requestScope.uploadPath}\\"/>
 <c:set var="img" value="${requestScope.img}"/>
 
@@ -64,6 +63,9 @@
                                 <li>${prodDTO.write_date}</li>
                                 <li>${prodDTO.cost}</li>
                             </ul>
+                        </div>
+                        <div class="td td3">
+                            <a href="#"><img src="img/chatting_icon.png" alt="채팅"></a>
                         </div>
                     </div>
                 </c:otherwise>
