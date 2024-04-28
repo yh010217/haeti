@@ -187,7 +187,7 @@ public class ProdService {
         }
     }
 
-    public List<ProdDTO> purchaseList(int period, int user_no){
+    public List<ProdDTO> purchaseList(String period, int user_no){
         DBConnection db=DBConnection.getInstance();
         Connection conn=null;
         ProdDAO dao=ProdDAO.getProdDAO();

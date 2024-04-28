@@ -26,11 +26,7 @@ public class ModifyUserResultAction implements Action {
                 =request.getParameter("addr_detail")
                 +","
                 +request.getParameter("addr_extra");
-        String fav_region=request.getParameter("fav_region1")
-                +","
-                +request.getParameter("fav_region_2")
-                +","
-                +request.getParameter("fav_region_3");
+        String fav_region=request.getParameter("fav_region");
         String email=request.getParameter("email");
 
         UserDTO dto=new UserDTO();

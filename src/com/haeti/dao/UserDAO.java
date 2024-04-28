@@ -21,20 +21,20 @@ public class UserDAO {
 
     public UserDTO getUserInfo(Connection conn, String user_id) throws SQLException {
         StringBuilder sql=new StringBuilder();
-        sql.append("  select  user_no            ");
-        sql.append("         , user_id           ");
-        sql.append("         , pwd               ");
-        sql.append("         , name              ");
-        sql.append("         , nick_name         ");
-        sql.append("         , tel               ");
-        sql.append("         , email             ");
-        sql.append("         , join_date         ");
-        sql.append("         , teacher_school    ");
-        sql.append("         , addr_dong         ");
-        sql.append("         , addr_detail       ");
-        sql.append("         , fav_region        ");
-        sql.append("  from user                  ");
-        sql.append("  where user_id  =  ?        ");
+        sql.append("  select  user_no                    ");
+        sql.append("         , user_id                   ");
+        sql.append("         , pwd                       ");
+        sql.append("         , name                      ");
+        sql.append("         , nick_name                 ");
+        sql.append("         , tel                       ");
+        sql.append("         , email                     ");
+        sql.append("         , join_date                 ");
+        sql.append("         , teacher_school            ");
+        sql.append("         , addr_dong                 ");
+        sql.append("         , addr_detail               ");
+        sql.append("         , fav_region                ");
+        sql.append("  from user                          ");
+        sql.append("  where user_id  =  ?                ");
 
         ResultSet rs=null;
         UserDTO userDTO=new UserDTO();
@@ -69,6 +69,7 @@ public class UserDAO {
         sql.append("      , addr_dong = ?      ");
         sql.append("      , addr_detail = ?    ");
         sql.append("      , email = ?          ");
+        sql.append("      , fav_region = ?     ");
         sql.append("  where user_id = ?        ");
 
         int modify_result=0;
@@ -78,7 +79,8 @@ public class UserDAO {
             pstmt.setString(3, dto.getAddr_dong());
             pstmt.setString(4, dto.getAddr_detail());
             pstmt.setString(5, dto.getEmail());
-            pstmt.setString(6, dto.getUser_id());
+            pstmt.setString(6, dto.getFav_region());
+            pstmt.setString(7, dto.getUser_id());
 
             pstmt.executeUpdate();
             modify_result=1;
@@ -315,6 +317,7 @@ public class UserDAO {
         return list;
     }
 
+    /**내 정보 수정: 닉네임 중복체크*/
     public boolean nickCheck(Connection conn, String nick_name, String user_id) throws SQLException{
         StringBuilder sql=new StringBuilder();
         sql.append("  select nick_name      ");
@@ -323,19 +326,17 @@ public class UserDAO {
         sql.append("  and user_id <> ?      ");
 
         ResultSet rs=null;
-        boolean result=true; // 아이디 중복O
+        boolean result=false; // 아이디 중복X
         try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
             pstmt.setString(1, nick_name);
             pstmt.setString(2, user_id);
             rs=pstmt.executeQuery();
-
-            if (!rs.next()){
-                result=false; // 아이디 중복X
-            }
+            result=rs.next();
         }
         return result;
     }
 
+    /**내 정보 수정: 이메일 중복체크*/
     public boolean emailCheck(Connection conn, String email, String user_id) throws SQLException{
         StringBuilder sql=new StringBuilder();
         sql.append("  select email          ");
@@ -344,15 +345,12 @@ public class UserDAO {
         sql.append("  and user_id <> ?      ");
 
         ResultSet rs=null;
-        boolean result=true; // 아이디 중복O
+        boolean result=false; // 아이디 중복X
         try(PreparedStatement pstmt= conn.prepareStatement(sql.toString())){
             pstmt.setString(1, email);
             pstmt.setString(2, user_id);
             rs=pstmt.executeQuery();
-
-            if (!rs.next()){
-                result=false; // 아이디 중복X
-            }
+            result=rs.next();
         }
         return result;
     }

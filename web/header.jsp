@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: bk
@@ -29,7 +29,7 @@
              <c:when test="${empty user_id || user_id==null || user_id==''}">
                  <div class="login">
                      <a href="login.do">로그인 </a>
-                     <a href="join.do">회원가입</a>
+                     <a href="signup.do">회원가입</a>
                  </div>
              </c:when>
              <c:otherwise>

@@ -26,7 +26,7 @@ public class EmailCheckAction extends HttpServlet {
     }
 
     private void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/json;charset=utf-8");
+        response.setContentType("text/plain;charset=utf-8");
 
         String email=request.getParameter("email");
 
@@ -37,14 +37,17 @@ public class EmailCheckAction extends HttpServlet {
 
         boolean result=userService.emailCheck(email, user_id);
 
-        JSONArray arr=new JSONArray();
-        JSONObject o1=new JSONObject();
-
-        o1.put("result", result);
-        arr.add(o1);
+        String email_result="";
+        if(result){
+            email_result="true";
+        }else if(email==null || "".equals(email)){
+            email_result="null";
+        }else{
+            email_result="false";
+        }
 
         PrintWriter out=response.getWriter();
-        out.print(arr);
+        out.print(email_result);
 
     }
 }

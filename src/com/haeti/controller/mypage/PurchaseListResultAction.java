@@ -35,37 +35,26 @@ public class PurchaseListResultAction extends HttpServlet {
         HttpSession session=request.getSession();
         String user_id= (String) session.getAttribute("user_id");
         String period=request.getParameter("period");
-        int period_select=7;
-
-        if("month".equals(period))
-            period_select=31;
-        else if("3month".equals(period))
-            period_select=31*3;
 
         UserService userService= UserService.getUserService();
         UserDTO userDTO=userService.getUserInfo(user_id);
         int user_no=userDTO.getUser_no();
 
         ProdService prodService=ProdService.getInstance();
-        List<ProdDTO> purchase_list=prodService.purchaseList(period_select,user_no);
+        List<ProdDTO> purchase_list=prodService.purchaseList(period,user_no);
 
         JSONArray arr=new JSONArray();
 
         for(ProdDTO dto:purchase_list){
             JSONObject o1=new JSONObject();
-            String uploadPath=request.getServletContext().getRealPath("upload")+"\\"+dto.getProd_no();
             String img=dto.getImg_paths().get(0);
 
             o1.put("prod_no", dto.getProd_no());
             o1.put("title",dto.getTitle());
             o1.put("cost",dto.getCost());
             o1.put("sell_date",dto.getSell_date().toString());
-            o1.put("uploadPath", uploadPath);
             o1.put("img", img);
             o1.put("buyer_id",dto.getBuyer_id());
-
-            /** 채팅 주소 */
-
 
             arr.add(o1);
         }

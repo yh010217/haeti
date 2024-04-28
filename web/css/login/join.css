@@ -1,0 +1,258 @@
+/* 연한하늘 #E0E9FD*/
+/* 회색 #CBDAE1*/
+/* 초록 #03C75A*/
+/* 파랑 #469AFE*/
+/* 노랑 #FFDC4F*/
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+#join{
+    width: 90%;
+    margin: 30px auto;
+}
+ul li {
+    list-style: none;
+    padding: 20px;
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+}
+
+/*input {*/
+/*    padding: 10px;*/
+/*    font-size: 16px;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 4px;*/
+/*    outline: none;*/
+/*    transition: border-color 0.3s;*/
+/*    width: 300px;*/
+/*}*/
+
+#user_id{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#user_id:focus{
+    border-color: #469AFE;
+}
+#user_id_check{
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color
+}
+#pwd{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#pwd:focus{
+    border-color: #469AFE;
+}
+#name{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#name:focus{
+    border-color: #469AFE;
+}
+#nick_name{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#nick_name:focus{
+    border-color: #469AFE;
+}
+#nick_name_check2{
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color
+}
+#teacher_school{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#teacher_school:focus{
+    border-color: #469AFE;
+}
+
+#sample6_postcode{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#sample6_postcode:focus{
+    border-color: #469AFE;
+}
+#sample6_postcode2 {
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color
+}
+#sample6_address{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#sample6_address:focus{
+    border-color: #469AFE;
+}
+#sample6_detailAddress{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#sample6_detailAddress:focus{
+    border-color: #469AFE;
+}
+#sample6_extraAddress{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#sample6_extraAddress:focus{
+    border-color: #469AFE;
+}
+#fav_region {
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#fav_region:focus{
+    border-color: #469AFE;
+}
+
+#tel{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#tel:focus{
+    border-color: #469AFE;
+}
+#email{
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s;
+    width: 300px;
+}
+#email:focus{
+    border-color: #469AFE;
+}
+#email_check2{
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color
+}
+#joinBtn{
+    background-color: #E0E9FD;
+    font-size: 0.8rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border:none;
+    font-weight: bold;
+    width: 300px;
+    height: 50px;
+}
+#down_btn {
+    position: relative;
+    left: 500px;
+    top: 20px;
+    background-color: #eaebef;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 300px;
+    text-align: center;
+
+}
+#next{
+    position: relative;
+    left: 1000px;
+    top: -50px;
+    background-color: #007bff;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 300px;
+    text-align: center;
+}s
