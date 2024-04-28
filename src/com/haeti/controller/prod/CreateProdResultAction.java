@@ -10,6 +10,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +19,12 @@ public class CreateProdResultAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
+        HttpSession session = request.getSession();
+        String user_id = (String)session.getAttribute("user_id");
         ProdService service = ProdService.getInstance();
+
+        int user_no = Integer.parseInt(service.getNoRegion(user_id)[0]);
+
         int nextProdNum = service.getNextProdNum();
 
         String uploadPath = request.getServletContext().getRealPath("upload") + "/" + nextProdNum;
@@ -49,6 +55,7 @@ public class CreateProdResultAction implements Action {
         int category_id = Integer.parseInt(multi.getParameter("category_id"));
 
         ProdDTO prod = new ProdDTO();
+        prod.setSeller_user_no(user_no);
         prod.setProd_no(nextProdNum);
         prod.setTitle(title);
         prod.setContent(content);
@@ -57,6 +64,11 @@ public class CreateProdResultAction implements Action {
         prod.setImg_paths(images);
 
         service.createProd(prod);
+
+
+
+        //status 관련한 것도 넣기
+        service.setCreateStatus(prod);
 
 
         Forward forward = new Forward();

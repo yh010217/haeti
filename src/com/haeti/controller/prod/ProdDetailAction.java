@@ -18,11 +18,15 @@ public class ProdDetailAction implements Action {
         int prod_no = Integer.parseInt(request.getParameter("prod_no"));
         ProdDTO dto = service.prodDetail(prod_no);
 
+        String seller_id = service.getSellerId(prod_no+"");
+
 
         request.setAttribute("dto", dto);
 
+
         String uploadPath = request.getServletContext().getRealPath("upload") + "\\" + prod_no;
         request.setAttribute("path",uploadPath);
+        request.setAttribute("seller_id",seller_id);
 
 
         Forward forward = new Forward();

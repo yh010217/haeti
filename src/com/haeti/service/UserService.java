@@ -89,37 +89,7 @@ public class UserService {
         return login_result;
     }
 
-    public int getCount(String search, String search_txt) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        int result = 0;
-        try{
-            conn=db.getConnection();
-            UserDAO dao = UserDAO.getUserDAO();
-            result = dao.getCount(conn, search, search_txt);
-        } catch (SQLException | NamingException e){
-            System.out.println("userService getCount Exception");
-        } finally {
-            db.disconn(conn);
-        }
-        return result;
-    }
 
-    public List<UserDTO> getList(int startrow, int pagesize, String search, String search_txt) {
-        DBConnection db=DBConnection.getInstance();
-        Connection conn=null;
-        List<UserDTO> list = new ArrayList<>();
-        try{
-            conn=db.getConnection();
-            UserDAO dao = UserDAO.getUserDAO();
-            list = dao.getList(conn, startrow, pagesize, search, search_txt);
-        }  catch (SQLException | NamingException e){
-            System.out.println("userService getList Exception");
-        } finally {
-            db.disconn(conn);
-        }
-        return list;
-    }
 
     public UserDTO loginlist(String user_id) {
         DBConnection db=DBConnection.getInstance();

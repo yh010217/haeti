@@ -1,14 +1,3 @@
-.prod_modify_image img{
-    display: inline-block;
-    height: 350px;
-    width: 100%;
-    object-fit: contain;
-}
-
-.prod_image_modify_container {
-    text-align: center;
-}
-
 .width84 {
     margin: 0 8%;
     position: relative;
@@ -19,12 +8,68 @@
     font-weight: 900;
 }
 
+#my_slide{
 
-.carousel-control-next > img, .carousel-control-prev > img {
-    width: 20px;
+    display: inline-block;
+    position: relative;
+}
+.slide-inner{
+
+    display: inline-block;
+    height: 400px;
+    width:100%;
+    position:relative;
+    overflow: hidden;
+}
+.slide-items{
+
+    display: inline-block;
+    height: 400px;
+    display: flex;
+    flex-direction: row;
+    width:5000px;
+    transition: transform 0.5s;
+}
+.prod_image_modify_container{
+    display: inline-block;
+    width:100%;
 }
 
-.prod_image_modify_container label{
+.prod_modify_image img{
+    display: inline-block;
+    height: 350px;
+    width: 100%;
+    object-fit: contain;
+}
+.prod_image_modify_container{
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
+.slide-prev, .slide-next{
+    background: white;
+    border:1px solid whitesmoke;
+}
+.slide-prev{
+    position: absolute;
+    top:360px;
+    left: 30px;
+}
+.slide-next{
+    position: absolute;
+    top:360px;
+    right:30px;
+}
+
+.slide-next img, .slide-prev img {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+
+.slide-item .modify_label{
     display: inline-block;
     width:96px;
     padding: 8px 0;
@@ -35,7 +80,20 @@
     font-weight: 600;
 }
 
-input[type="file"] {
+
+.before_blur:hover:before{
+    content: "클릭시 삭제";
+    position:absolute;
+    color:gray;
+    right:0;
+    top:0;
+}
+
+.blur{
+    filter:blur(3px);
+}
+
+input[type="file"] ,.image_remove_checkbox {
     position: absolute;
     width: 0;
     height: 0;
@@ -79,12 +137,7 @@ textarea{
     min-height: 2.2rem;
     right: 1rem;
 }
-.create_prod_user{
-    display: inline-block;
-    position:absolute;
-    bottom: -2rem;
-    right:2rem;
-}
+
 
 .blue_button{
     position:absolute;
@@ -98,15 +151,16 @@ textarea{
     color : whitesmoke;
     font-weight: 500;
 }
-.gray_button{
 
+.yellow_button{
     position:absolute;
     bottom: 0.5rem;
     right : 8px;
     width:64px;
     height: 32px;
-    background: #CBDAE1;
+    background: #FFDC4F;
     border:0;
     border-radius: 6px;
-
+    color : black;
+    font-weight: 500;
 }

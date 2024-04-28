@@ -132,7 +132,8 @@ public class ProdDAO {
         sql.append("   ,write_date              ");
         sql.append("   ,cost                    ");
         sql.append("   ,category_id             ");
-        sql.append(" ) values (?,?,CURDATE(),?,?) ");
+        sql.append("   ,seller_user_no             ");
+        sql.append(" ) values (?,?,CURDATE(),?,?,?) ");
         PreparedStatement pstmt = null;
         try {
             pstmt = conn.prepareStatement(sql.toString());
@@ -140,6 +141,7 @@ public class ProdDAO {
             pstmt.setString(2, prod.getContent());
             pstmt.setInt(3, prod.getCost());
             pstmt.setInt(4, prod.getCategory_id());
+            pstmt.setInt(5,prod.getSeller_user_no());
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -159,6 +161,8 @@ public class ProdDAO {
         sql.append("        ,content                                ");
         sql.append("        ,write_date                             ");
         sql.append("        ,cost                                   ");
+        sql.append("        ,seller_user_no                         ");
+        sql.append("        ,c.category_id                            ");
         sql.append("        ,c.category as category                 ");
         sql.append("    from prod p  inner join category c          ");
         sql.append("        on p.category_id = c.category_id        ");
@@ -177,7 +181,9 @@ public class ProdDAO {
                 result.setContent(rs.getString("content"));
                 result.setWrite_date(rs.getDate("write_date").toLocalDate());
                 result.setCost(rs.getInt("cost"));
+                result.setSeller_user_no(rs.getInt("seller_user_no"));
                 result.setCategory(rs.getString("category"));
+                result.setCategory_id(rs.getInt("category_id"));
 
             }
         } catch (Exception e) {
@@ -697,5 +703,187 @@ public class ProdDAO {
 
         return list;
 
+    }
+
+    public String getUserRegion(Connection conn, String user_id) throws SQLException{
+        String userRegion = "";
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select   addr_dong ");
+        sql.append("  from user          ");
+        sql.append("  where user_id = ?          ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,user_id);
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            userRegion = rs.getString("addr_dong");
+        }
+        if(rs!=null){
+            try{rs.close();}catch (Exception e){}
+        }
+        if(pstmt!=null){
+            try{pstmt.close();}catch (Exception e){}
+        }
+
+
+        return userRegion;
+    }
+
+    public String[] getNoRegion(Connection conn, String user_id)  throws SQLException{
+        String[] noRegion = new String[2];
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select   user_no ");
+        sql.append("      , addr_dong ");
+        sql.append("  from user          ");
+        sql.append("  where user_id = ?          ");
+        PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        pstmt.setString(1,user_id);
+        ResultSet rs = pstmt.executeQuery();
+        if(rs.next()){
+            noRegion[0] = rs.getString("user_no");
+            noRegion[1] = rs.getString("addr_dong");
+        }
+        if(rs!=null){
+            try{rs.close();}catch (Exception e){}
+        }
+        if(pstmt!=null){
+            try{pstmt.close();}catch (Exception e){}
+        }
+
+
+        return noRegion;
+    }
+
+    public void repWrite(Connection conn, String user_id, String prod_no, String repcontent) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into rep (user_no, prod_no, repcontent, repdate)           ");
+        sql.append("  values ((select user_no from user where user_id = ?), ?, ?, now())");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, user_id);
+            pstmt.setString(2, prod_no);
+            pstmt.setString(3, repcontent);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void setAutoIncrement(Connection conn, int result) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  alter table prod auto_increment = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, result);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void setCreateStatus(Connection conn, ProdDTO prod) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into trade (prod_no, status) ");
+        sql.append("  values (?, '판매중') ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setInt(1, prod.getProd_no());
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public void sellEnd(Connection conn, int prod_no, String buyer) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  update trade set status = '판매완료' ");
+        sql.append(" ,buyer_user_no = (select user_no from user where user_id = ?) ");
+        sql.append("  ,sell_date = curdate() ");
+        sql.append("  where prod_no = ? ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, buyer);
+            pstmt.setInt(2, prod_no);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
+    public String getProdStatus(Connection conn, String prod_no) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select status ");
+        sql.append("  from trade ");
+        sql.append("  where prod_no = ? ");
+        String status = "";
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                status = rs.getString("status");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return status;
+    }
+
+    public void insertChat(Connection conn, String prod_no, String content, int buyer_no, String sender_id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  insert into chat(");
+        sql.append(" prod_no");
+               // ", content, buyer_no, sender_id, chatdate) "
+        sql.append(" ,chat_content ");
+        sql.append(" ,buyer_no ");
+        sql.append(" ,sender_id ");
+        sql.append(" ,chat_time ) ");
+        sql.append("  values (?, ?, ?, ?, now()) ");
+        PreparedStatement pstmt = null;
+        try {
+            pstmt = conn.prepareStatement(sql.toString());
+            pstmt.setString(1, prod_no);
+            pstmt.setString(2, content);
+            pstmt.setInt(3, buyer_no);
+            pstmt.setString(4, sender_id);
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (pstmt != null) try { pstmt.close(); }
+            catch (Exception e) {
+                System.out.println(e);
+            }
+        }
     }
 }

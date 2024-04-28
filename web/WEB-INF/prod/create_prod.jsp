@@ -28,7 +28,7 @@
                                 <div id="image_container1" class="prod_modify_image">
                                     <img id="white_image1" src="img/white_background.jpg">
                                 </div>
-                                <label for="picture_image1">파일추가</label>
+                                <label for="picture_image1">파일추가1</label>
                                 <input type="file" class="picture_image" name="picture_image1"
                                        id="picture_image1" onchange="setPreview(event,1);"><br>
                             </div>
@@ -40,7 +40,7 @@
                                     <img id="white_image2" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image2">파일추가</label>
+                                <label for="picture_image2">파일추가2</label>
                                 <input type="file" class="picture_image" name="picture_image2"
                                        id="picture_image2" onchange="setPreview(event,2);"><br>
                             </div>
@@ -53,7 +53,7 @@
                                     <img id="white_image3" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image3">파일추가</label>
+                                <label for="picture_image3">파일추가3</label>
                                 <input type="file" class="picture_image" name="picture_image3"
                                        id="picture_image3" onchange="setPreview(event,3);"><br>
                             </div>
@@ -65,7 +65,7 @@
                                     <img id="white_image4" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image4">파일추가</label>
+                                <label for="picture_image4">파일추가4</label>
                                 <input type="file" class="picture_image" name="picture_image4"
                                        id="picture_image4" onchange="setPreview(event,4);"><br>
                             </div>
@@ -77,7 +77,7 @@
                                     <img id="white_image5" src="img/white_background.jpg">
                                 </div>
 
-                                <label for="picture_image5">파일추가</label>
+                                <label for="picture_image5">파일추가5</label>
                                 <input type="file" class="picture_image" name="picture_image5"
                                        id="picture_image5" onchange="setPreview(event,5);"><br>
                             </div>
@@ -97,26 +97,45 @@
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-
                 <div class="col-8">
-                    <label for="title">제목</label>
-                    <input type="text" id="title" name="title"><br>
+                    <div class="blue_div">
+                        <div class="blue_div_ele">
+                            <label for="title">제목</label>
+                            <input type="text" id="title" name="title" class="blue_input"><br>
+                        </div>
+                        <div class="blue_div_ele">
 
-                    <label for="cost">가격</label>
-                    <input type="number" id="cost" name="cost"><br>
+                            <label for="cost">가격</label>
+                            <input type="number" id="cost" name="cost" class="blue_input"><br>
+                        </div>
+                        <div class="blue_div_ele">
 
-                    <label for="category_id">카테고리</label>
-                    <select id="category_id" name="category_id">
-                        <option value="1">천재교과서</option>
-                        <option value="2">지학사</option>
-                        <option value="3">비상교과서</option>
-                    </select>
+                            <label for="category_id">카테고리</label>
+                            <select id="category_id" name="category_id" class="blue_input">
+                                <option value="1">천재교과서</option>
+                                <option value="2">지학사</option>
+                                <option value="3">비상교과서</option>
+                            </select>
+                        </div>
+                        <div class="blue_div_ele">
+
+                            <label for="user_region">판매지역</label>
+                            <input type="text" id="user_region" value="${requestScope.region}" class="blue_input"
+                                   readonly/>
+                        </div>
+                        <span class="create_prod_user">
+                            <c:if test="${!empty sessionScope.user_id}">${sessionScope.user_id}</c:if>
+                            <c:if test="${empty sessionScope.user_id}">로그인 후 이용해주세요</c:if>
+                        </span>
+
+                        <%--<c:out value="잠시 : ${requestScope.user_no}"/>--%>
+                    </div>
                 </div>
             </div>
             <textarea id="content" name="content" placeholder="상품 설명입니다." cols=40 rows="6"></textarea>
 
-            <button type="submit">등록</button>
-            <button type="reset">취소</button>
+            <button type="submit" class="blue_button">등록</button>
+            <button type="reset" class="gray_button">취소</button>
         </form>
 
     </div>
@@ -140,11 +159,11 @@
         let reader = new FileReader();
         reader.onload = function (event) {
             let img_container = document.getElementById('image_container' + num);
-            let white_img = document.getElementById('white_image' + num);
+            let white_img = document.getElementById('white_image'+num);
             img_container.removeChild(white_img);
             let image = document.createElement('img');
             image.src = event.target.result;
-            image.id = 'image' + num;
+            image.id = 'white_image' + num;
             img_container.appendChild(image);
         }
         reader.readAsDataURL(event.target.files[0]);

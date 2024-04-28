@@ -13,7 +13,7 @@ import java.util.Set;
 
 @WebFilter(urlPatterns = "*.do", initParams = {@WebInitParam(
         name = "exclude"
-        , value = "/login.do, /login_result.do , /join.do ,/join_result.do ,/loginsuccess.do ,/logout.do, /index.do ,/prod_detail.do, /signup.do")})
+        , value = "/create_prod.do ,/login.do, /login_result.do , /join.do ,/join_result.do ,/loginsuccess.do ,/logout.do, /index.do ,/prod_detail.do, /signup.do")})
 
 public class LoginFilter implements Filter {
 

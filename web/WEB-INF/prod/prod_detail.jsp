@@ -42,7 +42,7 @@
 
     <div class="row width80">
 
-        <div id="carouselExample" class="carousel slide col-4">
+        <div id="carouselExample" class="carousel slide col-md-4 col-12">
             <div class="carousel-inner">
 
                 <c:forEach var="image" items="${images}">
@@ -68,7 +68,7 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
-        <div class="col-8">
+        <div class="col-md-8 col-12">
             <div class="prod_detail_twcc">
                 <h4><c:out value="${dto.title}"/></h4> <br>
                 <span class="cost_text"><c:out value="가격 : ${dto.cost}원"/></span><br>
@@ -76,11 +76,13 @@
                 <span class="date_text"><c:out value="${dto.write_date}작성"/></span><br>
             </div>
 
+            <span class="seller_id">판매자 : ${requestScope.seller_id}</span>
 
             <button id="chatting_button">
                 <a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅하기</a>
             </button>
         </div>
+
 
     </div>
     <div class="row">
@@ -93,11 +95,11 @@
     </div>
 
     <button type="button" id="rep_show_button">댓글 확인</button>
-    <div id="review_create_box"></div>
     <ul id="review_list">
 
     </ul>
 
+    <div id="review_create_box"></div>
 
 </div>
 
