@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ProdMapList", value = "/prodmaplist")
+@WebServlet(name = "ProdMapList", value = "/prodmapmarker")
 public class ProdMapList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,11 +27,10 @@ public class ProdMapList extends HttpServlet {
     }
     private void doReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // 마크용 좌표 만들기
+        // 맵 표시용 json 만들기
 
         ProdService service = ProdService.getInstance();
         List<RegionDTO> list = service.getProdCoord();
-
 
         JSONArray arr=new JSONArray();
         for(RegionDTO dto:list)

@@ -3,10 +3,7 @@ package com.haeti.controller.prod;
 import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
 import com.haeti.dto.ProdDTO;
-import com.haeti.dto.RegionDTO;
-import com.haeti.dto.UserDTO;
 import com.haeti.service.ProdService;
-import com.haeti.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,28 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class ProdFavRegionAction implements Action {
-
+public class ProdMapListAction implements Action {
 
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-        // 세션정보로 수정할 것
-        String user_id = "test18";
-
-
-        // 유저의 관심지역 정보 가져오기 - regionDTO
-
-        UserService user_service = UserService.getUserService();
-        RegionDTO fav_dto = user_service.getFavRegion(user_id);
+        // 모르겠는데 바꿔서 넣어야 작동함..
+        String fav_region = request.getParameter("dong");
+        float lng = Float.parseFloat(request.getParameter("lat"));
+        float lat = Float.parseFloat(request.getParameter("lng"));
 
 
-        // 관심지역 판매자의 물품 가져오기
-
-        String fav_region = fav_dto.getEup_myeun_dong();
+        // 동에 해당하는 매물 목록 가져오기
         ProdService prod_service = ProdService.getInstance();
-
 
         // 페이징 처리
         String curr = request.getParameter("curr");
@@ -49,7 +37,7 @@ public class ProdFavRegionAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 24;
+        int pagesize = 4;
         int startrow = (currpage-1)*pagesize;
 
         int total_data = prod_service.getRegionProdCount(fav_region);
@@ -62,15 +50,16 @@ public class ProdFavRegionAction implements Action {
             end_page=total_page;
         }
 
-
-        // 판매자의 fav_region이 같은 매물 목록 가져오기 - List<ProdDTO>
+        // 해당 위치의 매물 목록 가져오기 - List<ProdDTO>
 
         List<ProdDTO> list = prod_service.getRegionList(startrow, pagesize, fav_region);
 
 
+        request.setAttribute("list", list);
+        request.setAttribute("fav_region", fav_region);
+        request.setAttribute("fav_lat", lat);
+        request.setAttribute("fav_lng", lng);
 
-        request.setAttribute("fav_dto", fav_dto);  // 관심지역정보
-        request.setAttribute("list", list);  // 매물 목록
 
         request.setAttribute("currpage", currpage);
         request.setAttribute("total_page", total_page);
@@ -78,11 +67,9 @@ public class ProdFavRegionAction implements Action {
         request.setAttribute("end_page", end_page);
         request.setAttribute("total_data", total_data);
 
-
         Forward forward = new Forward();
         forward.setForward(true);
-        forward.setUrl("template.jsp?page=WEB-INF/prod/index.jsp");
-
+        forward.setUrl("template.jsp?page=WEB-INF/prod/prod_map.jsp");
 
         return forward;
     }

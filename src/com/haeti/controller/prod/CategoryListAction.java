@@ -11,6 +11,13 @@ import java.io.IOException;
 public class CategoryListAction implements Action {
     @Override
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
+
+
+
+
         Forward forward = new Forward();
         forward.setForward(true);
         forward.setUrl("template.jsp?page=WEB-INF/prod/categorylist.jsp");

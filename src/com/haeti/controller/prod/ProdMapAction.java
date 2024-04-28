@@ -21,7 +21,7 @@ public class ProdMapAction implements Action {
 
 
         //유저 세션 받아오기
-        String user_id = "test2";
+        String user_id = "yong";
 
         // 유저의 관심지역 정보 가져오기 - regionDTO
 
@@ -50,14 +50,11 @@ public class ProdMapAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 5;
+        int pagesize = 4;
         int startrow = (currpage-1)*pagesize;
 
 
-        String search = "";
-        String search_txt = "";
-
-        int total_data = prod_service.getCount(search, search_txt);
+        int total_data = prod_service.getRegionProdCount(fav_region);
         int block_size = 5;
         int start_page = ((currpage-1)/block_size)*block_size+1;
         int end_page = start_page+block_size-1;
@@ -68,9 +65,9 @@ public class ProdMapAction implements Action {
         }
 
 
-        // 판매자의 fav_regionr과 가까운 매물 목록 가져오기 - List<ProdDTO>
+        // 판매자의 fav_regionr와 같은 매물 목록 가져오기 - List<ProdDTO>
 
-        List<ProdDTO> list = prod_service.getDistanceList(startrow, pagesize, fav_lat, fav_lng);
+        List<ProdDTO> list = prod_service.getRegionList(startrow, pagesize, fav_region);
 
 
         request.setAttribute("list", list);
