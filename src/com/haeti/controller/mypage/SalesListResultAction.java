@@ -40,11 +40,11 @@ public class SalesListResultAction extends HttpServlet {
         int user_no=userDTO.getUser_no();
         String status=request.getParameter("status");
 
-
         if("sale".equals(status) || status==null)
             status="판매중";
         else if("sale_comp".equals(status))
             status="판매완료";
+
 
         JSONArray arr=new JSONArray();
 
@@ -59,6 +59,7 @@ public class SalesListResultAction extends HttpServlet {
             o1.put("cost",dto.getCost());
             o1.put("write_date",dto.getWrite_date().toString());
             o1.put("img_path",dto.getImg_paths().get(0));
+            o1.put("buyer_id", dto.getBuyer_id());
 
             arr.add(o1);
         }
