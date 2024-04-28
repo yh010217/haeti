@@ -1,6 +1,7 @@
 package com.haeti.dao;
 
 import com.haeti.comm.DBConnection;
+import com.haeti.dto.ChatDTO;
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.RegionDTO;
 
@@ -880,5 +881,37 @@ public class ProdDAO {
                 System.out.println(e);
             }
         }
+    }
+
+    public List<ChatDTO> getChatList(Connection conn, String prod_no, String buyer_id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select chat_content, sender_id ");
+        sql.append("  from chat ");
+        sql.append("  where prod_no = ? ");
+        sql.append("  and buyer_no = (select user_no from user where user_id = ?) ");
+        sql.append("  order by chat_time desc ");
+        List<ChatDTO> chatList = new ArrayList<>();
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            pstmt.setString(2, buyer_id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ChatDTO chat = new ChatDTO();
+                chat.setChat_content(rs.getString("chat_content"));
+                chat.setSender_id(rs.getString("sender_id"));
+                chatList.add(chat);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return chatList;
     }
 }

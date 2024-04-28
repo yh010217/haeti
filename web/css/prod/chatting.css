@@ -64,14 +64,18 @@ html{
     padding-right: 0.5rem;
     right: 1.5rem;
     height: 100%;
+
+    min-width:80px;
     max-width : 75%;
     border: 1px solid #f0f0f0;
 }
 
 .just_me{
+    display: inline-block;
+    width:80px;
     position:absolute;
     top:-1.4rem;
-    right: 1.5rem;
+    right: -0.5rem;
     font-size: 0.9rem;
     font-weight: 500;
 }
@@ -83,6 +87,8 @@ html{
     position: absolute;
     left: 1.5rem;
     height: 100%;
+
+    min-width:80px;
     max-width : 75%;
     border: 1px solid #f0f0f0;
 
@@ -90,6 +96,9 @@ html{
     padding-right: 0.5rem;
 }
 .just_other{
+    width: 80px;
+
+    display: inline-block;
     position:absolute;
     top:-1.4rem;
     left: 1.5rem;

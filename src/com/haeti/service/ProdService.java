@@ -4,6 +4,7 @@ import com.haeti.comm.DBConnection;
 import com.haeti.dao.ImageDAO;
 import com.haeti.dao.ProdDAO;
 import com.haeti.dao.UserDAO;
+import com.haeti.dto.ChatDTO;
 import com.haeti.dto.ProdDTO;
 
 import java.io.File;
@@ -547,5 +548,21 @@ public class ProdService {
         } finally {
             db.disconn(conn);
         }
+    }
+
+    public List<ChatDTO> getChatList(String prod_no, String buyer_id) {
+        DBConnection db = DBConnection.getInstance();
+        Connection conn = null;
+        ProdDAO dao = ProdDAO.getProdDAO();
+        List<ChatDTO> chatList = new ArrayList<>();
+        try {
+            conn = db.getConnection();
+            chatList = dao.getChatList(conn, prod_no, buyer_id);
+        } catch (SQLException | NamingException e) {
+            System.out.println(e);
+        } finally {
+            db.disconn(conn);
+        }
+        return chatList;
     }
 }

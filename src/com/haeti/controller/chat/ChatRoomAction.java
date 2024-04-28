@@ -1,6 +1,7 @@
 package com.haeti.controller.chat;
 import com.haeti.comm.Forward;
 import com.haeti.controller.Action;
+import com.haeti.dto.ChatDTO;
 import com.haeti.service.ProdService;
 
 import javax.servlet.RequestDispatcher;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 public class ChatRoomAction implements Action {
     @Override
@@ -71,6 +73,12 @@ public class ChatRoomAction implements Action {
             ChatEndPoint.setNowUser(user);
             ChatEndPoint.putUserMap(prod_no,buyer_id);
             ChatEndPoint.setNowRoom(prod_no+"#"+buyer_id);
+
+            /* 데이터베이스에서 가져오기 */
+            //채팅방에 들어갈 때, 채팅 내용을 가져와야함
+            //String[] 에는 [0]에 id, [1]에 내용이 들어가야함
+            List<ChatDTO> chatList = service.getChatList(prod_no,buyer_id);
+            request.setAttribute("chatList",chatList);
 
             Forward forward = new Forward();
             forward.setForward(true);
