@@ -77,6 +77,7 @@
             </div>
 
             <span class="seller_id">판매자 : ${requestScope.seller_id}</span>
+            <span class="prod_status">판매 상태 : ${requestScope.status}</span>
 
             <button id="chatting_button">
                 <a href="chatting.do?prod_no=${dto.prod_no}&buyer=${sessionScope.user_id}&iam=buyer">채팅하기</a>

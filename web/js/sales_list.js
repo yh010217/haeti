@@ -109,7 +109,7 @@ function selectChange(value){
 
             /*이미지*/
             let prod_no=item.prod_no;
-            let img=item.img;
+            let img=item.img_path;
             let ele_img=document.createElement('img');
             ele_img.src="upload/"+prod_no+"/"+img;
             ele_img.alt="판매목록 이미지";
@@ -132,7 +132,9 @@ function selectChange(value){
             let buyer_id=item.buyer_id;
             let chat_url=document.createElement('a');
             // chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=buyer";
-            chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=seller";
+            //chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=seller";
+
+            chat_url.href="my_prod_chatting.do?prod_no="+prod_no;
             let chat_icon=document.createElement('img');
             chat_icon.src="img/chatting_icon.png";
             chat_icon.alt="채팅";
