@@ -1,0 +1,77 @@
+/* 연한하늘 #E0E9FD*/
+/* 회색 #CBDAE1*/
+/* 초록 #03C75A*/
+/* 파랑 #469AFE*/
+/* 노랑 #FFDC4F*/
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+#join_title{
+    width: 1000px;
+    padding: 30px 2px;
+    margin: 30px auto;
+    text-align: center;
+}
+div#wrap {
+    width: 1000px;
+    padding: 20px 2px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin: 10px auto;
+}
+
+/* textarea 사용 시작  */
+h2 {
+    margin-left: 30px;
+
+}
+
+textarea {
+    width: 980px;
+    height: 183px;
+    font-size: 16px;
+    border: 1px solid #08f;
+    padding: 26px 50px 20px 10px;
+    margin: 12px 10px;
+    resize: none;
+    outline: none;
+    /* resize: none; textarea 크기 조절 비활성화 */
+
+}
+
+label {
+    margin-left: 20px;
+    user-select: none;
+
+}
+
+figcaption {
+    padding-left: 20px;
+    /* border: 1px solid #000; */
+    margin: 0 10px;
+}
+
+input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    transform: translateY(4px);
+}
+
+
+.next{
+    position: relative;
+    left: 500px;
+    top: 80px;
+    background-color: #469AFE;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+    width: 460px;
+    height: 30px;
+    text-align: center;
+}

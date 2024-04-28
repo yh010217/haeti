@@ -34,9 +34,11 @@ public class UserEmailAction extends HttpServlet {
 
         String email1="";
 
-        if (result == true){
+        if (result){
             email1="중복된 이메일입니다.";
-        }else {
+        } else if (email==null || "".equals(email)) {
+            email1="이메일을 작성해주세요!";
+        } else {
             email1="사용 가능한 이메일입니다.";
         }
 
