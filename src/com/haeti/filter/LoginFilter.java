@@ -42,24 +42,18 @@ public class LoginFilter implements Filter {
         if (excluded.contains(request.getServletPath())){
             filterChain.doFilter(request,response);
         }else {
-            if (session!=null) {
-                String user_id = (String) session.getAttribute("user_id");
-                if (user_id != null) {
+            if (session!=null){
+                String user_id=(String) session.getAttribute("user_id");
+                if (user_id !=null) {
                     System.out.println(" filter!!! login!!");
                     filterChain.doFilter(request, response);
-                } else {
+                }else {
                     RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
                     dispatcher.forward(request, response);
-
                 }
-            }else {
-
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
-                dispatcher.forward(request, response);
-            }
             }
         }
     }
 
 
-
+}

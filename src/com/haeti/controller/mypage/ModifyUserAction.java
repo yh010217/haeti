@@ -18,6 +18,11 @@ public class ModifyUserAction implements Action {
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("user_id");
 
+        // 관리자 계정에서 접근했을 경우
+        if("admin".equals(user_id)){
+            user_id = request.getParameter("user_id");  //user_id는 관리자 페이지에서 받은 값으로 변경
+        }
+
         UserService userService = UserService.getUserService();
         UserDTO userDTO = userService.getUserInfo(user_id);
 

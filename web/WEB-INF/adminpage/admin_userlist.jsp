@@ -10,13 +10,32 @@
 <html>
 <head>
     <title>Title</title>
-  <link rel="stylesheet" href="css/admin_user.css">
+  <link rel="stylesheet" href="css/admin/admin_user.css">
 </head>
 <body>
 
+<%--<%
+  String adminOK = null;
+  String jumpURL = "login.do";
+// 세션을 체크해서 없다면 로그인 창으로 보냄
+// 로그인 완료 시 다시 돌아와야 하므로 자신의 url인 login_test.jsp 전달
+
+  adminOK = (String)session.getAttribute("user_id");
+  if (adminOK == null) {
+    response.sendRedirect(jumpURL);
+    return;
+  }
+  if (!adminOK.equals("admin")) {
+    response.sendRedirect(jumpURL);
+    return;
+  }
+%>--%>
+
+
+
 <ul class="menu_user">
   <li class="font_mid">관리자 페이지</li>
-  <li><a href="adminuserlist.do">회원관리</a></li>
+  <li><a href="admin.do"><b>회원관리</b></a></li>
   <li><a href="adminprodlist.do">상품관리</a></li>
   <li><a href="#">카테고리 관리</a></li>
   <li><a href="#">고객센터</a></li>
@@ -45,7 +64,7 @@
 <table class="user_table">
   <thead>
   <tr>
-    <th>번호</th><th>아이디</th><th>이름</th><th>전화번호</th><%--<th>가입일</th>--%>
+    <th>번호</th><th>아이디</th><th>이름</th><th>전화번호</th><th>가입일</th>
   </tr>
   </thead>
   <tbody>
@@ -62,17 +81,17 @@
             ${item.user_no}
         </td>
         <td>
-          <a href="modify_user.do">${item.user_id}</a>
+          <a href="modify_user.do?user_id=${item.user_id}">${item.user_id}</a>
         </td>
         <td>
-          <a href="modify_user.do">${item.name}</a>
+          <a href="modify_user.do?user_id=${item.user_id}">${item.name}</a>
         </td>
         <td>
             ${item.tel}
         </td>
-        <%--<td>
+        <td>
             ${item.join_date}
-        </td>--%>
+        </td>
       </tr>
 
     </c:forEach>
@@ -82,9 +101,9 @@
 
 
 <%--페이지 번호--%>
-<div>
+<div class="page_num">
 <c:if test="${start_page>1}">
-  <a href="adminuserlist.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
+  <a href="admin.do?curr=${start_page-1}&search=${search}&search_txt=${search_txt}">이전</a>
 </c:if>
 
 <c:forEach var="i" begin="${start_page}" end="${end_page}" step="1">
@@ -93,13 +112,13 @@
       <c:out value="${i}"/>
     </c:when>
     <c:otherwise>
-      <a href="adminuserlist.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
+      <a href="admin.do?curr=${i}&search=${search}&search_txt=${search_txt}"><c:out value="${i}"/></a>
     </c:otherwise>
   </c:choose>
 </c:forEach>
 
 <c:if test="${end_page < total_page}">
-  <a href="adminuserlist.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
+  <a href="admin.do?curr=${end_page+1}&search=${search}&search_txt=${search_txt}">다음</a>
 </c:if>
 </div>
 

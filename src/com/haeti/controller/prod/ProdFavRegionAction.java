@@ -11,6 +11,7 @@ import com.haeti.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,8 +22,12 @@ public class ProdFavRegionAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        // 세션정보로 수정할 것
-        String user_id = "test2";
+        // 세션정보 받아오기
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+        if (user_id == null) {
+            user_id = "test";
+        }
 
 
         // 유저의 관심지역 정보 가져오기 - regionDTO
@@ -49,7 +54,7 @@ public class ProdFavRegionAction implements Action {
             currpage = Integer.parseInt(curr);
         }
 
-        int pagesize = 30;
+        int pagesize = 24;
         int startrow = (currpage-1)*pagesize;
 
         int total_data = prod_service.getRegionProdCount(fav_region);
@@ -69,8 +74,8 @@ public class ProdFavRegionAction implements Action {
 
 
 
-        request.setAttribute("fav_dto", fav_dto);
-        request.setAttribute("list", list);
+        request.setAttribute("fav_dto", fav_dto);  // 관심지역정보
+        request.setAttribute("list", list);  // 매물 목록
 
         request.setAttribute("currpage", currpage);
         request.setAttribute("total_page", total_page);

@@ -32,6 +32,14 @@
                      <a href="signup.do">회원가입</a>
                  </div>
              </c:when>
+             <c:when test="${'admin'.equals(user_id)}">
+             <div class="login">
+                 <a href="logout.do">로그아웃</a>
+             </div>
+             <div class="adminpage">
+                 <a href="admin.do">관리자페이지</a>
+             </div>
+         </c:when>
              <c:otherwise>
                  <div class="login">
                      <a href="logout.do">로그아웃</a>
