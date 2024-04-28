@@ -15,23 +15,6 @@
 </head>
 <body>
 
-<%--<%--%>
-<%--    String adminOK = null;--%>
-<%--    String jumpURL = "login.do";--%>
-<%--// 세션을 체크해서 없다면 로그인 창으로 보냄--%>
-<%--// 로그인 완료 시 다시 돌아와야 하므로 자신의 url인 login_test.jsp 전달--%>
-
-<%--    adminOK = (String)session.getAttribute("user_id");--%>
-<%--    if (adminOK == null) {--%>
-<%--        response.sendRedirect(jumpURL);--%>
-<%--        return;--%>
-<%--    }--%>
-<%--    if (!adminOK.equals("admin")) {--%>
-<%--        response.sendRedirect(jumpURL);--%>
-<%--        return;--%>
-<%--    }--%>
-<%--%>--%>
-
 
 <ul class="menu_prod">
         <li class="font_mid">관리자 페이지</li>

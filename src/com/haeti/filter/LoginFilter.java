@@ -43,12 +43,13 @@ public class LoginFilter implements Filter {
         }else {
             if (session!=null){
                 String user_id=(String) session.getAttribute("user_id");
-                if (user_id !=null){
+                if (user_id !=null) {
                     System.out.println(" filter!!! login!!");
-                    filterChain.doFilter(request,response);
+                    filterChain.doFilter(request, response);
+                }else {
+                    RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/login.jsp");
+                    dispatcher.forward(request, response);
                 }
-                RequestDispatcher dispatcher=request.getRequestDispatcher("/WEB-INF/login/login.jsp");
-                dispatcher.forward(request,response);
             }
         }
     }

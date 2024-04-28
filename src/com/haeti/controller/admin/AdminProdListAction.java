@@ -69,5 +69,4 @@ public class AdminProdListAction implements Action {
         return forward;
     }
 
-    // 테스트용
 }
