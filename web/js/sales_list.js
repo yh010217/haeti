@@ -31,6 +31,7 @@ fetch("sales_list_result"
         ele_td1.className='td';
         ele_td2.className='td';
         ele_td3.className='td';
+        ele_td3.id='td3';
         ele_li1.className='td2_li';
         ele_li2.className='td2_li';
         ele_li3.className='td2_li';
@@ -119,6 +120,7 @@ function selectChange(value){
             ele_td1.className='td';
             ele_td2.className='td';
             ele_td3.className='td';
+            ele_td3.id='td3';
             ele_li1.className='td2_li';
             ele_li2.className='td2_li';
             ele_li3.className='td2_li';
@@ -135,6 +137,7 @@ function selectChange(value){
             //chat_url.href="chatting.do?prod_no="+prod_no+"&buyer="+buyer_id+"&iam=seller";
 
             chat_url.href="my_prod_chatting.do?prod_no="+prod_no;
+
             let chat_icon=document.createElement('img');
             chat_icon.src="img/chatting_icon.png";
             chat_icon.alt="채팅";

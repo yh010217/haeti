@@ -65,7 +65,9 @@
                             </ul>
                         </div>
                         <div class="td td3">
-                            <a href="#"><img src="img/chatting_icon.png" alt="채팅"></a>
+                            <a href="my_prod_chatting.do?prod_no=${prodDTO.prod_no}">
+                                <img src="img/chatting_icon.png" alt="채팅">
+                            </a>
                         </div>
                     </div>
                 </c:otherwise>

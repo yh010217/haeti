@@ -95,6 +95,7 @@ a{
 
 .info3 a{
     border: 2px solid silver;
+    border-radius: 3px;
     padding: 2px 3px;
     position: relative;
 }

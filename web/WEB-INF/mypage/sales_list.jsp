@@ -4,7 +4,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/purchase_list.css">
+    <link rel="stylesheet" href="css/sales_list.css">
     <script defer src="js/sales_list.js"></script>
 </head>
 <body>

@@ -16,17 +16,26 @@
 <body>
 <c:set var="prod_buyer" value="${requestScope.prod_buyer}"/>
 
-<div id="chat_container">
-    <c:forEach items="${prod_buyer}" var="item">
+<div id="wrap">
+    <h1>채팅</h1>
+    <div id="chat_container">
+        <c:forEach items="${prod_buyer}" var="item">
 
-        <%-- 디자인은 잘 모르겠는데,,, 일단 이 밑에가 가는 a 태그입니다 --%>
-        <a href="chatting.do?prod_no=${item[0]}&buyer=${item[1]}&iam=seller">
-            <table class="one_chat">
-                <td><img src="img/chatting_icon.png" alt="채팅이미지" class="go_chat"></td>
-                <td><span>${item[1]}</span></td>
-            </table>
-        </a>
-    </c:forEach>
+            <%-- 디자인은 잘 모르겠는데,,, 일단 이 밑에가 가는 a 태그입니다
+            <a href="chatting.do?prod_no=${item[0]}&buyer=${item[1]}&iam=seller">
+                <table class="one_chat">
+                    <td><img src="img/chatting_icon.png" alt="채팅이미지" class="go_chat"></td>
+                    <td><span>${item[1]}</span></td>
+                </table>
+            </a>--%>
+            <a href="chatting.do?prod_no=${item[0]}&buyer=${item[1]}&iam=seller">
+                <div class="one_chat">
+                    <div class="td"><img src="img/chatting_icon.png" alt="채팅이미지" class="go_chat"></div>
+                    <div class="td"><span>${item[1]}</span></div>
+                </div>
+            </a>
+        </c:forEach>
+    </div>
 </div>
 
 </body>
