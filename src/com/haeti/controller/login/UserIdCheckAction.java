@@ -46,8 +46,10 @@ public class UserIdCheckAction extends HttpServlet {
 
         if (result){
           name1="중복된 아이디입니다.";
-        } else if (name1==null || "".equals(name1)) {
+        } else if (user_id==null || "".equals(user_id)) {
             name1="아이디를 작성해주세요!";
+        } else if (user_id.contains("#")) {
+            name1="특수문자를 이용하지 마세요!";
         } else {
             name1="사용가능한 아이디입니다.";
         }

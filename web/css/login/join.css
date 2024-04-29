@@ -23,15 +23,7 @@ h2{
     text-align: center;
 }
 
-/*input {*/
-/*    padding: 10px;*/
-/*    font-size: 16px;*/
-/*    border: 1px solid #ccc;*/
-/*    border-radius: 4px;*/
-/*    outline: none;*/
-/*    transition: border-color 0.3s;*/
-/*    width: 300px;*/
-/*}*/
+
 
 #user_id{
     padding: 5px;
@@ -220,8 +212,8 @@ h2{
     transition: background-color
 }
 #joinBtn{
-    background-color: #E0E9FD;
-    font-size: 0.8rem;
+    background-color: #FFDC4F;
+    font-size: 1rem;
     padding: 10px 20px;
     border-radius: 5px;
     border:none;
