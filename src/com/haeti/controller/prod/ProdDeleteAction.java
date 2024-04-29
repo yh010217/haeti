@@ -22,7 +22,7 @@ public class ProdDeleteAction implements Action {
         int user_no = Integer.parseInt(service.getNoRegion(user_id)[0]);
 
         int seller_user_no = service.prodDetail(prod_no).getSeller_user_no();
-        if (user_no != seller_user_no) {
+        if (user_no != seller_user_no && !"admin".equals(user_id)) {
             Forward forward = new Forward();
             forward.setForward(false);
             forward.setUrl("index.do");

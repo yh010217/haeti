@@ -23,7 +23,7 @@ public class ProdModifyAction implements Action {
         int prod_no = Integer.parseInt(request.getParameter("prod_no"));
         ProdDTO dto = service.prodDetail(prod_no);
 
-        if (user_no != dto.getSeller_user_no()) {
+        if (user_no != dto.getSeller_user_no() && !"admin".equals(user_id)) {
             Forward forward = new Forward();
             forward.setForward(false);
             forward.setUrl("index.do");

@@ -28,6 +28,7 @@ public class ProdMapAction implements Action {
             user_id = "test";
         }
 
+
         // 유저의 관심지역 정보 가져오기 - regionDTO
 
         UserService user_service = UserService.getUserService();
