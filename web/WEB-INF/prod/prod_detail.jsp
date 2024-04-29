@@ -42,32 +42,38 @@
 
     <div class="row width80">
 
-        <div id="carouselExample" class="carousel slide col-md-4 col-12">
-            <div class="carousel-inner">
+        <div id="my_slide" class="col-md-4 col-12">
+            <div class="slide-inner">
 
-                <c:forEach var="image" items="${images}">
+                <div class="slide-items">
+                    <% int i = 0; %>
+                    <c:forEach var="image" items="${images}">
 
-                    <div class="prod_image_detail_container carousel-item active">
-                        <div class="prod_detail_images">
-                            <img src="upload/${dto.prod_no}/${image}">
-                                <%-- detail 아니면 밑에 뭔가 더 있어야 될듯 --%>
+                        <div class="prod_image_detail_container slide-item">
+                            <div class="prod_detail_images">
+                                <img src="upload/${dto.prod_no}/${image}">
+                                    <%-- detail 아니면 밑에 뭔가 더 있어야 될듯 --%>
+                            </div>
                         </div>
-                    </div>
-                </c:forEach>
+                        <% i++; %>
+                    </c:forEach>
+
+                </div>
+                <%--슬라이더 틀--%>
+
+                <button class="slide-prev" type="button">
+                    <img src="img/carousel-prev-icon.png">
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="slide-next" type="button">
+                    <img src="img/carousel-next-icon.png">
+                    <%--<span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
+                    <span class="visually-hidden">Next</span>
+                </button>
 
             </div>
-            <%--슬라이더 틀--%>
-
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                <img src="img/carousel-prev-icon.png">
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <img src="img/carousel-next-icon.png">
-                <%--<span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
-                <span class="visually-hidden">Next</span>
-            </button>
         </div>
+
         <div class="col-md-8 col-12">
             <div class="prod_detail_twcc">
                 <h4><c:out value="${dto.title}"/></h4> <br>
@@ -109,6 +115,9 @@
 
 <script src="js/review_show.js"></script>
 <script>init_data(${dto.prod_no})</script>
+
+<script src="js/slide_mine.js"></script>
+<script>init_slide_num(<%=i%>)</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

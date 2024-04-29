@@ -32,6 +32,7 @@
 }
 .prod_image_modify_container{
     display: inline-block;
+    text-align: center;
     width:100%;
 }
 
@@ -41,12 +42,6 @@
     width: 100%;
     object-fit: contain;
 }
-.prod_image_modify_container{
-    display: inline-block;
-    text-align: center;
-    width: 100%;
-}
-
 .slide-prev, .slide-next{
     background: white;
     border:1px solid whitesmoke;

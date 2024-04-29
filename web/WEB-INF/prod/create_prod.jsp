@@ -19,83 +19,91 @@
     <div class="width80">
         <form method="post" action="create_prod_result.do" enctype="multipart/form-data">
             <div class="row">
-                <div id="carouselExample" class="carousel slide col-4">
+                <div id="my_slide" class="col-4">
 
-                    <div class="carousel-inner">
+                    <div class="slide-inner">
 
-                        <div class="carousel-item active">
-                            <div class="prod_image_modify_container">
-                                <div id="image_container1" class="prod_modify_image">
-                                    <img id="white_image1" src="img/white_background.jpg">
-                                </div>
-                                <label for="picture_image1">파일추가1</label>
-                                <input type="file" class="picture_image" name="picture_image1"
-                                       id="picture_image1" onchange="setPreview(event,1);"><br>
-                            </div>
-                        </div>
+                        <div class="slide-items">
 
-                        <div class="carousel-item active">
-                            <div class="prod_image_modify_container">
-                                <div id="image_container2" class="prod_modify_image">
-                                    <img id="white_image2" src="img/white_background.jpg">
+                            <div class="slide-item">
+                                <%-- 여기까지 함 --%>
+                                <div class="prod_image_modify_container">
+                                    <div id="image_container1" class="prod_modify_image prod_detail_images">
+                                        <img id="white_image1" src="img/white_background.jpg">
+                                    </div>
+                                    <label for="picture_image1">파일추가1</label>
+                                    <input type="file" class="picture_image" name="picture_image1"
+                                           id="picture_image1" onchange="setPreview(event,1);"><br>
                                 </div>
 
-                                <label for="picture_image2">파일추가2</label>
-                                <input type="file" class="picture_image" name="picture_image2"
-                                       id="picture_image2" onchange="setPreview(event,2);"><br>
                             </div>
-                        </div>
+                            <div class="slide-item">
 
+                                <div class="prod_image_modify_container">
+                                    <div id="image_container2" class="prod_modify_image prod_detail_images">
+                                        <img id="white_image2" src="img/white_background.jpg">
+                                    </div>
 
-                        <div class="carousel-item active">
-                            <div class="prod_image_modify_container">
-                                <div id="image_container3" class="prod_modify_image">
-                                    <img id="white_image3" src="img/white_background.jpg">
+                                    <label for="picture_image2">파일추가2</label>
+                                    <input type="file" class="picture_image" name="picture_image2"
+                                           id="picture_image2" onchange="setPreview(event,2);"><br>
                                 </div>
 
-                                <label for="picture_image3">파일추가3</label>
-                                <input type="file" class="picture_image" name="picture_image3"
-                                       id="picture_image3" onchange="setPreview(event,3);"><br>
                             </div>
-                        </div>
+                            <div class="slide-item">
 
-                        <div class="carousel-item active">
-                            <div class="prod_image_modify_container">
-                                <div id="image_container4" class="prod_modify_image">
-                                    <img id="white_image4" src="img/white_background.jpg">
+
+                                <div class="prod_image_modify_container">
+                                    <div id="image_container3" class="prod_modify_image prod_detail_images">
+                                        <img id="white_image3" src="img/white_background.jpg">
+                                    </div>
+
+                                    <label for="picture_image3">파일추가3</label>
+                                    <input type="file" class="picture_image" name="picture_image3"
+                                           id="picture_image3" onchange="setPreview(event,3);"><br>
                                 </div>
 
-                                <label for="picture_image4">파일추가4</label>
-                                <input type="file" class="picture_image" name="picture_image4"
-                                       id="picture_image4" onchange="setPreview(event,4);"><br>
                             </div>
-                        </div>
+                            <div class="slide-item">
 
-                        <div class="carousel-item active">
-                            <div class="prod_image_modify_container">
-                                <div id="image_container5" class="prod_modify_image">
-                                    <img id="white_image5" src="img/white_background.jpg">
+                                <div class="prod_image_modify_container">
+                                    <div id="image_container4" class="prod_modify_image prod_detail_images">
+                                        <img id="white_image4" src="img/white_background.jpg">
+                                    </div>
+
+                                    <label for="picture_image4">파일추가4</label>
+                                    <input type="file" class="picture_image" name="picture_image4"
+                                           id="picture_image4" onchange="setPreview(event,4);"><br>
                                 </div>
 
-                                <label for="picture_image5">파일추가5</label>
-                                <input type="file" class="picture_image" name="picture_image5"
-                                       id="picture_image5" onchange="setPreview(event,5);"><br>
                             </div>
+                            <div class="slide-item">
+
+                                <div class="prod_image_modify_container">
+                                    <div id="image_container5" class="prod_modify_image prod_detail_images">
+                                        <img id="white_image5" src="img/white_background.jpg">
+                                    </div>
+
+                                    <label for="picture_image5">파일추가5</label>
+                                    <input type="file" class="picture_image" name="picture_image5"
+                                           id="picture_image5" onchange="setPreview(event,5);"><br>
+                                </div>
+
+                            </div>
+
                         </div>
+
+                        <button class="slide-prev" type="button">
+                            <img src="img/carousel-prev-icon.png">
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="slide-next" type="button">
+                            <img src="img/carousel-next-icon.png">
+                            <%--<span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
+                            <span class="visually-hidden">Next</span>
+                        </button>
 
                     </div>
-
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="prev">
-                        <img src="img/carousel-prev-icon.png">
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                            data-bs-slide="next">
-                        <img src="img/carousel-next-icon.png">
-                        <%--<span class="carousel-control-next-icon" aria-hidden="true"></span>--%>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
                 <div class="col-8">
                     <div class="blue_div">
@@ -143,6 +151,9 @@
 
 <jsp:include page="/footer.jsp"/>
 
+<script src="js/slide_mine.js"></script>
+<script>init_slide_num(5)</script>
+
 <script>
     /*
     <div class="carousel-item active">
@@ -159,7 +170,7 @@
         let reader = new FileReader();
         reader.onload = function (event) {
             let img_container = document.getElementById('image_container' + num);
-            let white_img = document.getElementById('white_image'+num);
+            let white_img = document.getElementById('white_image' + num);
             img_container.removeChild(white_img);
             let image = document.createElement('img');
             image.src = event.target.result;

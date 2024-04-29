@@ -46,7 +46,7 @@
                                 <div class="prod_image_modify_container">
 
 
-                                    <div id="image_container<%=i%>" class="prod_modify_image">
+                                    <div id="image_container<%=i%>" class="prod_modify_image prod_detail_images">
                                         <label for="remove_image<%=i%>" class="remove_label before_blur">
                                             <img id="white_image<%=i%>" src="upload/${dto.prod_no}/${image}">
                                         </label>
@@ -72,7 +72,7 @@
                             <div class="slide-item">
 
                                 <div class="prod_image_modify_container">
-                                    <div id="image_container${fi}" class="prod_modify_image">
+                                    <div id="image_container${fi}" class="prod_modify_image prod_detail_images">
                                         <img id="white_image${fi}"
                                              src="img/white_background.jpg">
                                     </div>
@@ -178,6 +178,7 @@
     }
 </script>
 <script src="js/slide_mine.js"></script>
+<script>init_slide_num(5);</script>
 <script src="js/remove_blur.js"></script>
 
 
