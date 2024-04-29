@@ -14,13 +14,14 @@
     <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script defer src="js/addr.js"></script>
     <script defer src="js/join_user.js"></script>
+<%--    <script defer src="js/join_check.js"></script>--%>
     <link rel="stylesheet" href="css/login/join.css">
 </head>
 <body>
 
 <div id="join">
     <h2>회원가입</h2>
-    <form method="post" action="join_result.do">
+    <form method="post" action="join_result.do" onsubmit="return checkAll()">
         <ul>
             <li>
                 <label for="user_id">아이디</label>

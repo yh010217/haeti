@@ -41,10 +41,8 @@
              </div>
          </c:when>
              <c:otherwise>
-                 <div class="login">
+                 <div class="logout">
                      <a href="logout.do">로그아웃</a>
-                 </div>
-                 <div class="mypage">
                      <a href="mypage.do">마이페이지</a>
                  </div>
              </c:otherwise>

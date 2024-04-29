@@ -63,16 +63,15 @@ a {
     .login a:hover {
         background-color: #CBDAE1;
     }
-
-    .mypage a {
-        background-color: #dee7fc;
+    .logout a{
+        background-color: #E0E9FD;
         font-size: 0.8rem;
         padding: 10px 20px;
         border-radius: 5px;
         font-weight: bold;
     }
 
-    .mypage a:hover {
+    .logout a:hover{
         background-color: #CBDAE1;
     }
 
