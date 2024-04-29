@@ -56,7 +56,7 @@
     <c:if test="${!(empty list)}">
         <c:forEach var="item" items="${list}">
             <ul>
-                <li><a href="prod_modify.do?prod_no=${item.prod_no}">
+                <li><a href="prod_detail.do?prod_no=${item.prod_no}">
                     <img src="upload/${item.prod_no}/${item.img_paths[0]}"></a></li>
                 <li class="title">${item.title}</li>
                 <li class="cost">${item.cost}원</li>

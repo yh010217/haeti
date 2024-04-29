@@ -13,7 +13,7 @@ ul li {
 .section_left {
     flex: 4;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: relative;
     margin-left: 5%;
     height: 90vh;
@@ -28,7 +28,7 @@ ul li {
 .prod_list {
     float: left;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: wrap;
     height: 80vh;
 }
@@ -72,7 +72,6 @@ ul li {
 .page_num a {
     margin: 0 10px;
 }
-
 
 .space {
     clear: both;

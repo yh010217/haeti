@@ -22,6 +22,13 @@ public class AdminProdListAction implements Action {
         HttpSession session = request.getSession();
         String user_id = (String) session.getAttribute("user_id");
 
+        if (!"admin".equals(user_id)) {
+            Forward forward = new Forward();
+            forward.setForward(false);
+            forward.setUrl("index.do");
+            return forward;
+        }
+
 
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");

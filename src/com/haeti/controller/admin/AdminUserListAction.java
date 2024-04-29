@@ -8,6 +8,7 @@ import com.haeti.service.UserService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,7 +18,15 @@ public class AdminUserListAction implements Action {
     public Forward execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // 관리자 세션 확인 꼭 할 것
-/*
+        HttpSession session = request.getSession();
+        String user_id = (String) session.getAttribute("user_id");
+
+        if (!"admin".equals(user_id)) {
+            Forward forward = new Forward();
+            forward.setForward(false);
+            forward.setUrl("index.do");
+            return forward;
+        }
 
         String curr = request.getParameter("curr");
         String search = request.getParameter("search");
@@ -41,10 +50,6 @@ public class AdminUserListAction implements Action {
         UserService service = UserService.getUserService();
 
         int total_data = service.getCount(search, search_txt);
-
-
-
-
         int block_size = 10;
         int start_page = ((currpage-1)/block_size)*block_size+1;
         int end_page = start_page+block_size-1;
@@ -54,9 +59,8 @@ public class AdminUserListAction implements Action {
             end_page=total_page;
         }
 
-
-
         List<UserDTO> list = service.getList(startrow, pagesize, search, search_txt);
+        System.out.println(List.of().size());
 
 
         request.setAttribute("list", list);
@@ -67,7 +71,6 @@ public class AdminUserListAction implements Action {
         request.setAttribute("search", search);
         request.setAttribute("search_txt", search_txt);
         request.setAttribute("total_data", total_data);
-*/
 
         Forward forward = new Forward();
         forward.setForward(true);
