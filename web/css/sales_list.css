@@ -4,7 +4,6 @@
     padding: 0;
 }
 
-
 #wrap{
     width: 90%;
     margin: 100px auto;
@@ -44,21 +43,12 @@ h1{
 }
 
 
-.tr:last-child .td:first-child,
-.tr:last-child .td:last-child{
-    /*border-bottom: none;*/
-}
-
 .td:first-child{
     width: 15vw;
 }
 
 .td:first-child img{
     width: 12vw;
-    /*height: 12vw;*/
-    /*object-fit: contain;*/
-
-
     position: relative;
     top: 4vh;
     left: 1vw;
@@ -80,40 +70,17 @@ h1{
     color: dimgray;
 }
 
-.td3_li{
-    display: flex;
-    justify-content: right;
-    padding: 5px;
+#td3{
+    width: 200px;
     position: relative;
-    top: 5px;
-    right: 5px;
 }
 
-#review{
-    padding: 5px 10px;
-    background-color: #03C75A;
-    border: 2px solid #03C75A;
-    border-radius: 10px;
-    color: white;
-    font-weight: bolder;
-}
-
-#review:hover{
-    border-radius: 10px;
-    background-color: white;
-    color: #03C75A;
-}
-
-/*.td3_ul>li>a{
-    position: relative;
-    top: 10px;
-}*/
 
 #chat_icon{
     width: 35px;
     position: relative;
-    top: 5px;
-    left: -5px;
+    top: 70px;
+    left: 140px;
 }
 
 

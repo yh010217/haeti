@@ -1,3 +1,20 @@
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#wrap{
+    width: 90%;
+    margin: 100px auto;
+}
+
+h1{
+    margin: 0 auto;
+    text-align: center;
+}
+
+/*
 #chat_container{
     margin:0 8%;
     display: flex;
@@ -28,4 +45,45 @@
     padding : 12px;
     border-radius: 12px;
     border:1px solid black;
+}
+*/
+
+#chat_container{
+    width: 70vw;
+    margin: 30px auto 100px;
+    display: table;
+    border: 2px solid silver;
+}
+
+.one_chat{
+    display: table-row;
+    height: 80px;
+}
+
+.td{
+    display: table-cell;
+    flex-direction: column;
+}
+
+.td:first-child{
+    width: 35vw;
+}
+
+.td:first-child img{
+    width: 35px;
+    position: relative;
+    top: 25px;
+    left: 25px;
+}
+
+.td:last-child{
+    width: 35vw;
+}
+
+span{
+    font-size: 1.1rem;
+    font-weight: bolder;
+    color: dimgray;
+    position: relative;
+    top: 10px;
 }

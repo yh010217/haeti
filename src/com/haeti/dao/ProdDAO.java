@@ -562,10 +562,13 @@ public class ProdDAO {
         sql.append("         , cost                       ");
         sql.append("         , write_date                 ");
         sql.append("         , img_url                    ");
+        sql.append("         , user_id                    ");
         sql.append("  from prod p left join trade t       ");
         sql.append("  on p.prod_no = t.prod_no            ");
         sql.append("  left join image i                   ");
         sql.append("  on p.prod_no = i.prod_no            ");
+        sql.append("  left join user u                    ");
+        sql.append("  on u.user_no=t.buyer_user_no        ");
         sql.append("  where p.seller_user_no = ?          ");
         sql.append("  and t.status = ?                    ");
         sql.append("  group by trade_id                   ");
@@ -587,6 +590,7 @@ public class ProdDAO {
                 List<String> img_paths=new ArrayList<>();
                 img_paths.add(rs.getString("img_url"));
                 prodDTO.setImg_paths(img_paths);
+                prodDTO.setBuyer_id(rs.getString("user_id"));
 
             }
         }

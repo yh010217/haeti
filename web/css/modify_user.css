@@ -13,7 +13,7 @@ h1{
     text-align: center;
 }
 
-form{
+#wrap form{
     margin: 7vh auto;
     width: 70vw;
     display: flex;
