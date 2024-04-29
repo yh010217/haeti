@@ -1,0 +1,31 @@
+#chat_container{
+    margin:0 8%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+#chat_container a{
+    position: relative;
+}
+
+.go_chat{
+    background-color: #ffffff;
+    display: inline-block;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin:5vw;
+    border-radius: 16px;
+}
+#chat_container span{
+    font-size: 1.4rem;
+    font-weight: 500;
+}
+.one_chat{
+    width: 200px;
+    height: 144px;
+    padding : 12px;
+    border-radius: 12px;
+    border:1px solid black;
+}

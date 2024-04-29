@@ -1,6 +1,7 @@
 package com.haeti.dao;
 
 import com.haeti.comm.DBConnection;
+import com.haeti.dto.ChatDTO;
 import com.haeti.dto.ProdDTO;
 import com.haeti.dto.RegionDTO;
 
@@ -534,6 +535,7 @@ public class ProdDAO {
         sql.append("update prod set title = ?  ");
         sql.append("                ,content=? ");
         sql.append("                ,cost=?    ");
+        sql.append("                ,category_id = ?    ");
         sql.append("         where prod_no = ? ");
         PreparedStatement pstmt = null;
         try {
@@ -541,8 +543,8 @@ public class ProdDAO {
             pstmt.setString(1, dto.getTitle());
             pstmt.setString(2, dto.getContent());
             pstmt.setInt(3, dto.getCost());
-            //pstmt.setInt(4, dto.getCategory_id());
-            pstmt.setInt(4, prod_no);
+            pstmt.setInt(4, dto.getCategory_id());
+            pstmt.setInt(5, prod_no);
             pstmt.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
@@ -912,5 +914,68 @@ public class ProdDAO {
                 System.out.println(e);
             }
         }
+    }
+
+    public List<ChatDTO> getChatList(Connection conn, String prod_no, String buyer_id) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("  select chat_content, sender_id ");
+        sql.append("  from chat ");
+        sql.append("  where prod_no = ? ");
+        sql.append("  and buyer_no = (select user_no from user where user_id = ?) ");
+        sql.append("  order by chat_time desc ");
+        List<ChatDTO> chatList = new ArrayList<>();
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setString(1, prod_no);
+            pstmt.setString(2, buyer_id);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ChatDTO chat = new ChatDTO();
+                chat.setChat_content(rs.getString("chat_content"));
+                chat.setSender_id(rs.getString("sender_id"));
+                chatList.add(chat);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return chatList;
+    }
+
+    public List<String[]> getProdBuyer(Connection conn, int prod_no) {
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("  SELECT prod_no, user_id as buyer_id ");
+        sql.append("  FROM chat c inner join user u on c.buyer_no = u.user_no ");
+        sql.append("  where prod_no = ? ");
+        sql.append("  GROUP BY prod_no,buyer_no");
+        List<String[]> chatList = new ArrayList<>();
+        ResultSet rs = null;
+        try (PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+        ) {
+            pstmt.setInt(1, prod_no);
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String[] chat = new String[2];
+                chat[0] = rs.getString("prod_no");
+                chat[1] = rs.getString("buyer_id");
+                chatList.add(chat);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if (rs != null) try {
+                rs.close();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+        return chatList;
     }
 }

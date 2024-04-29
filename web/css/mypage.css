@@ -144,6 +144,8 @@ a{
 
 .td1 img{
     width: 110px;
+    height : 110px;
+    object-fit: contain;
 }
 
 .td2 ul li{

@@ -166,7 +166,14 @@
 }
 .seller_id{
     position: absolute;
-    right: 3rem;
+    right: 1.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.prod_status{
+    position: absolute;
+    right: 1.5rem;
+    bottom:3rem;
     font-size: 0.8rem;
     font-weight: 700;
 }

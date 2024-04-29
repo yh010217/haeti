@@ -17,6 +17,7 @@ public class ProdDetailAction implements Action {
         ProdService service = ProdService.getInstance();
         int prod_no = Integer.parseInt(request.getParameter("prod_no"));
         ProdDTO dto = service.prodDetail(prod_no);
+        String status = service.getProdStatus(prod_no+"");
 
         String seller_id = service.getSellerId(prod_no+"");
 
@@ -27,6 +28,7 @@ public class ProdDetailAction implements Action {
         String uploadPath = request.getServletContext().getRealPath("upload") + "\\" + prod_no;
         request.setAttribute("path",uploadPath);
         request.setAttribute("seller_id",seller_id);
+        request.setAttribute("status",status);
 
 
         Forward forward = new Forward();

@@ -24,6 +24,7 @@
 
 <jsp:include page="/header.jsp"/>
 
+<c:set var="chatList" value="${requestScope.chatList}"/>
 
 <div id="container">
 
@@ -36,6 +37,24 @@
     <!--     채팅창 -->
     <div id="_chatbox">
         <div id="messageWindow">
+            <c:forEach items="${chatList}" var="chat">
+                <c:if test="${chat.sender_id == sessionScope.user_id}">
+                    <div class="chat_content chat_div">
+                        <div class="my_chat_region">
+                            <span class="just_me"><%="나"%></span>
+                            ${chat.chat_content}
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${chat.sender_id != sessionScope.user_id}">
+                    <div class="chat_content chat_div">
+                        <div class="other_chat_region">
+                            <span class="just_other"><%="상대방"%></span>
+                                ${chat.chat_content}
+                        </div>
+                    </div>
+                </c:if>
+            </c:forEach>
         </div>
 
         <div class="row input_window">
@@ -71,7 +90,7 @@
 
 <script type="text/javascript">
 
-    var webSocket = new WebSocket('ws://172.30.1.88:8080/haeti/ChattingRoom');
+    var webSocket = new WebSocket('ws://localhost:8080/haeti/ChattingRoom');
     var inputMessage = document.getElementById('inputMessage');
 
     let prod_no = "${param.prod_no}";
@@ -108,7 +127,7 @@
 
 
         let mw = document.getElementById("messageWindow");
-        mw.innerHTML = "<div class='chat_content chat_div'><div class='other_chat_region'><span class='just_other'>" + user + "</span>" + content + "</div></div>" + mw.innerHTML;
+        mw.innerHTML = "<div class='chat_content chat_div'><div class='other_chat_region'><span class='just_other'>상대방</span>" + content + "</div></div>" + mw.innerHTML;
 
     }
 
