@@ -290,11 +290,11 @@ public class ProdDAO {
         sql.append("              , sell_date                 ");
         sql.append("              , img_url                   ");
         sql.append("              , user_id                   ");
-        sql.append("  from  prod p inner join trade t         ");
+        sql.append("  from  prod p left join trade t          ");
         sql.append("  on p.prod_no = t.prod_no                ");
-        sql.append("  inner join image i                      ");
+        sql.append("  left join image i                       ");
         sql.append("  on p.prod_no = i.prod_no                ");
-        sql.append("  inner join user u                       ");
+        sql.append("  left join user u                        ");
         sql.append("  on u.user_no = t.buyer_user_no          ");
         if("week".equals(period) || period==null){
             sql.append("  where sell_date >= ( DATE_ADD(curdate(), interval -1 week ))  ");
