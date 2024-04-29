@@ -52,6 +52,10 @@ h1{
     position: relative;
     top: 4vh;
     left: 1vw;
+
+    height: 12vw;
+    object-fit: contain;
+
 }
 
 .td2_li{

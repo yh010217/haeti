@@ -55,8 +55,8 @@ h1{
 
 .td:first-child img{
     width: 12vw;
-    /*height: 12vw;*/
-    /*object-fit: contain;*/
+    height: 12vw;
+    object-fit: contain;
 
 
     position: relative;
