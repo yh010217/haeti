@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="css/mypage.css">
+    <link rel="stylesheet" href="css/mypage/mypage.css">
 </head>
 <body>
 <c:set var="dto" value="${requestScope.userInfo}"/>

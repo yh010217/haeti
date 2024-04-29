@@ -25,7 +25,7 @@ ul li{
     padding: 20px;
 }
 
-label{
+#wrap label{
     padding-right: 10px;
     margin-right: 3vw;
     font-weight: bolder;
@@ -34,7 +34,7 @@ label{
     width: 120px;
 }
 
-input{
+#wrap input{
     color: dimgray;
     padding: 5px 3px;
     font-size: 1.1rem;

@@ -147,6 +147,9 @@ a{
     width: 110px;
     height : 110px;
     object-fit: contain;
+    position: relative;
+    top: 25px;
+    left: 25px;
 }
 
 .td2 ul li{
@@ -218,28 +221,28 @@ a{
 }
 
 .purchase:before{
-    content: url("../img/purchase_icon.png");
+    content: url("../../img/purchase_icon.png");
     padding: 0 20px 0 5px;
     position: relative;
     top: 10px;
 }
 
 .sale:before{
-    content: url("../img/sale_icon.png");
+    content: url("../../img/sale_icon.png");
     padding: 0 20px 0 5px;
     position: relative;
     top: 10px;
 }
 
 .chat:before{
-    content: url("../img/chatting_icon.png");
+    content: url("../../img/chatting_icon.png");
     padding: 0 20px 0 5px;
     position: relative;
     top: 10px;
 }
 
 .review:before{
-    content: url("../img/review_icon.png");
+    content: url("../../img/review_icon.png");
     padding: 0 20px 0 5px;
     position: relative;
     top: 10px;

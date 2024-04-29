@@ -14,7 +14,7 @@
     <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
     <script src="js/addr.js"></script>
     <script defer src="js/modify_user.js"></script>
-    <link rel="stylesheet" href="css/modify_user.css">
+    <link rel="stylesheet" href="css/mypage/modify_user.css">
 </head>
 <body>
 <c:set var="dto" value="${requestScope.userDTO}"/>
