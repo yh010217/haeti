@@ -12,9 +12,9 @@
 
 |김보경(팀장)|은별|최용훈|홍유나|
 |------|------|------|------|
-|상품구매|마이페이지|상품판매|회원가입|
+|상품구매<br> 관리자페이지|마이페이지|상품판매<br>채팅|회원가입<br> 로그인|
 
 
 ## 프로젝트 사용 기술
-<img src="https://img.shields.io/badge/html-#E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
 
