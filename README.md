@@ -70,7 +70,7 @@
 <h3>- 매물 지도</h3>
 <img src="https://github.com/yh010217/haeti/assets/160826886/d5538c4a-62b0-4238-ab9a-5db2df498caa" width="720px"/>
 
-<br><br>
+<br><hr><br>
 
 <h3>회원가입 | 로그인</h3>
 <h3>- 회원가입</h3>
@@ -79,7 +79,7 @@
 <h3>- 로그인</h3>
 <img src="https://github.com/yh010217/haeti/assets/160826886/2055d2b5-631b-4553-9f66-98d41474b895" width="720px"/>
 
-<br><br>
+<br><hr><br>
 
 <h3>관리자 페이지</h3>
 <h3>- 상품 관리</h3>
@@ -88,7 +88,7 @@
 <h3>- 회원 관리</h3>
 <img src="https://github.com/yh010217/haeti/assets/160826886/930d8f9e-65c1-4895-9c65-b14aaff9b4ef" width="720px"/>
 
-<br><br>
+<br><hr><br>
 
 <h3>마이페이지</h3>
 <h3>- 마이페이지</h3>
