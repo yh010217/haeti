@@ -1,4 +1,4 @@
-# 🌅해티프로젝트  : 교사 대상 온라인 중고거래 웹 서비스 개발
+# 🌅해티프로젝트  : 교사 대상 온라인 중고거래 웹 서비스 
 
 
 
@@ -17,9 +17,7 @@
 
 
 ## 프로젝트 사용 기술
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
-<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
-<img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
+![title](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![title](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white)![title](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
 <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white">
 <img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
 <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
