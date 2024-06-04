@@ -17,9 +17,20 @@
 
 ## 프로젝트 사용 기술
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white">
+<img src="https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white">
+<img src="https://img.shields.io/badge/javascript-#F7DF1E?style=for-the-badge&logo=javascript&logoColor=white">
 <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=mariadb&logoColor=white">
+<img src="https://img.shields.io/badge/apachetomcat-F8DC75?style=for-the-badge&logo=apachetomcat&logoColor=white">
+<img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
+<img src="https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white">
+<img src="https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white">
+<img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logofigma&logoColor=white">
+
 
 
 ## 유스케이스 다이어그램
 <img src="https://github.com/yh010217/haeti/assets/160826886/f114ce7b-0e80-49ea-92f4-5b32cc748e2b" width=560px/>
 <img src="https://github.com/yh010217/haeti/assets/160826886/6cebefe0-ede1-44ca-bf58-91ff0b90925a" width=560px/>
+
+
+## ERD
