@@ -33,4 +33,12 @@
 <img src="https://github.com/yh010217/haeti/assets/160826886/6cebefe0-ede1-44ca-bf58-91ff0b90925a" width=560px/>
 
 
+## 시퀀스 다이어그램
+
+
+## 클래스 다이어그램
+<img src="https://github.com/yh010217/haeti/assets/160826886/7e32a18c-8eab-4e3a-99df-0598c923f674"/>
+
+
 ## ERD
+<img src="https://github.com/yh010217/haeti/assets/160826886/5e291612-ace5-406c-a1c6-9b0898bdad80"/>
