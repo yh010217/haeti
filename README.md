@@ -15,6 +15,10 @@
 |------|------|------|------|
 |상품구매<br> 관리자페이지|마이페이지|상품판매<br>채팅|회원가입<br> 로그인|
 
+## 주요 특징
++ 구매를 희망하는 이용자가 거래를 진행할 수 있도록 1대 1채팅 기능 구현
++ 주소 API를 이용해 주소 정보를 표준화된 형식으로 저장하고 활용
++ 관심지역의 매물을 지도와 함께 확인 할 수 있는 매물지도 메뉴를 구성
 
 ## 프로젝트 사용 기술
 ![title](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)![title](https://img.shields.io/badge/css3-1572B6?style=for-the-badge&logo=css3&logoColor=white)![title](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white)
@@ -26,6 +30,8 @@
 ![title](https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white)![title](https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)![title](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 <br><br>
+
+
 
 ## 유스케이스 다이어그램
 <img src="https://github.com/yh010217/haeti/assets/160826886/f114ce7b-0e80-49ea-92f4-5b32cc748e2b" width="720px"/>
