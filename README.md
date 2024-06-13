@@ -40,79 +40,79 @@
 
 
 ## 유스케이스 다이어그램
-<img src="https://github.com/yh010217/haeti/assets/160826886/f114ce7b-0e80-49ea-92f4-5b32cc748e2b" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/6cebefe0-ede1-44ca-bf58-91ff0b90925a" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/f114ce7b-0e80-49ea-92f4-5b32cc748e2b" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/6cebefe0-ede1-44ca-bf58-91ff0b90925a" width="840px"/>
 <br><br><br>
 
 ## 시퀀스 다이어그램
-<img src="https://github.com/yh010217/haeti/assets/160826886/e438907f-2f5b-4f4c-85ed-c8e69474efd6" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/bd9110a6-8c3a-4d3a-8cd1-6f0ceae0380a" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/c892033b-0a17-4e47-8d04-be7fb5510daf" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/5077e479-9ed2-4afe-99ff-80c5f5465cb8" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/f165270f-188c-49c8-af31-a45d94fb236b" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/7d572afa-9eb4-48dd-ba07-51f97c2c13a5" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/f5cfbc2a-ba82-4778-93c2-5c7e57e33c6b" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/ba607544-98ab-41bb-930b-e0cb828fcb15" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/f62c268a-2a7a-4443-8d8e-07318e3c9286" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/95098b78-560e-4ab1-a670-a2515a26f69b" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/e9156cca-c5b5-47ff-a616-35a69c156082" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/65a16246-dbdb-4871-993b-e74f218329a6" width="720px"/>
-<img src="https://github.com/yh010217/haeti/assets/160826886/3b3ce009-0679-42ab-bb77-dd2d0dde6781" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/e438907f-2f5b-4f4c-85ed-c8e69474efd6" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/bd9110a6-8c3a-4d3a-8cd1-6f0ceae0380a" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/c892033b-0a17-4e47-8d04-be7fb5510daf" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/5077e479-9ed2-4afe-99ff-80c5f5465cb8" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/f165270f-188c-49c8-af31-a45d94fb236b" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/7d572afa-9eb4-48dd-ba07-51f97c2c13a5" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/f5cfbc2a-ba82-4778-93c2-5c7e57e33c6b" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/ba607544-98ab-41bb-930b-e0cb828fcb15" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/f62c268a-2a7a-4443-8d8e-07318e3c9286" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/95098b78-560e-4ab1-a670-a2515a26f69b" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/e9156cca-c5b5-47ff-a616-35a69c156082" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/65a16246-dbdb-4871-993b-e74f218329a6" width="840px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/3b3ce009-0679-42ab-bb77-dd2d0dde6781" width="840px"/>
 <br><br><br>
 
 ## 클래스 다이어그램
-<img src="https://github.com/yh010217/haeti/assets/160826886/7e32a18c-8eab-4e3a-99df-0598c923f674" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/7e32a18c-8eab-4e3a-99df-0598c923f674" width="840px"/>
 <br><br><br>
 
 ## ERD
-<img src="https://github.com/yh010217/haeti/assets/160826886/5e291612-ace5-406c-a1c6-9b0898bdad80" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/5e291612-ace5-406c-a1c6-9b0898bdad80" width="840px"/>
 <br><br><br>
 
 ## 스토리보드
 <h3>상품 페이지</h3>
 <h3>- 둘러보기</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/552f5455-54bd-4d7b-8b9b-f9b75f0042cf" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/9950442c-c9ca-4f64-8fa5-dac2649d1e7c" width="840px"/>
 <br>
 <h3>- 상품 상세</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/3e4f2606-1645-4efc-890c-f2a214c11dd9" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/0c95c7dc-fdca-4e71-ac2d-e54097d668b2" width="840px"/>
 <br>
 <h3>- 상품 등록</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/4d1c927e-b1ed-42c0-b882-8f9893f0add7" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/13875051-03b9-4332-b728-2e058fff0059" width="840px"/>
 <br>
 <h3>- 매물 지도</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/d5538c4a-62b0-4238-ab9a-5db2df498caa" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/c19582fb-007c-444e-b2f7-fa5c4bfedfe9" width="840px"/>
 
 <br><hr><br>
 
 <h3>회원가입 | 로그인</h3>
 <h3>- 회원가입</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/92460c97-fe33-43e5-9412-b2ad4c3504e7" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/c7ea92ab-c4af-4cb0-9f8b-124770005b2e" width="840px"/>
 <br>
 <h3>- 로그인</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/2055d2b5-631b-4553-9f66-98d41474b895" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/4cee1e01-c648-48f6-ad61-516e90bc994d" width="840px"/>
 
 <br><hr><br>
 
 <h3>관리자 페이지</h3>
 <h3>- 상품 관리</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/4d28179b-42d9-474d-87ce-e76d0a2d593e" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/c105f13f-e6b5-4ac4-9d72-aebe2a7a1dc8" width="840px"/>
 <br>
 <h3>- 회원 관리</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/930d8f9e-65c1-4895-9c65-b14aaff9b4ef" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/fd6d36a9-8adf-4b70-b672-6d8c024da7fb" width="840px"/>
 
 <br><hr><br>
 
 <h3>마이페이지</h3>
 <h3>- 마이페이지</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/63a36548-425f-4a08-8b76-c2ee0385d150" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/92359598-2c1d-4000-9817-0744300cc48e" width="840px"/>
 <br>
 <h3>- 회원 정보 수정</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/5ad68341-d3eb-4118-9669-0442a1dafae6" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/6f143e57-b8ad-4c62-98f4-54aecfd19f37" width="840px"/>
 <br>
 <h3>- 판매 내역</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/8a626f05-3e6e-48d9-9d8e-1dd8ca3a4225" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/423983f3-6f28-4b4e-aa94-1db12b95f318" width="840px"/>
 <br>
 <h3>- 구매 내역</h3>
-<img src="https://github.com/yh010217/haeti/assets/160826886/b8a78f7b-4b8e-4ebf-afdc-c54eab2cdae3" width="720px"/>
+<img src="https://github.com/yh010217/haeti/assets/160826886/2bebb5d0-cdaf-4910-9c4b-e81626744b9a" width="840px"/>
 
 <br><br>
