@@ -90,7 +90,7 @@
 
 <script type="text/javascript">
 
-    var webSocket = new WebSocket('ws://localhost:8080/haeti/ChattingRoom');
+    var webSocket = new WebSocket('ws://10.41.1.174:8080/haeti/ChattingRoom');
     var inputMessage = document.getElementById('inputMessage');
 
     let prod_no = "${param.prod_no}";
