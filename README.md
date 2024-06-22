@@ -45,13 +45,18 @@
 
 
 
+
+
+
 ### 회원가입/ 로그인 
-1. ![회원가입페이지](https://github.com/yh010217/haeti/assets/159100631/b4cd5d27-43fb-4f63-b8ed-76a09fb2bcd5)
+1. 회원가입 페이지 
+  ![img](https://github.com/yh010217/haeti/assets/159100631/b4cd5d27-43fb-4f63-b8ed-76a09fb2bcd5)
 - 약관 동의 페이지 구현
 - 카카오API를 사용해서 관심지역과 회원의 주소 정보 기능 구현
 - 아이디, 닉네임, 이메일 중복 체크 기능 구현
 
-2. ![로그인화면페이](https://github.com/yh010217/haeti/assets/159100631/c1649253-f170-48e3-ac2b-20e021a836c5)
+2. 로그인 페이지
+ ![img](https://github.com/yh010217/haeti/assets/159100631/c1649253-f170-48e3-ac2b-20e021a836c5)
 - 로그인 화면 구현
 
 
