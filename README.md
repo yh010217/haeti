@@ -36,8 +36,11 @@
 ![title](https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white)![title](https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)![title](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 <br><br>
+## 주요 기능
+1. [회원가입] 회원가입 
 
-
+### 회원가입
+![img]
 
 ## 유스케이스 다이어그램
 <img src="https://github.com/yh010217/haeti/assets/160826886/f114ce7b-0e80-49ea-92f4-5b32cc748e2b" width="840px"/>
