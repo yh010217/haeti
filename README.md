@@ -36,13 +36,20 @@
 ![title](https://img.shields.io/badge/intellijidea-000000?style=for-the-badge&logo=intellijidea&logoColor=white)![title](https://img.shields.io/badge/amazonwebservices-232F3E?style=for-the-badge&logo=amazonwebservices&logoColor=white)![title](https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 <br><br>
+
 ## 주요 기능
-1. [회원가입/로그인](#회원가입/로그인)
+1. [메인페이지] (#메인페이지)
+2. [회원가입/로그인](#회원가입/로그인)
+3. [상품기능](#상품기능)
+4. [마이페이지] (#마이페이지)
+5. [관리자페이지] (#관리자페이지)
 
 
 
 
 
+
+### 메인페이지
 
 
 
@@ -58,6 +65,23 @@
 2. 로그인 페이지
  ![img](https://github.com/yh010217/haeti/assets/159100631/c1649253-f170-48e3-ac2b-20e021a836c5)
 - 로그인 화면 구현
+
+### 상품기능
+
+
+
+### 마이페이지
+
+
+
+
+
+### 관리자페이지
+
+
+
+
+
 
 
 ## 유스케이스 다이어그램
